@@ -1,0 +1,185 @@
+{
+  "chunk": 5,
+  "questions": [
+    {
+      "convId": "225ffbf9-9498-4207-aabc-8693ece4c643",
+      "msgIds": ["019a533b-05e6-72fb-88ed-e7d02298582b"],
+      "subject": "深度研究知识树代码分析与改造规划",
+      "std": "先阅读附件中的深度研究知识树（base tree deepresearch knowledge）Python 代码并思考规划，再给出更新和新增 utils 文件后的类设计。",
+      "kinds": ["分析评估", "技术实现"],
+      "tags": ["知识树", "深度研究", "代码重构", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "22b8924d-4e7c-46f2-8dc5-6630985f2513",
+      "msgIds": ["019d6fad-105a-7017-ba77-b51cacab7194"],
+      "subject": "python-docx 核心内容框架深度科普",
+      "std": "深度调查 python-docx 底层的核心内容框架系统，逐个模块展开详细讲解，并撰写多篇科普博客。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["python-docx", "文档处理", "源码解析", "技术博客"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "22d0f3c0-b4d1-416e-8eee-95f92f8c2924",
+      "msgIds": ["019d765e-fe49-78a4-a12a-c6a8e769f763", "019d7660-8670-754c-ac11-0befc1397567"],
+      "subject": "LLM 工程三阶段演进与未来预测",
+      "std": "详细分析 LLM 工程三个阶段（prompt engineer → context engineer → harness engineer）的技术内容、机理、诞生条件与 5W2H，对比三者并预测未来 LLM 发展方向。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["LLM工程", "提示工程", "上下文工程", "技术演进"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "22f0de76-1470-4744-931e-9a26f92966e6",
+      "msgIds": ["019ec3db-4744-7248-96d9-8b8de9c9a739"],
+      "subject": "系统论视角吃透 bitsandbytes 源码",
+      "std": "以系统论视角分析 bitsandbytes 的各组件与模块、源码之间的衔接及核心板块，并逐一产出深入分析文档。",
+      "kinds": ["研究调研", "学习理解"],
+      "tags": ["bitsandbytes", "模型量化", "源码解析", "系统论"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "23b1cc8e-a9dd-4499-aa70-a51945a510fc",
+      "msgIds": ["bc9cf14d-a5c3-43bb-b51d-158fca9d4241"],
+      "subject": "嵌套任务管理网站开发",
+      "std": "Build an Apple-style website in HTML/CSS/JavaScript that breaks a task into a nested numbered, todo and toggle list with priority order, done checkboxes showing strikethrough, and recursive sub-subtasks.",
+      "kinds": ["技术实现"],
+      "tags": ["前端开发", "任务管理", "嵌套列表", "Apple设计"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "23f968eb-e630-4240-98fe-c6ce87f2fe09",
+      "msgIds": ["e6383339-d594-431d-b093-4292f4cadece"],
+      "subject": "GraphRAG 论文深度解析与信息提取",
+      "std": "极其详细地分析附件 GraphRAG 论文，提取其中的模型结构、数据结构/数据集、实验设置、不同 ablation 实验对比，以及图表分析。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["GraphRAG", "论文解析", "消融实验", "知识图谱"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "23f968eb-e630-4240-98fe-c6ce87f2fe09",
+      "msgIds": ["e6383339-d594-431d-b093-4292f4cadece"],
+      "subject": "GraphRAG 工业级项目框架与代码设计",
+      "std": "按工业场景设计 GraphRAG 复现项目的框架与代码：用 factory mode 组织 ablation study，输出 figures、tensorboard 与 loguru 日志，并逐文件给出详细代码（LLM 用 qwen 并配 yaml 配置）。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["GraphRAG", "项目框架", "工厂模式", "代码设计"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "24c19426-d8c2-42ad-89be-58e05ffe4e83",
+      "msgIds": ["e7ed440d-3caf-4a6e-909d-33ad70732d67"],
+      "subject": "法条 Markdown 转换器分块逻辑改进",
+      "std": "改进附件转换脚本的分块逻辑：把每章标题之后、直到首个条文编号为止的内容合并为一个整体；把每条条文编号之后、直到第一个标点为止的解释内容也合并为一个整体。",
+      "kinds": ["代码调试", "数据处理"],
+      "tags": ["Markdown转换", "文本分块", "正则解析", "文档结构化"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "24c8cd31-3d60-4940-b2d5-887368856628",
+      "msgIds": ["c66efab0-039d-4825-b698-4607591fe0e2"],
+      "subject": "Chebyshev 多项式的最小二乘逼近优势",
+      "std": "解释为什么在最小二乘逼近中可以用 Chebyshev 多项式逼近函数 f(x)，相比其他基函数它有什么优势。",
+      "kinds": ["学习理解"],
+      "tags": ["数值逼近", "Chebyshev多项式", "最小二乘"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "25492b96-ff7a-4b5e-b355-a7a6f5be03c8",
+      "msgIds": ["019ae495-a917-764c-a562-16cefcc95e3f", "019ae495-ee48-72b7-b794-4e7c3d400d53", "019ae496-231c-7360-b63e-b14106301aff", "019ae496-a087-71ee-89d2-e8627363192f"],
+      "subject": "图谱生成思路的项目文档撰写",
+      "std": "详细分析附件中我描述的图谱生成思路，并依据这些内容产出一份详细的项目文档（不是代码），说明其三级层次结构的设计。",
+      "kinds": ["方案设计", "内容写作"],
+      "tags": ["知识图谱", "项目文档", "图谱生成", "层次结构"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "2581a304-6a8e-453f-9f7c-6c2af589dc0c",
+      "msgIds": ["019ca8c8-f3b3-75ee-9091-fce74cb169aa"],
+      "subject": "Manim 3D 球体教学动画",
+      "std": "用 Manim 制作 3D 数学教学动画，讲解高中数学中的球体相关知识，输出 1080×1920 竖屏（9:16）短视频。",
+      "kinds": ["技术实现", "内容写作"],
+      "tags": ["Manim", "3D动画", "数学教学", "竖屏视频"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "25e541da-3812-4754-9bd1-eb69b30c0ca2",
+      "msgIds": ["019d6c94-12a0-774a-a772-3ed613a412cc"],
+      "subject": "deepagents-book 核心框架深度调查",
+      "std": "深度调查 lingxingAI/deepagents-book 仓库的核心内容框架系统，逐个章节展开详细讲解，并撰写多篇科普博客。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["AgentHarness", "deepagents", "开源仓库", "技术博客"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "26226d55-d3a8-4fce-9f06-713c64446080",
+      "msgIds": ["bc72cda6-5486-4c98-aa18-89ca30c104ae"],
+      "subject": "GraphRAG 论文深度解析与信息提取",
+      "std": "极其详细地分析 GraphRAG 论文，提取其中的模型结构、数据结构/数据集、实验设置、不同 ablation 实验对比，以及图表分析。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["GraphRAG", "论文解析", "消融实验", "知识图谱"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "26226d55-d3a8-4fce-9f06-713c64446080",
+      "msgIds": ["bc72cda6-5486-4c98-aa18-89ca30c104ae"],
+      "subject": "GraphRAG 工业级项目框架与代码设计",
+      "std": "按工业场景设计 GraphRAG 复现项目的框架与代码：用 factory mode 组织 ablation study，输出 figures、tensorboard 与 loguru 日志，并逐文件给出详细代码（LLM 用 qwen 并配 yaml 配置）。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["GraphRAG", "项目框架", "工厂模式", "代码设计"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "2731349f-fb3f-49e2-8379-7f0f119bcb7e",
+      "msgIds": ["23f30560-6caf-4031-8702-bb2f5f7abe22"],
+      "subject": "paths 路径数据转为图谱 JSON",
+      "std": "把给定的 paths 数据（含 similarity、sourceDatabase、fromNodeUid/toNodeUid、节点名等字段）转换成图结构的 JSON。",
+      "kinds": ["数据处理", "技术实现"],
+      "tags": ["图数据", "JSON转换", "数据格式", "知识图谱"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "27fe1622-94cf-4334-bcf2-f87ec1ffba5a",
+      "msgIds": ["e3e61bc6-c69c-4ded-95b6-64e3e97ec51e"],
+      "subject": "数据获取代码分析与 DataSorter 设计",
+      "std": "分析附件中的数据获取代码（fetch_all_data 只针对 ES、NODE、RELATION），并构造 DataSorter 类，从 get_ranked_result 的结果中整理出排序后的数据。",
+      "kinds": ["技术实现", "分析评估"],
+      "tags": ["DataSorter", "检索排序", "代码重构", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "27fe1622-94cf-4334-bcf2-f87ec1ffba5a",
+      "msgIds": ["88c85dc0-2f70-4ec1-90fe-fdebbcfa7d1f", "a21e9bb6-dc35-4717-a803-59271299ea6a"],
+      "subject": "DataSorter 的 Flask POST 接口",
+      "std": "用 Flask 为 DataSorter 的 sort_data(query, knowledgeBaseIds) 方法搭建一个 POST API 接口。",
+      "kinds": ["技术实现"],
+      "tags": ["Flask", "API接口", "DataSorter", "Python"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "286d8fe4-114e-4d3f-a6a1-221b14fdcdec",
+      "msgIds": ["7d9d689e-172d-428e-9ded-01c1dcb31d61", "76ac96da-49e1-4043-afc5-01674828284f"],
+      "subject": "大学政策查询改写 prompt 小幅优化",
+      "std": "小幅修改我给出的大学政策类查询改写 prompt：只纠正个别用词或用词顺序的小问题，不要大改大动，让它更好用。",
+      "kinds": ["内容写作", "分析评估"],
+      "tags": ["提示工程", "查询改写", "大学政策", "检索"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "28cec42e-ce41-4c9a-810d-8edcfce4efc3",
+      "msgIds": ["7bf83de3-8ebd-4789-915a-62e08838fb7e"],
+      "subject": "知识树构建代码重组与中文注释",
+      "std": "分析附件中知识树构建系统的 Python 代码，对代码进行分组重组并修正问题，为其补上极详细的中文注释与 docstring，并给出全部代码。",
+      "kinds": ["代码调试", "技术实现"],
+      "tags": ["知识树", "代码重构", "中文注释", "知识抽取"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "28cec42e-ce41-4c9a-810d-8edcfce4efc3",
+      "msgIds": ["874ece6a-479c-408a-bb41-4d11bbf34963", "702547ea-cf04-4ba2-8c5d-9df0fd2152a8", "b5601486-8803-4fb2-8f7d-0c3653f34be4"],
+      "subject": "完成 KnowledgeTreeBuilder 主流程",
+      "std": "继续并完成知识树构建代码第九部分（主流程与入口函数）中 KnowledgeTreeBuilder 的内容。",
+      "kinds": ["技术实现"],
+      "tags": ["知识树", "KnowledgeTreeBuilder", "主流程", "Python"],
+      "hasAttachment": false
+    }
+  ]
+}

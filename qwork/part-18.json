@@ -1,0 +1,300 @@
+{
+  "chunk": 18,
+  "questions": [
+    {
+      "convId": "7dcdc614-1ab8-4668-94bc-86ef1663cb6d",
+      "msgIds": [
+        "019d4496-5054-7406-a38c-12df1f38e619",
+        "019d4496-ed44-714f-b5a4-7926672d7de8",
+        "019d4497-3c7a-75a3-8c13-8b9ecdcd69fd",
+        "019d4497-9007-773d-b083-1937202c666e",
+        "019d4498-c98d-718c-84e3-b977acca7a1c",
+        "019d449a-2e2c-718c-a73d-cdc30b4f9453",
+        "019d449b-06ec-7392-b0b0-d5572531f0fb",
+        "019d449c-2be0-76f8-9cda-769539324d18",
+        "019d449d-a4a9-77db-8bf2-2cec86f7f606",
+        "019d5bfc-9a4f-799f-b685-2989854707a5"
+      ],
+      "subject": "build123d 库深度分析文档",
+      "std": "深度分析 build123d Python CAD 库（github.com/gumyr/build123d），覆盖各类内容、技巧、函数与组件，输出一份详细的 markdown 参考文档。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["build123d", "CAD", "Python", "技术文档"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7dcdc614-1ab8-4668-94bc-86ef1663cb6d",
+      "msgIds": [
+        "019d4496-5054-7406-a38c-12df1f38e619",
+        "019d4496-ed44-714f-b5a4-7926672d7de8",
+        "019d4497-3c7a-75a3-8c13-8b9ecdcd69fd",
+        "019d4497-9007-773d-b083-1937202c666e",
+        "019d4498-c98d-718c-84e3-b977acca7a1c",
+        "019d449a-2e2c-718c-a73d-cdc30b4f9453",
+        "019d449b-06ec-7392-b0b0-d5572531f0fb",
+        "019d449c-2be0-76f8-9cda-769539324d18",
+        "019d449d-a4a9-77db-8bf2-2cec86f7f606",
+        "019d5bfc-9a4f-799f-b685-2989854707a5"
+      ],
+      "subject": "打包 build123d 技能包",
+      "std": "使用 skill creator 为 build123d 构建技能包：编写 skill.md 以及 references/、scripts/、examples/ 内容，并打包为 .skill 文件。",
+      "kinds": ["技术实现", "工具环境"],
+      "tags": ["build123d", "技能包", "skill creator", "打包"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7dfb2a67-ba78-4984-8291-90b95e98fbd4",
+      "msgIds": ["019d6a87-1bb4-70fc-b7af-da522c66f2da"],
+      "subject": "MemPalace 记忆系统深度解析",
+      "std": "深度调查 MemPalace 开源 AI 长期记忆系统（github.com/milla-jovovich/mempalace）的核心内容框架，逐个组件展开详细讲解，并撰写多篇科普博客 markdown 文档。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["MemPalace", "长期记忆", "AI 框架", "科普博客"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7e0515e3-544e-4702-8444-ee990cd0c0c7",
+      "msgIds": ["27af90a9-2ff7-49ad-a0e1-c98f6f87f186"],
+      "subject": "多角度攻克哥德巴赫猜想",
+      "std": "从各种角度尝试解决哥德巴赫猜想。",
+      "kinds": ["研究调研"],
+      "tags": ["数论", "哥德巴赫猜想", "数学"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7e3be1f3-6431-4c05-a2dd-2a944ff6b213",
+      "msgIds": [
+        "16a608a7-2261-46bd-9147-121e248fdb82",
+        "f928030a-2f4b-4c50-a80f-9f359c6d5ec4"
+      ],
+      "subject": "重构附件 Python 代码",
+      "std": "分析附件 paste.txt 中的 Python 代码并重写，假定所有导入的包和文件都已提供。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["代码重构", "Python", "MultiRag"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "7e4fcd9a-b6f3-4f9c-8b56-1b9edd1d0bfb",
+      "msgIds": [
+        "019f32db-99b2-769e-853b-5098603ee1c9",
+        "019f32db-d344-77d3-9ff7-15ea6a4909db",
+        "019f32dc-2158-79ed-9370-571f3a777ec3",
+        "019f32dc-8e7b-7d51-83d8-9972be4c534c",
+        "019f32dc-fae7-727d-b092-82f597d0fe3c"
+      ],
+      "subject": "Hermes Agent 源码调研与教程",
+      "std": "深入调研 Hermes Agent 源码并撰写教程：分析细节内容、进行分类，逐个持续产出一系列 markdown 文档。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["Hermes Agent", "源码分析", "教程", "智能体"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7e79a3b6-9c7f-4421-9014-2ee2e68c43b8",
+      "msgIds": ["67fea973-192f-4d97-ba10-91cb2937e4e8"],
+      "subject": "Python 实现 FFT 算法",
+      "std": "用 Python 实现 FFT 的 Cooley-Tukey 算法。",
+      "kinds": ["技术实现"],
+      "tags": ["FFT", "Cooley-Tukey", "信号处理", "Python"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7eb3a19a-4993-476f-8454-856b580a0718",
+      "msgIds": [
+        "019cad8e-576d-7d02-973d-c9c5af57f04c",
+        "019cad9d-77d7-7d84-967a-457653210772"
+      ],
+      "subject": "修复 Manim 中文 LaTeX 报错",
+      "std": "分析附件中的 Manim 教学动画代码与报错，修复中文 LaTeX 编译错误：指出需要修改的位置或给出修正后的函数，用 VGroup 替代翻译成英文的做法，尽量找出所有（含潜在）错误，最后汇总一份错误报告。",
+      "kinds": ["代码调试", "分析评估"],
+      "tags": ["Manim", "LaTeX", "中文渲染", "报错修复"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "7f550c95-5e62-4f51-9ec7-710598aab34f",
+      "msgIds": ["019d3dc5-2c44-78a2-adae-399dd40fa004"],
+      "subject": "claude-mem 各组件深度解析",
+      "std": "深度调查 claude-mem skill（github.com/thedotmack/claude-mem）的各个组件，逐个展开详细讲解其核心内容框架系统，并撰写多篇科普博客 markdown 文档。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["claude-mem", "记忆系统", "技能包", "科普博客"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7f5ef142-dee5-4525-a741-6e44e524940e",
+      "msgIds": ["019e0068-fb5d-7e2e-b5a7-6d9ff8faee0d"],
+      "subject": "page-agent 深度技术分析",
+      "std": "对 alibaba/page-agent 开源仓库进行深度搜索、深度思考与深度分析，详细展开技术细节，逐个构建 markdown 文档。",
+      "kinds": ["研究调研", "技术实现"],
+      "tags": ["page-agent", "浏览器智能体", "源码分析", "技术文档"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7fc0407c-57b1-4ab4-a0ac-8a9b2a3b75b2",
+      "msgIds": ["019ade04-2253-730f-b982-4dcece87bbe7"],
+      "subject": "产品需求澄清选择题",
+      "std": "根据附件中的产品设计需求文档，针对其中可能模糊不清的地方提出疑问并构造选择题，以便我逐条回复澄清。",
+      "kinds": ["方案设计", "分析评估"],
+      "tags": ["产品需求", "需求澄清", "PRD", "选择题"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "7fc0407c-57b1-4ab4-a0ac-8a9b2a3b75b2",
+      "msgIds": ["019ade16-f09b-754b-b8e7-1e5cb32ba417"],
+      "subject": "生成完整产品需求文档",
+      "std": "根据我对 15 道澄清选择题的作答，生成完整的产品需求文档；可采用 async，用 LLM 提取用户答案和 global memory。",
+      "kinds": ["内容写作", "方案设计"],
+      "tags": ["产品需求", "PRD", "异步", "LLM"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7fc0407c-57b1-4ab4-a0ac-8a9b2a3b75b2",
+      "msgIds": [
+        "019ade1a-c259-7366-81c5-4c09016eb38f",
+        "019ade1d-06af-75a7-add0-36875c4e8bdf"
+      ],
+      "subject": "设计项目框架与代码模块",
+      "std": "基于上述产品需求文档设计项目框架并划分代码模块（含 prompts.py、config.py 等），本地题库使用 data/questions.json，逐个文件给出。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["项目框架", "代码模块", "PRD", "Python"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7ff2014d-80ee-48dd-b2e8-4cb62b0cf068",
+      "msgIds": ["019aeea0-8c81-721c-a5af-e61ff326bbee"],
+      "subject": "Apple 风格改进图书馆 HTML",
+      "std": "用 Apple 风格改进附件的两个图书馆应用 HTML 模板，提升 UI 表现。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["HTML", "UI 设计", "Apple 风格", "前端"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "80489e24-7506-459c-8755-9eb54d74ac40",
+      "msgIds": [
+        "019b20d6-9c17-7591-b547-46822a046701",
+        "019b20da-df56-7088-b941-00222986868f"
+      ],
+      "subject": "本地大模型参数校验报错排查",
+      "std": "排查本地部署的大模型（Qwen2.5）用 curl 调用正常、但接入 next-ai-draw-io 时报参数验证错误的问题，并给出 validate_messages 的正确实现。",
+      "kinds": ["代码调试", "工具环境"],
+      "tags": ["本地大模型", "API 校验", "next-ai-draw-io", "Qwen"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "80925cb7-7e83-43c7-9891-84f05401d460",
+      "msgIds": [
+        "07fbc657-ccba-4097-aa4c-db0ba2325a77",
+        "ed262fc4-5e82-4e30-90ca-6ba27a8d3420",
+        "45b211a7-e7e5-4a2c-b91d-df466501f733"
+      ],
+      "subject": "多角度路径评分代码",
+      "std": "针对附件 JSON 中查询与多条路径的数据，用 Levenshtein 与 rapidfuzz 从多角度为每条路径评分；给出工业级、高可扩展、可读性优先、命名良好的完整代码，遵循 Google 风格并妥善处理边界条件。",
+      "kinds": ["技术实现", "数据处理"],
+      "tags": ["rapidfuzz", "编辑距离", "路径评分", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "811cef86-e23f-41cc-b006-44aeb413727a",
+      "msgIds": [
+        "019c673f-0524-75b9-a46f-bc41f0ec5035",
+        "019c673f-2ff1-77b5-9566-4d69cfb0468f",
+        "019c673f-6195-7701-9567-bf2da815e64b",
+        "019c673f-f141-71de-bec9-80a040d9bfe9",
+        "019c6740-949d-760f-9937-50916f01bcc8",
+        "019c6741-1b55-7059-b477-569584290de9",
+        "019c6746-8a04-7502-a5ec-8ee3650ffd3c"
+      ],
+      "subject": "无穷等比数列求和 Manim 动画",
+      "std": "根据附件中的 Manim 数学教学动画生成指南，制作无穷等比数列求和的竖屏教学动画。",
+      "kinds": ["技术实现", "内容写作"],
+      "tags": ["Manim", "数学教学", "教学动画", "等比数列"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "81e5fd4b-a02d-452a-b398-c57de4b8ba4e",
+      "msgIds": ["019b9b8a-0ef9-738f-9f89-85666d695eea"],
+      "subject": "构建 AI 练习题生成系统",
+      "std": "根据附件中的输入/输出规范，用 Python 构建 AI 练习题生成系统，支持智能、知识点、章节三种生成模式，并可按需选用 MinHash 去重。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["练习题生成", "Python", "MinHash", "教育"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "82137084-b669-44f9-a6fa-ee5bc393b67c",
+      "msgIds": ["019d24d3-736a-769c-9982-b00510c3387f"],
+      "subject": "游戏代码质量评估深度调研",
+      "std": "深度搜索调研游戏代码生成的质量评估：manus 如何评估深度搜索各环节与最终结果质量、游戏代码生成各环节与交付物的评估标准、游戏代码 Lua 脚本测试逻辑、Hugging Face 上的评估数据集，以及这类评估集的构造流程；逐个给出共 5 篇详细 markdown 文档。",
+      "kinds": ["研究调研"],
+      "tags": ["游戏代码", "质量评估", "数据集", "Lua 测试"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "82137084-b669-44f9-a6fa-ee5bc393b67c",
+      "msgIds": ["019d2527-24d8-73ab-ad59-62e14d2dfef4"],
+      "subject": "游戏代码生成平台评估体系设计",
+      "std": "参考已有文档（尤其 02_game_code_generation_quality_evaluation.md 中提到不运行代码就无法可靠判断游戏代码质量），设计类 manus 的游戏代码生成平台流程与结果评估体系，并思考能否引入视觉模型来评判游戏代码质量。",
+      "kinds": ["方案设计", "分析评估"],
+      "tags": ["游戏代码", "评估体系", "视觉模型", "类 manus"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "82137084-b669-44f9-a6fa-ee5bc393b67c",
+      "msgIds": ["019d2730-efad-72ed-86f5-91520ec90008"],
+      "subject": "借鉴 v0.dev 设计游戏代码评估",
+      "std": "由于游戏代码质量评估需要深度视觉分析且现有评估体系极少，参考 v0.dev 的网页制作逻辑，设计游戏代码生成质量的评估体系。",
+      "kinds": ["方案设计", "研究调研"],
+      "tags": ["v0.dev", "网页代码", "评估体系", "游戏代码"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "82137084-b669-44f9-a6fa-ee5bc393b67c",
+      "msgIds": ["019d274b-54cb-7bf2-abaa-380d2ff86d0b"],
+      "subject": "其他视觉代码生成评估调研",
+      "std": "调查网页代码、游戏代码之外的视觉类代码生成质量评估：查找相关生成网站及其评估标准、对应的 Hugging Face 数据集，并给出 markdown 文档。",
+      "kinds": ["研究调研"],
+      "tags": ["视觉代码生成", "评估标准", "数据集", "Hugging Face"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "82137084-b669-44f9-a6fa-ee5bc393b67c",
+      "msgIds": ["019d2d64-4732-7462-b044-7da8753975ce"],
+      "subject": "评判游戏代码稀缺性思考",
+      "std": "评判分析我的判断：design2code 评估效果好可能源于大模型在大量优质网页数据中习得布局等视觉理解，而公开可玩游戏代码极其稀缺，导致游戏生成出现视觉理解问题；并输出详细 markdown 文档。",
+      "kinds": ["分析评估", "研究调研"],
+      "tags": ["design2code", "视觉理解", "游戏代码", "模型训练"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "82137084-b669-44f9-a6fa-ee5bc393b67c",
+      "msgIds": ["019d2d64-4732-7462-b044-7da8753975ce"],
+      "subject": "游戏代码微调提升视觉理解",
+      "std": "搜索调查对大模型进行游戏代码微调的方法，以提升其在游戏领域的视觉理解能力。",
+      "kinds": ["研究调研", "方案设计"],
+      "tags": ["微调", "游戏代码", "视觉理解", "大模型"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "824ed9ae-d7d7-41fe-9aed-7b12c0104f22",
+      "msgIds": ["019be534-9422-7449-9f6d-a04c8c7d270c"],
+      "subject": "按 feedback 改进教案生成代码",
+      "std": "根据附件中的 feedback 改进教案生成相关 Python 代码，注意 qstart 位于 JSON 第一个字段、qend 位于最后一个字段等约束。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["代码改进", "教案生成", "反馈", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "824ed9ae-d7d7-41fe-9aed-7b12c0104f22",
+      "msgIds": ["019be540-0beb-7112-9b83-99001da8ec6f"],
+      "subject": "修缮 AsyncMilvusContentJoiner",
+      "std": "从实例化、单例模式、并发、网络抖动四个角度分析附件中的 AsyncMilvusContentJoiner 类代码并进行修缮，但不要过度工程化。",
+      "kinds": ["分析评估", "代码调试"],
+      "tags": ["异步", "单例模式", "并发", "Milvus"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "824ed9ae-d7d7-41fe-9aed-7b12c0104f22",
+      "msgIds": ["019be897-90bb-72d2-a733-1904ae218aa5"],
+      "subject": "按 feedback 改进代码",
+      "std": "根据附件中的 feedback（qstart/qend 字段位置，以及 question/answer/choice/explanation 中的内容等）改进我的代码。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["代码改进", "反馈", "JSON", "Python"],
+      "hasAttachment": true
+    }
+  ]
+}

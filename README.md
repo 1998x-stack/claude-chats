@@ -5,6 +5,7 @@ claude.ai's own dark interface. No framework, no dependencies, no network access
 
 ```
 node tools/build.mjs      # 238 MB conversations.json  ->  web/data/   (~8s)
+node tools/questions.mjs --merge   # qwork/ -> web/data/questions.json (question gallery)
 node tools/serve.mjs      # http://127.0.0.1:8787/
 ```
 
@@ -156,6 +157,50 @@ is rebuilt in the browser from the conversation file that already holds the tool
 that produced it. The build and the browser share one implementation of the
 reassembly rules (`web/artifacts.js`).
 
+## Question gallery
+
+The archive holds a second reading of itself: every question you asked, rewritten
+into a self-contained standard question and grouped into theme modules, at
+`#/questions` in the viewer.
+
+```
+node tools/questions.mjs --digest     # 705 conversations -> 36 slices in web/data/qdigest/
+   36 × extraction subagent           # each writes qwork/part-NN.json
+node tools/questions.mjs --tags       # tag frequencies — the input to the module table
+   1 × clustering subagent            # writes qwork/modules.json
+node tools/questions.mjs --merge      # -> web/data/questions.json
+node tools/questions.mjs --check      # schema, counts and coverage
+```
+
+| | |
+|---|---|
+| Questions | 922, deduped from 926 extractions |
+| Candidate messages | 1,296 (of 1,457 human messages; 151 are `continue`-style, 10 are empty) |
+| Modules | 14, plus `未分类` |
+| Coverage | every candidate message is pointed at by at least one question |
+
+Rules that matter, because each was learned the hard way:
+
+- **The extraction subagents never copy your text.** They point at messages by id
+  (`msgIds`), and `--merge` restores each original verbatim from
+  `web/data/chats/*.json`. Asking a model to reproduce a long Chinese message
+  exactly is the least reliable step in the pipeline; the first extraction
+  attempt produced nothing at all proving it.
+- **Merging never drops anything.** A question asked in several conversations, or
+  a follow-up that only continues an earlier request, becomes one question with
+  several `sources[]`, each keeping its own conversation, message ids and text.
+- **`qwork/` is not disposable.** `web/data/` is deleted and rebuilt by
+  `build.mjs`; `qwork/` holds model output that cannot be recomputed, which is
+  the only reason `--merge` can be re-run at all.
+- Module membership is a partition: one primary module per question, so the module
+  counts add up to the question count.
+- `--digest` caps each message at 600 UTF-8 bytes and uses 20 conversations per
+  slice, because a slice has to be readable in one tool call (the first attempt
+  used 30-conversation slices of up to 137 KB, which workers paged with `head -c`
+  and ran out of context on). A chunk whose output will not fit in one response
+  can be split into `part-NN-a.json` / `part-NN-b.json`; the validator and the
+  merge treat the shards as one chunk.
+
 ## Layout
 
 ```
@@ -165,14 +210,19 @@ assets/
   manifest-*.json
 data/            unzipped from assets/; the build reads only from here
   conversations.json   the raw array the build streams
+qwork/           question extraction output — NOT regenerable, see the gallery section
 tools/
   build.mjs      data/conversations.json -> web/data/{index,artifacts,pages,corpus}.json + chats/*.json
+  questions.mjs  question gallery pipeline: --digest / --check-work / --tags / --merge / --check
+  qextract-prompt.md the single source of the extraction instructions
   serve.mjs      static server + /api/search, 127.0.0.1 only
   cdp.mjs        run an expression in a headless Chrome and print the result
   shot.mjs       pixel-exact screenshots at a given size and device scale factor
   inspect/       Swift instruments used to decode the reference screenshot
+test/            node --test suites (zero dependencies)
 web/
-  index.html  styles.css  app.js  md.js  artifacts.js
+  index.html  styles.css  app.js  md.js  artifacts.js  questions-lib.mjs
+                 (artifacts.js and questions-lib.mjs are shared with tools/)
   data/          generated; safe to delete and rebuild
 ```
 
@@ -214,3 +264,12 @@ measure the live DOM, screenshot, then decode the pixels back into numbers.
   `data/projects/` and `data/memories/` hold them, they just have no view yet.
 - No keyboard navigation between messages (⌘K searches, `Esc` closes the document panel).
 - 79 conversations are empty in the export itself; nothing can display what isn't there.
+- The gallery's standard questions are **model rewrites**, not your words — that is
+  the point of them, and why every card also shows the verbatim original, with a
+  separate copy button for each.
+- A question lands in `未分类` when its tags fall outside the 127 high-frequency
+  tags the module table was built from (that head covers ~41% of all tag uses;
+  the rest is a long tail of one-off labels).
+- `web/data/questions.json` is generated, so after `node tools/build.mjs` you have
+  to run `node tools/questions.mjs --merge` again. The gallery says so rather than
+  showing an empty page.

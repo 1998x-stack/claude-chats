@@ -1,0 +1,185 @@
+{
+  "chunk": 19,
+  "questions": [
+    {
+      "convId": "82e756d5-eebc-46fd-a9a0-221c56e1487f",
+      "msgIds": ["019b2131-a32d-7399-823e-93f7694b46af"],
+      "subject": "知识树RAG教育系统代码架构设计",
+      "std": "为教育场景的知识树 RAG 系统先设计整体代码类别与架构（目录与模块划分），再逐个文件给出完整实现代码。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["知识树", "RAG", "系统架构", "教育技术"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "82e756d5-eebc-46fd-a9a0-221c56e1487f",
+      "msgIds": ["019b2140-0c43-706e-b706-2ac7dff0ead9", "019b2143-4af2-7208-89b9-70a7eed023f1"],
+      "subject": "逐文件补全问答与练习模块代码",
+      "std": "继续按目录结构逐文件生成代码，覆盖 qa 问答工作流（LangGraph）、AI 出题模块、点状/路径/树状练习与 practice 工作流以及 api 模块。",
+      "kinds": ["技术实现"],
+      "tags": ["知识树", "LangGraph", "练习模块", "代码生成", "AI出题"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "82e756d5-eebc-46fd-a9a0-221c56e1487f",
+      "msgIds": ["019b2259-776f-7493-908a-e850ab508c90"],
+      "subject": "补齐项目README与完整bash命令",
+      "std": "为该知识树 RAG 项目编写 README.md 文档，并给出从头到尾可执行的完整 bash 命令（环境准备到启动运行）。",
+      "kinds": ["内容写作", "工具环境"],
+      "tags": ["知识树", "RAG", "项目文档", "部署脚本"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "82f9da60-bbdc-4b15-9fce-72eec22dd29e",
+      "msgIds": ["019bd56c-4786-71cb-b64f-bc163e346f00"],
+      "subject": "ArkUI布局QA数据集构造",
+      "std": "基于附件中 neo4j_data 与 ragflow_data 两份鸿蒙 ArkUI 布局开发 JSON 数据，构造至少 50 条按初级/高级分级的 QA 数据集。",
+      "kinds": ["数据处理", "内容写作"],
+      "tags": ["ArkUI", "鸿蒙", "QA数据集", "知识图谱", "RAG"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "83468115-6d09-44e4-a604-82a0db469520",
+      "msgIds": ["019a5b7b-e851-7177-8039-0f8e26f813fb"],
+      "subject": "知识树构建代码修复与状态持久化",
+      "std": "排查附件中知识树构建 Python 代码的逻辑缺陷并修复，为关键处理步骤补充日志，并把各阶段状态保存到 files/states/ 目录。",
+      "kinds": ["代码调试"],
+      "tags": ["知识树", "LangGraph", "日志", "状态持久化", "代码审查"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "8450e43f-ada9-4f69-b847-91cfdbb69637",
+      "msgIds": ["83dc8168-ba0b-43a3-9acc-845a41fef327"],
+      "subject": "规章文本格式化正则模式设计",
+      "std": "为附件中的规章条文原始文本设计正则模式列表（Patterns 数据类），把原始文本准确映射为格式化文本，代码需符合 Google 风格并处理边界条件。",
+      "kinds": ["技术实现"],
+      "tags": ["正则表达式", "文本格式化", "数据类", "代码规范"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "846c325d-fba3-41bc-be24-9040507f0c50",
+      "msgIds": ["1494fe86-2945-4b00-8037-c18658b42dd4"],
+      "subject": "TextCompare文本比对工具重写",
+      "std": "分析并重写附件中的 TextCompare 文本比对工具类（含 embedding 服务调用），改善代码结构与比对结果。",
+      "kinds": ["分析评估", "技术实现"],
+      "tags": ["文本比对", "向量嵌入", "代码重构", "相似度计算"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "84fc70a8-97c2-4c87-be95-a6518ede1b6d",
+      "msgIds": ["019c44c1-1457-706a-8f6a-5741ca7d716e"],
+      "subject": "函数概念Manim教学动画制作",
+      "std": "依据附件中的 Manim 数学教学动画生成指南，为「函数概念」数学主题产出教学动画的实现方案与代码。",
+      "kinds": ["技术实现", "内容写作"],
+      "tags": ["Manim", "数学教学", "动画生成", "教育技术"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "8565e871-8e9f-4884-93e2-59ed890680e4",
+      "msgIds": ["019a5985-86fc-70f0-ba53-ae568595cae8"],
+      "subject": "知识树构建类审查与改进",
+      "std": "审查附件中 KnowledgeTreeBuilder（Preprocess/Rich/Postprocess 三阶段）代码，修复逻辑错误、为关键步骤补充日志并实现状态持久化。",
+      "kinds": ["代码调试"],
+      "tags": ["知识树", "LangGraph", "状态持久化", "代码审查", "日志"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "8627d044-5696-46a6-a9ee-d46425bbe2df",
+      "msgIds": ["28c0216a-d7e8-4364-b3ba-bc672d29e5ce"],
+      "subject": "多路检索RAG代码分析与重写",
+      "std": "分析并重写多路检索 RAG 系统中的 retrieve_structured_text 等方法，假定所导入的包与文件均已存在。",
+      "kinds": ["技术实现", "分析评估"],
+      "tags": ["RAG", "多路检索", "代码重构", "结构化文本"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "8640a065-bb63-4ae4-ac0e-7adf5a8ada36",
+      "msgIds": ["34f1d230-c21c-4d44-90cc-1affb11cc48f", "1f161ed8-d6a1-4df4-80b8-7547cc9ef90e"],
+      "subject": "岗位描述归类Python类构建",
+      "std": "编写 Python 类，把附件中的岗位职责描述文本解析并归类到专业大类与细分方向。",
+      "kinds": ["技术实现", "数据处理"],
+      "tags": ["岗位描述", "文本分类", "专业归类", "Python类设计"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "8774ce53-37b3-4e2a-b0ee-b2f7653bdee6",
+      "msgIds": ["8b25b251-7f3a-4746-8c72-445cb7d2cd6e"],
+      "subject": "重构_process_response",
+      "std": "重写 _process_response 静态方法，正确处理附件接口响应中 paths/knowledgeList 的节点名映射与结果组装。",
+      "kinds": ["代码调试", "技术实现"],
+      "tags": ["响应解析", "JSON处理", "知识图谱", "代码重构"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "877c8768-a945-4adb-8af7-f5edd7bcb6fb",
+      "msgIds": ["2fe89a8c-ab45-41c1-9701-1a8ad28c48b6"],
+      "subject": "sklearn模型选型路线图解读",
+      "std": "解读这段 sklearn 模型选型 roadmap 流程图：按预测问题类型、样本量、特征量、数据类型等分支说明各模型的适用场景与选择依据。",
+      "kinds": ["学习理解", "分析评估"],
+      "tags": ["sklearn", "模型选型", "机器学习流程"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "87f400ac-c53d-4fae-aeac-667d0bb0feb4",
+      "msgIds": ["58231aa9-5a9a-4c49-9a72-5864550bfaf0", "668902a2-a6ab-4482-a7aa-ac450ffe4496"],
+      "subject": "六段式结构化Prompt重写",
+      "std": "按 Role、Profile、Goals、Constrains、Skills、Workflow、Initialization 六段式结构重写给定 prompt，明确各段的作用与写法。",
+      "kinds": ["内容写作", "方案设计"],
+      "tags": ["提示词工程", "结构化模板", "角色设定", "工作流设计"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "88405ceb-6b87-4b3b-b74d-0b64d0acb202",
+      "msgIds": ["019d3c83-3314-7210-aa5e-2feb168d7f3f"],
+      "subject": "OpenClaw设计机制调研",
+      "std": "搜索并详细展开 OpenClaw 开源 AI Agent 框架的设计机制：包含哪些组件、各方面细节有哪些，并按各组件分别整理详尽内容。",
+      "kinds": ["研究调研"],
+      "tags": ["OpenClaw", "AI Agent", "框架设计", "技术调研"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "885746b2-d9bd-47bb-9bd0-de30bc030724",
+      "msgIds": ["019e006a-9694-7a28-9914-424e19373ee3"],
+      "subject": "AI代理上下文工程技术细节深挖",
+      "std": "深度搜索并深度分析 Anthropic 博客《Effective Context Engineering for AI Agents》，详细展开其中的上下文工程技术细节。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["上下文工程", "AI Agent", "Anthropic", "技术分析"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "88b56d9f-2efd-4d0e-9fab-fd16aaaabafe",
+      "msgIds": ["f06d558b-7ab9-4c94-a526-38329e07e203"],
+      "subject": "Word2Vec论文深度分析与要素提取",
+      "std": "极尽详细地分析 Word2Vec 论文，并提取论文中的模型结构、数据结构与数据集、实验设置、各 ablation 实验对比及图表信息。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["word2vec", "论文精读", "ablation实验", "图表分析"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "88b56d9f-2efd-4d0e-9fab-fd16aaaabafe",
+      "msgIds": ["f06d558b-7ab9-4c94-a526-38329e07e203"],
+      "subject": "Word2Vec复现项目框架与逐文件代码",
+      "std": "为 Word2Vec 论文复现设计项目框架，采用 factory 模式组织 ablation 实验，输出 figures、tensorboard 与 loguru 日志，并逐文件给出完整详细代码。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["word2vec", "项目框架", "代码生成", "实验管理"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "894dc0f1-9e1b-4a59-aa05-47f3162088b0",
+      "msgIds": ["019a52e5-b990-75bb-82dd-4da09ca5369f"],
+      "subject": "基础知识树构建工具类规划",
+      "std": "先分析附件代码并思考规划，再用 LangGraph/LangChain 设计用于基础知识树构建的 build_base_tree_util 等 Python 文件与类实现。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["知识树", "LangGraph", "基础树构建", "代码方案"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "894dc0f1-9e1b-4a59-aa05-47f3162088b0",
+      "msgIds": ["019a52f9-41fe-71ef-9b29-0a9acf55a64a"],
+      "subject": "深度研究知识抽取utils规划",
+      "std": "分析附件代码并规划新增/更新的 utils Python 文件与类，用于深度研究场景的知识抽取。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["知识树", "深度研究", "知识抽取", "代码方案"],
+      "hasAttachment": true
+    }
+  ]
+}
