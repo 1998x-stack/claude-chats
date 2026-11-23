@@ -1278,3 +1278,11 @@ mark.hit[data-active="true"] { outline: 1px solid var(--link); }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* a message the gallery jumped to: flashes, then fades, without a JS timer */
+.msg[data-anchored="true"] { animation: anchor-fade 2.6s ease-out 1; }
+@keyframes anchor-fade {
+  0% { background: var(--mark); box-shadow: 0 0 0 8px var(--mark); border-radius: 6px; }
+  60% { background: var(--mark); box-shadow: 0 0 0 8px var(--mark); }
+  100% { background: transparent; box-shadow: none; }
+}

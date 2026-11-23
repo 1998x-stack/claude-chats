@@ -244,6 +244,7 @@ const state = {
   artFilter: 'all',
   panel: null,        // { key, rec?, loading?, error? }
   qIndex: null,       // { counts, modules, questions } — the question gallery
+  qError: null,       // why questions.json could not be loaded (a rebuild deletes it)
   qKind: null,        // question-type filter, local to the gallery (not the composer)
 };
 
@@ -721,6 +722,17 @@ function renderResults() {
 function renderQuestions() {
   const data = state.qIndex;
   if (!data) {
+    // tools/build.mjs wipes web/data, and questions.json is rebuilt from qwork/
+    // by `--merge`. Say so instead of showing a skeleton forever.
+    if (state.qError) {
+      renderTopbar({ title: '问题画廊', meta: '' });
+      $('#thread').replaceChildren(statePanel({
+        title: '还没有生成画廊数据',
+        body: 'web/data/questions.json 不存在或读取失败。它由 qwork/ 里的提取结果生成，重新构建数据后需要再跑一次合并。',
+        code: 'node tools/questions.mjs --merge',
+      }));
+      return;
+    }
     renderTopbar({ title: '问题画廊', meta: '载入中…' });
     $('#thread').replaceChildren(el('div', { class: 'skeleton' },
       el('div', { class: 'sk-line' }), el('div', { class: 'sk-line' }), el('div', { class: 'sk-line' })));
@@ -1147,6 +1159,7 @@ function renderChat() {
         el('span', { text: fmt.dayCn(msg.ts) })));
     }
     node.dataset.mi = String(mi);
+    node.dataset.msg = msg.id;
     frag.append(node);
     first = false;
     prevTs = msg.ts || prevTs;
@@ -1162,7 +1175,27 @@ function renderChat() {
     }));
   }
   applyHighlight(chat);
-  queueMicrotask(() => { buildRail(); scrollToLanding(chat); });
+  queueMicrotask(() => {
+    buildRail();
+    scrollToLanding(chat);
+    // Must run after scrollToLanding: that function deliberately lands on the
+    // last message, which would otherwise win over the anchor.
+    applyAnchor();
+  });
+}
+
+/**
+ * Scroll to the message a gallery question points at and mark it. The mark is a
+ * permanent data attribute; the fade is a CSS animation, so nothing has to be
+ * cleaned up on a timer and the state stays observable.
+ */
+function applyAnchor() {
+  const id = state.view?.msgId;
+  if (!id) return;
+  const node = [...$('#thread').querySelectorAll('.msg')].find((n) => n.dataset.msg === id);
+  if (!node) return;
+  node.scrollIntoView({ block: 'center' });
+  node.dataset.anchored = 'true';
 }
 
 /**
@@ -1642,7 +1675,8 @@ async function openChat(id) {
   $('#rail').hidden = true;
   try {
     const [chat] = await Promise.all([loadChat(id), loadPages()]);
-    if (location.hash !== `#/c/${id}`) return;  // navigated away while loading
+    // The hash may carry an `/m/<msgId>` anchor, so compare the conversation part.
+    if (!location.hash.startsWith(`#/c/${id}`)) return;  // navigated away while loading
     state.chat = chat;
     renderChat();
   } catch (e) {
@@ -1657,11 +1691,12 @@ async function openChat(id) {
 function route() {
   state.searching = false;
   const hash = location.hash || '#/';
-  const m = /^#\/c\/([0-9a-f-]+)$/i.exec(hash);
+  const m = /^#\/c\/([0-9a-f-]+)(?:\/m\/([0-9a-f-]+))?$/i.exec(hash);
   if (m) {
     // A document belongs to its conversation; leaving that conversation closes it.
     if (state.panel && state.panel.convId !== m[1]) closePanel();
-    state.view = { name: 'chat', id: m[1] };
+    // `.../m/<msgId>` is the back-link from a question in the gallery.
+    state.view = { name: 'chat', id: m[1], msgId: m[2] || null };
     renderSidebar();
     openChat(m[1]);
     return;
@@ -1816,7 +1851,12 @@ async function boot() {
   // The artifact index and the exported pages are needed by search, the sidebar
   // count, and every document panel, so fetch them alongside the first view.
   loadArtIndex().then(() => { if (!state.query.trim()) renderSidebar(); }).catch(() => {});
-  loadQuestions().then(() => { if (!state.query.trim()) renderSidebar(); }).catch(() => {});
+  loadQuestions()
+    .then(() => { if (!state.query.trim()) renderSidebar(); })
+    .catch((e) => {
+      state.qError = String(e.message || e);
+      if (state.view.name === 'questions') renderMain();
+    });
   loadPages().catch(() => {});
   const stats = state.index.stats;
   const who = state.index.user?.name || '';
