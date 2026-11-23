@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { isCandidate, partition, buildSlicePayload, clipSnippet } from '../tools/questions-lib.mjs';
+import { isCandidate, partition, buildSlicePayload, clipSnippet } from '../web/questions-lib.mjs';
 
 test('isCandidate 保留短消息与纯附件，排除 continue 类与空且无附件', () => {
   assert.equal(isCandidate({ text: 'fix the err', atts: [] }), true);

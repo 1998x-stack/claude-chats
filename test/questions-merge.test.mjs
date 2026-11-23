@@ -2,7 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { normalizeStd, dedupeQuestions, assignModule, validateQuestions, fillOrigins } from '../tools/questions-lib.mjs';
+import {
+  normalizeStd, dedupeQuestions, assignModule, validateQuestions, fillOrigins,
+  originNote, unresolvableMsgIds,
+} from '../web/questions-lib.mjs';
 
 const MODULES = [
   { id: 'code', name: '代码实现', desc: '', tags: ['Python', '重构'] },
@@ -178,4 +181,52 @@ test('--merge 是可重现的：两次运行只有 builtAt 不同', () => {
   const first = strip();
   execFileSync('node', ['tools/questions.mjs', '--merge'], { stdio: 'ignore' });
   assert.equal(strip(), first, '两次 merge 的结果不一致，说明有非确定性来源');
+});
+
+test('原文为空时区分「附件消息」与「还原失败」，不混为一谈', () => {
+  const att = { hasAttachment: true };
+  const plain = { hasAttachment: false };
+  assert.equal(originNote(att, { orig: '' }), 'attachment');
+  assert.equal(originNote(plain, { orig: '' }), 'unresolved');
+  assert.equal(originNote(att, { orig: '有话' }), null);
+  assert.equal(originNote(plain, { orig: '   ' }), 'unresolved');
+});
+
+test('找不到来源消息的 msgId 会被单独报出来', () => {
+  const lookup = new Map([['c1|m1', '一条消息']]);
+  const qs = [{
+    id: 'q-0001',
+    sources: [
+      { convId: 'c1', msgIds: ['m1'], orig: '一条消息' },
+      { convId: 'c1', msgIds: ['gone'], orig: '' },
+      { convId: 'c9', msgIds: ['m1'], orig: '' },
+    ],
+  }];
+  assert.deepEqual(unresolvableMsgIds(qs, lookup), ['c1|gone', 'c9|m1']);
+  assert.deepEqual(unresolvableMsgIds(qs, new Map([['c1|m1', 'x'], ['c1|gone', 'y'], ['c9|m1', 'z']])), []);
+});
+
+test('每条来源的原文与对话文件里的消息逐字相同', () => {
+  const data = JSON.parse(fs.readFileSync('web/data/questions.json', 'utf8'));
+  // sample a few with text, across different conversations
+  const picked = [];
+  for (const q of data.questions) {
+    for (const s of q.sources) {
+      if (s.orig.trim() && picked.length < 12 && !picked.some((p) => p.convId === s.convId)) {
+        picked.push({ convId: s.convId, msgIds: s.msgIds, orig: s.orig });
+      }
+    }
+    if (picked.length >= 12) break;
+  }
+  assert.ok(picked.length >= 8, '抽样太少');
+  for (const p of picked) {
+    const chat = JSON.parse(fs.readFileSync(`web/data/chats/${p.convId}.json`, 'utf8'));
+    const parts = p.msgIds.map((id) => {
+      const m = chat.messages.find((x) => x.id === id);
+      assert.ok(m, `${p.convId} 里找不到 ${id}`);
+      return (m.blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')
+        .replace(/[\u2028\u2029]/g, '\n').trim();
+    });
+    assert.equal(p.orig, parts.join('\n'), `${p.convId} 的原文不是逐字还原`);
+  }
 });

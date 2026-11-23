@@ -8,7 +8,8 @@
  *   node tools/questions.mjs --merge       qwork/ -> web/data/questions.json
  *   node tools/questions.mjs --check       validate web/data/questions.json
  *
- * Pure logic lives in tools/questions-lib.mjs; this file is only I/O and CLI.
+ * Pure logic lives in web/questions-lib.mjs (shared with the browser,
+ * like artifacts.js); this file is only I/O and CLI.
  * web/data is wiped by tools/build.mjs, so anything that cannot be recomputed
  * (the subagents' output) lives in qwork/ at the repo root instead.
  */
@@ -18,7 +19,8 @@ import { fileURLToPath } from 'node:url';
 import {
   isCandidate, partition, buildSlicePayload, clipSnippet, validateWork, shardFiles,
   validateModules, dedupeQuestions, assignModule, fillOrigins, validateQuestions,
-} from './questions-lib.mjs';
+  tagKey, unresolvableMsgIds,
+} from '../web/questions-lib.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CHATS = path.join(ROOT, 'web', 'data', 'chats');
@@ -45,12 +47,12 @@ function readChats() {
  * The digest and --check both go through here so they cannot disagree about
  * which messages count.
  */
-function candidateOf(m) {
+function candidateOf(m, maxAtt = 160) {
   const text = norm((m.blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')).trim();
   const atts = (m.attachments || []).map((a) => ({
     name: a.name || '',
     chars: (a.text || '').length,
-    snippet: clipSnippet(norm(a.text || ''), 160),
+    snippet: clipSnippet(norm(a.text || ''), maxAtt),
   }));
   if (!text && !atts.length) return null;
   if (!isCandidate({ text, atts })) return null;
@@ -80,7 +82,7 @@ function digest() {
       candidates.total++;
       const rawText = norm((m.blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')).trim();
       if (!rawText && !(m.attachments || []).length) { candidates.excludedEmptyNoAttachment++; continue; }
-      const c = candidateOf(m);
+      const c = candidateOf(m, maxAtt);
       if (!c) { candidates.excludedContinueLike++; continue; }
       msgs++;
       out.msgs.push({ id: m.id, ts: m.ts || '', text: clipSnippet(c.text, maxText), atts: c.atts });
@@ -116,9 +118,45 @@ function digest() {
 const pad = (i) => String(i).padStart(2, '0');
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 
+/** Read an input the command cannot work without, with a message that says what to run. */
+function requireJson(file, hint) {
+  if (!fs.existsSync(file)) {
+    console.error(`缺少 ${path.relative(ROOT, file)}`);
+    if (hint) console.error(hint);
+    process.exit(1);
+  }
+  try {
+    return readJson(file);
+  } catch (e) {
+    console.error(`${path.relative(ROOT, file)} 不是合法 JSON: ${e.message}`);
+    process.exit(1);
+  }
+}
+
+/**
+ * One pass over every conversation, giving both the verbatim text of each human
+ * message and the keys of the messages that count as candidate questions.
+ * `--merge` needs the text, `--check` needs the keys; one scan serves both.
+ */
+function humanCandidates() {
+  const lookup = new Map();
+  const keys = [];
+  for (const chat of readChats()) {
+    for (const m of chat.messages || []) {
+      if (m.sender !== 'human') continue;
+      const text = norm((m.blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')).trim();
+      const key = `${chat.id}|${m.id}`;
+      lookup.set(key, text);
+      if (candidateOf(m)) keys.push(key);
+    }
+  }
+  return { lookup, keys };
+}
+
 /** Validate every subagent's output against the slice it was handed. */
 function checkWork() {
-  const manifest = readJson(path.join(QDIGEST, 'manifest.json'));
+  const manifest = requireJson(path.join(QDIGEST, 'manifest.json'),
+    '先跑：node tools/questions.mjs --digest（build.mjs 会删掉它）');
   const errors = [];
   let total = 0;
   const covered = new Set();
@@ -181,14 +219,19 @@ function allQuestions() {
  * to the module table, where it is visible and reviewable.
  */
 function tags() {
+  // Count folded (so `Prompt工程` / `Prompt 工程` are one tag) but display the
+  // first spelling seen, so the clustering pass reads names a human wrote.
   const tally = new Map();
+  const display = new Map();
   for (const q of allQuestions()) {
     for (const t of q.tags || []) {
-      const key = String(t).trim();
-      if (key) tally.set(key, (tally.get(key) || 0) + 1);
+      const key = tagKey(t);
+      if (!key) continue;
+      tally.set(key, (tally.get(key) || 0) + 1);
+      if (!display.has(key)) display.set(key, String(t).trim());
     }
   }
-  const rows = [...tally.entries()].map(([tag, count]) => ({ tag, count }))
+  const rows = [...tally.entries()].map(([key, count]) => ({ tag: display.get(key), count }))
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
   console.log(JSON.stringify(rows, null, 1));
 }
@@ -199,7 +242,8 @@ function tags() {
  * assign the single module the question belongs to.
  */
 function merge() {
-  const modFile = readJson(path.join(QWORK, 'modules.json'));
+  const modFile = requireJson(path.join(QWORK, 'modules.json'),
+    'qwork/modules.json 是聚类产物，缺失时先重建模块表');
   const vr = validateModules(modFile);
   if (!vr.ok) {
     console.error(vr.errors.slice(0, 20).join('\n'));
@@ -207,18 +251,10 @@ function merge() {
     process.exit(1);
   }
 
-  const index = readJson(path.join(ROOT, 'web', 'data', 'index.json'));
+  const index = requireJson(path.join(ROOT, 'web', 'data', 'index.json'),
+    '先跑：node tools/build.mjs');
   const meta = new Map((index.chats || []).map((c) => [c.id, c]));
-
-  // Verbatim text for every human message, straight from the conversation file.
-  const lookup = new Map();
-  for (const chat of readChats()) {
-    for (const m of chat.messages || []) {
-      if (m.sender !== 'human') continue;
-      const text = norm((m.blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')).trim();
-      lookup.set(`${chat.id}|${m.id}`, text);
-    }
-  }
+  const { lookup, keys } = humanCandidates();
 
   const input = allQuestions();
   const recs = input.map((q) => ({
@@ -236,7 +272,12 @@ function merge() {
   for (const q of questions) tally.set(q.module, (tally.get(q.module) || 0) + 1);
   const data = {
     builtAt: new Date().toISOString(),
-    counts: { input: input.length, merged: questions.length, modules: modFile.modules.length },
+    counts: {
+      candidates: keys.length,
+      input: input.length,
+      merged: questions.length,
+      modules: modFile.modules.length,
+    },
     modules: modFile.modules.map((m) => ({
       id: m.id, name: m.name, desc: m.desc, count: tally.get(m.id) || 0,
     })),
@@ -250,7 +291,7 @@ function merge() {
 
   const merged = input.length - questions.length;
   console.log(`-> ${path.relative(ROOT, QUESTIONS)}`);
-  console.log(`   ${input.length} 条提取 → 去重合并 ${merged} 条 → ${questions.length} 条问题`);
+  console.log(`   ${keys.length} 条候选提问 → 提取 ${input.length} 条 → 去重合并 ${merged} 条 → ${questions.length} 条问题`);
   const multi = questions.filter((q) => q.sources.length > 1).length;
   console.log(`   多来源问题 ${multi} · 模块 ${data.modules.length}`);
 }
@@ -261,7 +302,7 @@ function merge() {
  * digest: tools/build.mjs deletes web/data, and chats are rebuilt every time.
  */
 function check() {
-  const data = readJson(QUESTIONS);
+  const data = requireJson(QUESTIONS, '先跑：node tools/questions.mjs --merge');
   const r = validateQuestions(data);
   if (!r.ok) {
     for (const e of r.errors.slice(0, 25)) console.error(e);
@@ -273,23 +314,22 @@ function check() {
   for (const q of data.questions) {
     for (const s of q.sources || []) for (const id of s.msgIds || []) covered.add(`${s.convId}|${id}`);
   }
-  let total = 0;
-  let miss = 0;
-  for (const chat of readChats()) {
-    for (const m of chat.messages || []) {
-      if (m.sender !== 'human' || !candidateOf(m)) continue;
-      total++;
-      if (!covered.has(`${chat.id}|${m.id}`)) miss++;
-    }
-  }
-  const pct = total ? (total - miss) / total : 1;
-  if (pct < 0.9) {
-    console.error(`FAIL 覆盖率 ${(pct * 100).toFixed(1)}%（${miss}/${total} 条消息没有任何问题指向）`);
+  // Every candidate message must be pointed at (spec's decision row), and every
+  // msgId must resolve — an unresolvable one silently yields an empty `orig`,
+  // which the gallery would then mislabel as an attachment-only message.
+  const { lookup, keys } = humanCandidates();
+  const total = keys.length;
+  const miss = keys.filter((k) => !covered.has(k)).length;
+  const unresolved = unresolvableMsgIds(data.questions, lookup);
+  if (miss || unresolved.length) {
+    if (miss) console.error(`FAIL ${miss}/${total} 条候选消息没有任何问题指向`);
+    for (const u of unresolved.slice(0, 20)) console.error(`FAIL msgId 无法解析: ${u}`);
+    if (unresolved.length > 20) console.error(`…还有 ${unresolved.length - 20} 个`);
     process.exit(1);
   }
   const sum = data.modules.reduce((a, m) => a + m.count, 0);
-  console.log(`ok ${data.questions.length} 条 / ${data.modules.length} 模块 / 覆盖 ${(pct * 100).toFixed(1)}%`);
-  console.log(`   模块计数合计 ${sum} = 问题总数 ${data.questions.length}`);
+  console.log(`ok ${data.questions.length} 条 / ${data.modules.length} 模块 / 覆盖 100.0%（${total} 条候选消息）`);
+  console.log(`   模块计数合计 ${sum} = 问题总数 ${data.questions.length}，msgId 全部可解析`);
 }
 
 const MODES = [['--digest', digest], ['--check-work', checkWork], ['--tags', tags], ['--merge', merge], ['--check', check]];

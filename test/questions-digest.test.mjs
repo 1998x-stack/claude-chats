@@ -80,3 +80,23 @@ test('U+2028 不会破坏切片 JSON', () => {
   }
   assert.ok(found > 0);
 });
+
+test('含代码围栏的消息，digest 里的文本仍保留围栏（只受字节上限影响）', () => {
+  execFileSync('node', ['tools/questions.mjs', '--digest'], { stdio: 'ignore' });
+  const files = fs.readdirSync(OUT).filter((f) => f.startsWith('part-'));
+  let checked = 0;
+  for (const f of files) {
+    const p = JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8'));
+    for (const c of p.convs) {
+      for (const m of c.msgs) {
+        if (!m.text.includes('```')) continue;
+        assert.ok(m.text.includes('```'), '围栏被破坏了');
+        checked++;
+        if (checked >= 5) break;
+      }
+      if (checked >= 5) break;
+    }
+    if (checked >= 5) break;
+  }
+  assert.ok(checked > 0, '找不到含围栏的消息做样本');
+});

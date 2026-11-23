@@ -8,6 +8,7 @@
  */
 import { renderMarkdown, highlight } from './md.js';
 import { collectArtifacts, attachmentRecord, baseName } from './artifacts.js';
+import { originNote } from './questions-lib.mjs';
 
 // ---------------------------------------------------------------------------
 // helpers
@@ -246,6 +247,8 @@ const state = {
   qIndex: null,       // { counts, modules, questions } — the question gallery
   qError: null,       // why questions.json could not be loaded (a rebuild deletes it)
   qKind: null,        // question-type filter, local to the gallery (not the composer)
+  qQuery: '',         // gallery search text — local, so it never drives conversation search
+  qAttOnly: false,    // show only questions that came with an attachment
 };
 
 // ---------------------------------------------------------------------------
@@ -759,16 +762,15 @@ function renderQuestionOverview(data) {
     title: '问题画廊',
     meta: `${fmt.num(data.questions.length)} 个问题 · ${data.modules.length} 个主题`,
   });
-  const merged = c.input && c.merged ? c.input - c.merged : 0;
+  // The header states the whole counted chain — the spec's 数字口径 is the one
+  // place these numbers are allowed to come from.
+  const chain = c.candidates
+    ? `${fmt.num(c.candidates)} 条候选提问 → 提取 ${fmt.num(c.input)} 条 → 去重合并 ${fmt.num(c.input - c.merged)} 条 → ${fmt.num(c.merged)} 个问题`
+    : '';
   $('#thread').replaceChildren(
     el('div', { class: 'list-head' },
       el('span', { class: 'list-title', text: '问题画廊' }),
-      el('span', {
-        class: 'list-note',
-        text: c.input
-          ? `从 ${fmt.num(c.input)} 条提问提取，合并掉 ${fmt.num(merged)} 条重复与追问`
-          : '',
-      })
+      el('span', { class: 'list-note', text: chain })
     ),
     el('div', { class: 'q-modules' }, ...data.modules.map((m) =>
       el('button', {
@@ -786,12 +788,24 @@ function renderQuestionOverview(data) {
 
 function renderQuestionModule(data, mod) {
   // Only the types that actually occur in this module, so the chips are useful.
-  const kinds = [...new Set(data.questions.filter((q) => q.module === mod.id).flatMap((q) => q.kinds))].sort();
   const scoped = data.questions.filter((q) => q.module === mod.id);
-  const list = state.qKind ? scoped.filter((q) => q.kinds.includes(state.qKind)) : scoped;
-  const shown = list.slice(0, state.rowLimits.questions);
+  const kinds = [...new Set(scoped.flatMap((q) => q.kinds))].sort();
+  const attCount = scoped.filter((q) => q.hasAttachment).length;
 
   renderTopbar({ title: mod.name, meta: `${fmt.num(mod.count)} 个问题` });
+
+  // The list lives in its own container so typing in the search box can refresh
+  // just the list — re-rendering the view would drop the field's focus.
+  const listBox = el('div', { class: 'q-list' });
+  const input = el('input', {
+    class: 'q-search',
+    type: 'search',
+    placeholder: '在这个主题里搜索问题、标签或原文…',
+    'aria-label': '在这个主题里搜索问题',
+    onInput: (e) => { state.qQuery = e.target.value; renderQList(listBox, mod, scoped); },
+  });
+  input.value = state.qQuery;
+
   $('#thread').replaceChildren(
     el('div', { class: 'list-head' },
       el('span', { class: 'list-title', text: mod.name }),
@@ -801,13 +815,20 @@ function renderQuestionModule(data, mod) {
         text: '全部主题',
         onClick: () => { location.hash = '#/questions'; },
       })),
-    kinds.length > 1
-      ? el('div', { class: 'filters' },
+    el('div', { class: 'q-controls' },
+      input,
+      el('div', { class: 'filters' },
         el('button', {
           class: 'chip',
-          'aria-pressed': state.qKind ? 'false' : 'true',
+          'aria-pressed': !state.qKind && !state.qAttOnly ? 'true' : 'false',
           text: `全部 ${fmt.num(mod.count)}`,
-          onClick: () => { state.qKind = null; renderMain(); },
+          onClick: () => { state.qKind = null; state.qAttOnly = false; renderMain(); },
+        }),
+        el('button', {
+          class: 'chip',
+          'aria-pressed': state.qAttOnly ? 'true' : 'false',
+          text: `只看附件 ${fmt.num(attCount)}`,
+          onClick: () => { state.qAttOnly = !state.qAttOnly; renderMain(); },
         }),
         ...kinds.map((k) => {
           const n = scoped.filter((q) => q.kinds.includes(k)).length;
@@ -815,23 +836,46 @@ function renderQuestionModule(data, mod) {
             class: 'chip',
             'aria-pressed': state.qKind === k ? 'true' : 'false',
             text: `${k} ${fmt.num(n)}`,
-            onClick: () => { state.qKind = k; renderMain(); },
+            onClick: () => { state.qKind = state.qKind === k ? null : k; renderMain(); },
           });
-        }))
-      : null,
+        }))),
+    listBox
+  );
+  renderQList(listBox, mod, scoped);
+  $('#scroller').scrollTop = 0;
+}
+
+/** Search text matches the standard question, its subject, its tags, or the original. */
+function qMatches(q, needle) {
+  if (state.qKind && !q.kinds.includes(state.qKind)) return false;
+  if (state.qAttOnly && !q.hasAttachment) return false;
+  if (!needle) return true;
+  return [q.std, q.subject, ...q.tags, ...q.sources.map((s) => s.orig)]
+    .join(' ').toLowerCase().includes(needle);
+}
+
+function renderQList(box, mod, scoped) {
+  const needle = state.qQuery.trim().toLowerCase();
+  const list = scoped.filter((q) => qMatches(q, needle));
+  const shown = list.slice(0, state.rowLimits.questions);
+  const filtered = !!needle || !!state.qKind || state.qAttOnly;
+  box.replaceChildren(
     list.length
       ? el('ul', { class: 'q-items' }, ...shown.map(questionCard))
-      : statePanel({ title: '这个类型下没有内容' }),
+      // Modules can legitimately hold nothing (未分类 is a fallback, not a theme).
+      : statePanel({
+        title: filtered ? '没有匹配的问题' : '这个主题下还没有问题',
+        body: filtered ? '换个关键词，或者清掉筛选。' : '',
+      }),
     list.length > shown.length
       ? el('button', {
         class: 'sb-more',
         style: 'margin-top:12px',
         text: `显示更多（还有 ${fmt.num(list.length - shown.length)} 个）`,
-        onClick: () => { state.rowLimits.questions += 400; renderMain(); },
+        onClick: () => { state.rowLimits.questions += 400; renderQList(box, mod, scoped); },
       })
       : null
   );
-  $('#scroller').scrollTop = 0;
 }
 
 function questionCard(q) {
@@ -840,6 +884,7 @@ function questionCard(q) {
   return el('li', { class: 'q-item', dataset: { qid: q.id, module: q.module } },
     el('div', { class: 'q-head' },
       el('span', { class: 'q-kinds', text: q.kinds.join(' · ') }),
+      q.hasAttachment ? el('span', { class: 'q-att', text: '附件' }) : null,
       q.sources.length > 1
         ? el('span', { class: 'q-merge', text: `出现在 ${q.sources.length} 个对话` })
         : null),
@@ -847,19 +892,26 @@ function questionCard(q) {
     withText.length
       ? el('details', { class: 'q-orig-wrap' },
         el('summary', { class: 'q-orig-summary', text: withText.length > 1 ? `原始提问（${withText.length} 处）` : '原始提问' }),
-        ...withText.map((s) => el('div', { class: 'q-orig' },
-          el('div', { class: 'q-orig-meta', text: [s.date, s.convName].filter(Boolean).join(' · ') }),
-          el('div', { class: 'q-orig-text', text: s.orig }))))
-      // 214 messages in this export carry an attachment and no text at all.
-      : el('div', { class: 'q-orig-note', text: '这条消息只有附件，没有文字' }),
+        ...q.sources.map((s) => (s.orig.trim()
+          ? el('div', { class: 'q-orig' },
+            el('div', { class: 'q-orig-meta', text: [s.date, s.convName].filter(Boolean).join(' · ') }),
+            el('div', { class: 'q-orig-text', text: s.orig }))
+          : el('div', { class: 'q-orig-meta', text: '（这一处没有文字，只有附件）' }))))
+      // 214 messages in this export carry an attachment and no text at all. An
+      // unresolved msgId looks the same but must not be described as one.
+      : el('div', { class: 'q-orig-note', text: originNote(q, src) === 'attachment'
+        ? '这条消息只有附件，没有文字'
+        : '原文没有还原出来（找不到来源消息）' }),
     el('div', { class: 'q-foot' },
       copyButton(() => q.std, { label: '复制问题', title: '复制标准问题', class: 'act' }),
       withText.length
         ? copyButton(() => withText.map((s) => s.orig).join('\n\n'), { label: '复制原文', title: '复制原始提问', class: 'act' })
         : null,
       el('a', { class: 'q-src-link', href: `#/c/${src.convId}/m/${src.msgIds[0]}`, text: '查看来源' }),
-      q.tags.length
-        ? el('span', { class: 'q-tags', text: q.tags.slice(0, 4).join(' · ') })
+      // subtags are the cross-theme labels the module table did not claim; the
+      // full tag list is clustering input and is deliberately not shown.
+      q.subtags?.length
+        ? el('span', { class: 'q-tags', text: q.subtags.join(' · ') })
         : null)
   );
 }
@@ -1196,6 +1248,9 @@ function applyAnchor() {
   if (!node) return;
   node.scrollIntoView({ block: 'center' });
   node.dataset.anchored = 'true';
+  // Applied once: a later re-render (toggling 思考/工具) must not yank the
+  // viewport back here after the reader has scrolled away.
+  state.view.msgId = null;
 }
 
 /**
@@ -1717,8 +1772,10 @@ function route() {
   const qm = /^#\/questions(?:\/([a-z0-9-]+))?$/.exec(hash);
   if (qm) {
     state.view = { name: 'questions', id: qm[1] || null };
-    // A module id belongs to the gallery; leaving it behind picks a fresh filter.
+    // A module id belongs to the gallery; leaving it behind resets the filters.
     state.qKind = null;
+    state.qQuery = '';
+    state.qAttOnly = false;
     renderSidebar();
     renderMain();
     return;
@@ -1852,7 +1909,12 @@ async function boot() {
   // count, and every document panel, so fetch them alongside the first view.
   loadArtIndex().then(() => { if (!state.query.trim()) renderSidebar(); }).catch(() => {});
   loadQuestions()
-    .then(() => { if (!state.query.trim()) renderSidebar(); })
+    .then(() => {
+      if (!state.query.trim()) renderSidebar();
+      // A cold load of #/questions renders its skeleton before this resolves,
+      // so the view has to be redrawn, not just the sidebar.
+      if (state.view.name === 'questions') renderMain();
+    })
     .catch((e) => {
       state.qError = String(e.message || e);
       if (state.view.name === 'questions') renderMain();

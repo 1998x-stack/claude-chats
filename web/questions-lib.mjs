@@ -1,12 +1,22 @@
 /**
- * Pure helpers for the question gallery. No disk access, no node built-ins, so
- * every function here is unit-testable without the 705-conversation corpus.
+ * Pure helpers for the question gallery, shared by the CLI (`tools/questions.mjs`)
+ * and the browser (`web/app.js`) exactly as `artifacts.js` is — one implementation
+ * of the rules that decide what a question is, so the two cannot disagree.
+ *
+ * No disk access and no imports at all, so every function here is unit-testable
+ * without the 705-conversation corpus. `Buffer` is used when present and
+ * `TextEncoder` otherwise, so the module also runs in a browser.
  *
  * The pipeline is: --digest slices conversations into per-chunk JSON for the
  * extraction subagents; --merge turns their output into web/data/questions.json.
  * The candidate rule lives here because both the digest and --check must agree
  * on what counts as a question.
  */
+
+/** UTF-8 byte length, in Node and in the browser. */
+const byteLen = (s) => (typeof Buffer !== 'undefined'
+  ? Buffer.byteLength(s, 'utf8')
+  : new TextEncoder().encode(s).length);
 
 /** "continue"-style follow-ups carry no question of their own. */
 export const CONTINUE_RE = /^(?:continue|继续|继续吧|go|next|ok|好的|好|嗯|yes|y|1|2)\.?$/i;
@@ -77,12 +87,12 @@ export function partition(items, size) {
  */
 export function clipSnippet(text, maxBytes = 200) {
   const s = String(text ?? '');
-  if (Buffer.byteLength(s, 'utf8') <= maxBytes) return s;
-  const room = maxBytes - Buffer.byteLength('…', 'utf8');
+  if (byteLen(s) <= maxBytes) return s;
+  const room = maxBytes - byteLen('…');
   let out = '';
   let used = 0;
   for (const ch of s) {
-    const b = Buffer.byteLength(ch, 'utf8');
+    const b = byteLen(ch);
     if (used + b > room) break;
     out += ch;
     used += b;
@@ -260,7 +270,7 @@ export function dedupeQuestions(recs) {
 }
 
 /** Case/width-insensitive tag key, so `Python` and `python` are the same tag. */
-const tagKey = (t) => String(t ?? '')
+export const tagKey = (t) => String(t ?? '')
   .replace(/[\uff01-\uff5e]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
   .replace(/\s+/g, '')
   .toLowerCase();
@@ -408,4 +418,41 @@ export function shardFiles(files, i) {
   const nn = String(i).padStart(2, '0');
   const re = new RegExp(`^part-${nn}(?:-[a-z0-9]+)?\\.json$`);
   return (files || []).filter((f) => re.test(f)).sort();
+}
+
+/**
+ * Why a source has no verbatim text — or null when it has some.
+ *
+ * Both cases produce `orig === ''`, and they mean very different things: a
+ * message that was only an attachment has no text to show, whereas an empty
+ * string with no attachment means the msgId could not be resolved. The card
+ * must not claim the second is the first.
+ * @param {{hasAttachment?: boolean}} q
+ * @param {{orig?: string}} src
+ * @returns {'attachment'|'unresolved'|null}
+ */
+export function originNote(q, src) {
+  if (String(src?.orig ?? '').trim()) return null;
+  return q?.hasAttachment ? 'attachment' : 'unresolved';
+}
+
+/**
+ * msgIds that do not resolve to a message in the conversation files. Every one
+ * of these silently produces an empty `orig`, so --check treats the list as a
+ * hard failure rather than letting the gallery mislabel the question.
+ * @param {object[]} questions
+ * @param {Map<string,string>} lookup keyed `${convId}|${msgId}`
+ * @returns {string[]} the unresolved keys, in question order, deduplicated
+ */
+export function unresolvableMsgIds(questions, lookup) {
+  const out = new Set();
+  for (const q of questions || []) {
+    for (const src of q.sources || []) {
+      for (const id of src.msgIds || []) {
+        const key = `${src.convId}|${id}`;
+        if (!lookup.has(key)) out.add(key);
+      }
+    }
+  }
+  return [...out];
 }

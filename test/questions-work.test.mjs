@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateWork, shardFiles } from '../tools/questions-lib.mjs';
+import { validateWork, shardFiles } from '../web/questions-lib.mjs';
 
 const slice = { chunk: 0, convs: [{ convId: 'c1', msgs: [{ id: 'm1' }, { id: 'm2' }] }] };
 const q = {

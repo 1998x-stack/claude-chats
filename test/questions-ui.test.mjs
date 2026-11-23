@@ -12,9 +12,14 @@ const BASE = 'http://127.0.0.1:8787';
 const DATA = JSON.parse(fs.readFileSync('web/data/questions.json', 'utf8'));
 
 async function probe(name, expr, wait = '3500') {
+  return probeAt('', name, expr, wait);
+}
+
+/** `at` is the hash to load directly, so a cold load can be tested as such. */
+async function probeAt(at, name, expr, wait = '3500') {
   const file = `/tmp/qprobe-${name}.js`;
   fs.writeFileSync(file, expr);
-  const out = execFileSync('node', ['tools/cdp.mjs', `${BASE}/`, file, '--wait', wait],
+  const out = execFileSync('node', ['tools/cdp.mjs', `${BASE}/${at}`, file, '--wait', wait],
     { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
   const text = out.trim();
   if (text.startsWith('ERR ')) throw new Error(`${name}: ${text}`);
@@ -142,4 +147,88 @@ test('来源对话链接指向 #/c/<convId>/m/<msgId>', async () => {
     return { n: links.length, sample: links[0] || '', bad: links.filter((h) => !/^#\\/c\\/[0-9a-f-]+\\/m\\/[0-9a-f-]+$/.test(h)).length };`);
   assert.ok(out.n > 0, '问题卡片上应当有来源链接');
   assert.equal(out.bad, 0, `有 ${out.bad} 个来源链接格式不对`);
+});
+
+test('直接打开 #/questions 也会渲染出模块卡片（冷启动不再卡在骨架）', async () => {
+  const out = await probeAt('#/questions', 'cold', `
+    await new Promise((r) => setTimeout(r, 1500));
+    return {
+      cards: document.querySelectorAll('.q-module').length,
+      skeleton: document.querySelectorAll('#thread .skeleton').length,
+      sidebar: (document.querySelector('.sidebar')?.textContent || '').includes('问题画廊'),
+    };`);
+  assert.equal(out.cards, DATA.modules.length, '冷启动没有渲染模块');
+  assert.equal(out.skeleton, 0, '仍然卡在骨架占位');
+  assert.equal(out.sidebar, true, '侧栏没有画廊入口');
+});
+
+test('模块内搜索会收窄结果，且不影响全局搜索', async () => {
+  const mod = DATA.modules.find((m) => m.count > 10);
+  const needle = '论文';
+  const expected = DATA.questions.filter((q) => q.module === mod.id
+    && [q.std, q.subject, ...q.tags, ...q.sources.map((s) => s.orig)].join(' ').includes(needle)).length;
+  assert.ok(expected > 0 && expected < mod.count, `样本不合适：${expected}/${mod.count}`);
+  const out = await probe('search', `
+    location.hash = '#/questions/${mod.id}';
+    await new Promise((r) => setTimeout(r, 1300));
+    const before = document.querySelectorAll('.q-item').length;
+    const input = document.querySelector('.q-search');
+    const found = !!input;
+    if (input) {
+      input.value = '${needle}';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    await new Promise((r) => setTimeout(r, 400));
+    return {
+      found,
+      before,
+      after: document.querySelectorAll('.q-item').length,
+      hitsAll: [...document.querySelectorAll('.q-item .q-std, .q-item .q-orig-text')]
+        .every((e) => true),
+      globalSearching: document.querySelector('.composer')?.getAttribute('data-search') || '',
+      hash: location.hash,
+    };`);
+  assert.equal(out.found, true, '模块页没有搜索框');
+  assert.ok(out.before > expected, '搜索前应当有更多结果');
+  assert.equal(out.after, expected, `搜索结果数不对：期望 ${expected}，实际 ${out.after}`);
+  assert.equal(out.hash, `#/questions/${mod.id}`, '搜索不该改变路由');
+});
+
+test('附件类问题有标记，且可以一键只看附件', async () => {
+  const mod = DATA.modules.find((m) => m.count > 5);
+  const att = DATA.questions.filter((q) => q.module === mod.id && q.hasAttachment).length;
+  assert.ok(att > 0, '这个模块里没有附件类问题，换一个模块做样本');
+  const out = await probe('att', `
+    location.hash = '#/questions/${mod.id}';
+    await new Promise((r) => setTimeout(r, 1300));
+    const badges = document.querySelectorAll('.q-item .q-att').length;
+    const chip = [...document.querySelectorAll('.filters .chip')].find((c) => c.textContent.includes('附件'));
+    const found = !!chip;
+    if (chip) chip.click();
+    await new Promise((r) => setTimeout(r, 400));
+    const items = [...document.querySelectorAll('.q-item')];
+    return {
+      badges, found,
+      after: items.length,
+      allAtt: items.every((i) => !!i.querySelector('.q-att')),
+    };`);
+  assert.ok(out.badges > 0, '附件类问题没有标记');
+  assert.equal(out.found, true, '没有「只看附件」的筛选');
+  assert.equal(out.after, att, `筛选结果数不对：期望 ${att}，实际 ${out.after}`);
+  assert.equal(out.allAtt, true, '筛选后出现了非附件问题');
+});
+
+test('跳转标记只应用一次，切换思考/工具不会把视野拽回锚点', async () => {
+  const src = DATA.questions[0].sources[0];
+  const out = await probe('anchoronce', `
+    location.hash = '#/c/${src.convId}/m/${src.msgIds[0]}';
+    await new Promise((r) => setTimeout(r, 2200));
+    const applied = document.querySelectorAll('.msg[data-anchored]').length;
+    const chip = [...document.querySelectorAll('.chip')].find((c) => c.textContent.includes('思考'));
+    if (chip) chip.click();
+    await new Promise((r) => setTimeout(r, 700));
+    return { applied, after: document.querySelectorAll('.msg[data-anchored]').length, toggled: !!chip };`);
+  assert.equal(out.applied, 1, '锚点没有被标记');
+  assert.equal(out.toggled, true, '没找到切换开关');
+  assert.equal(out.after, 0, '重新渲染后又把视野拽回了锚点');
 });

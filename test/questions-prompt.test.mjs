@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { KINDS, QUESTION_FIELDS } from '../tools/questions-lib.mjs';
+import { KINDS, QUESTION_FIELDS } from '../web/questions-lib.mjs';
 
 const prompt = fs.readFileSync('tools/qextract-prompt.md', 'utf8');
 

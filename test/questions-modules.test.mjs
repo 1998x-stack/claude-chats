@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { validateModules } from '../tools/questions-lib.mjs';
+import { validateModules, tagKey } from '../web/questions-lib.mjs';
 
 // This one needs the clustering pass to have run (Task 5 Step 5).
 test('modules.json 合法：10–16 项、id 唯一且为 slug、含未分类兜底', () => {
@@ -14,6 +14,7 @@ test('modules.json 合法：10–16 项、id 唯一且为 slug、含未分类兜
 });
 
 test('--tags 给出按频次降序的标签表，总数与 qwork 一致', () => {
+  // counts are folded by tagKey (case/width/space), as the plan required
   const rows = JSON.parse(execFileSync('node', ['tools/questions.mjs', '--tags'], { encoding: 'utf8' }));
   assert.ok(rows.length > 100, `只有 ${rows.length} 个标签，太少了`);
   for (let i = 1; i < rows.length; i++) {
@@ -25,7 +26,8 @@ test('--tags 给出按频次降序的标签表，总数与 qwork 一致', () => 
     const pay = JSON.parse(fs.readFileSync(`qwork/${f}`, 'utf8'));
     for (const q of pay.questions || []) {
       for (const t of q.tags || []) {
-        const key = String(t).trim();
+        const key = tagKey(t);
+        if (!key) continue;
         total++;
         tally.set(key, (tally.get(key) || 0) + 1);
       }

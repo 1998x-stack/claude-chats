@@ -1175,6 +1175,8 @@ mark.hit[data-active="true"] { outline: 1px solid var(--link); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* the fade is suppressed here, so mark the anchored message statically */
+  .msg[data-anchored="true"] { outline: 1px solid var(--accent); outline-offset: 4px; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
@@ -1277,6 +1279,37 @@ mark.hit[data-active="true"] { outline: 1px solid var(--link); }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* the gallery's own search: local to the view, never the conversation composer */
+.q-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.q-search {
+  flex: 1 1 260px;
+  min-width: 200px;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+}
+.q-search::placeholder { color: var(--text-3); }
+.q-search:focus { outline: none; border-color: var(--line-2); background: var(--surface-2); }
+
+.q-att {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  color: var(--text-3);
+  font-size: 10.5px;
 }
 
 /* a message the gallery jumped to: flashes, then fades, without a JS timer */
