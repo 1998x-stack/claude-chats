@@ -12,6 +12,25 @@
 export const CONTINUE_RE = /^(?:continue|继续|继续吧|go|next|ok|好的|好|嗯|yes|y|1|2)\.?$/i;
 
 /**
+ * Question type. Fixed so 24 independent extraction subagents stay consistent
+ * and the merge validator can reject anything invented.
+ */
+export const KINDS = [
+  '研究调研', '技术实现', '代码调试', '分析评估', '方案设计',
+  '内容写作', '学习理解', '数据处理', '工具环境', '其他',
+];
+
+/**
+ * Required fields on every extracted question. The prompt is tested against
+ * this list so the instructions and the validator cannot drift apart.
+ * Conversation metadata (name, date) is deliberately absent: the subagents do
+ * not need it, and --merge joins it from web/data/index.json.
+ */
+export const QUESTION_FIELDS = [
+  'convId', 'msgIds', 'subject', 'std', 'orig', 'kinds', 'tags', 'hasAttachment',
+];
+
+/**
  * Does this human message carry something to turn into a question?
  * A message with no text still counts when it carries attachments: "here, look
  * at this" is a request (214 of them in this export). A bare "continue" never
