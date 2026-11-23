@@ -144,7 +144,9 @@ rendering in the face the reader's own machine already uses.
   shape, same place, same ⌘K-reachable feel — it does something true.
 - **The banner states provenance, not account status.** The reference's banner warns
   that the account is unverified. That is a claim about your account, not your data,
-  so this one says `本地存档 · 只读 · XM 的 claude.ai 导出 2024-11-07 至 2026-11-18`.
+  so this one says `本地存档 · 只读 · XM 的 claude.ai 导出 2024-11-07 至 2026-11-18 ·
+  数据不离开这台设备`. On a published copy the label becomes `公开存档` and the closing
+  claim `此副本已发布到公网` — see `web/provenance.mjs`, which decides this from the host.
 - **No billing chrome** (`Free 套餐 · 升级`) and no share/upgrade buttons.
 - **`injected_prompt_block` content is folded away.** 50 of these exist — date notes,
   agent listings, `<system-reminder>` scaffolding. claude.ai never shows them, so they

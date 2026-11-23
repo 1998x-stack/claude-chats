@@ -9,6 +9,7 @@
 import { renderMarkdown, highlight } from './md.js';
 import { collectArtifacts, attachmentRecord, baseName } from './artifacts.js';
 import { originNote } from './questions-lib.mjs';
+import { archiveLabel, serveNote } from './provenance.mjs';
 
 // ---------------------------------------------------------------------------
 // helpers
@@ -1922,12 +1923,17 @@ async function boot() {
   loadPages().catch(() => {});
   const stats = state.index.stats;
   const who = state.index.user?.name || '';
+  // The published copy is public, so it must not claim to be a private local
+  // one; the host decides which claim the banner may make.
+  const label = archiveLabel(location.hostname);
+  const logoSub = document.querySelector('.logo-sub');
+  if (logoSub) logoSub.textContent = label;
   $('#banner-text').replaceChildren(
-    el('span', { class: 'banner-strong', text: '本地存档 · 只读' }),
+    el('span', { class: 'banner-strong', text: `${label} · 只读` }),
     el('span', { class: 'banner-sep', text: ' · ' }),
     el('span', { text: `${who ? `${who} 的 ` : ''}claude.ai 导出 ${fmt.day(stats.firstDate)} 至 ${fmt.day(stats.lastDate)}` }),
     el('span', { class: 'banner-sep', text: ' · ' }),
-    el('span', { text: '数据不离开这台设备' })
+    el('span', { text: serveNote(location.hostname) })
   );
   $('#foot-stats').textContent = `${fmt.num(stats.conversations)} 个对话 · ${fmt.num(stats.messages)} 条消息`;
   $('#search').placeholder = `搜索 ${fmt.num(stats.conversations)} 个对话，或直接提问…`;
