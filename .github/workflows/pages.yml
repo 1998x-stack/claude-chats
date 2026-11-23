@@ -27,10 +27,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Run the test suite
-        run: node --test test/
+        # An explicit glob, not `node --test test/`: a bare directory argument is
+        # resolved as a module path on some Node versions.
+        run: node --test test/*.test.mjs
 
       - name: Assemble the static site
         run: |
