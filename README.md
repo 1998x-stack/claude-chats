@@ -165,12 +165,17 @@ assets/
   manifest-*.json
 data/            unzipped from assets/; the build reads only from here
   conversations.json   the raw array the build streams
+qwork/           question extraction output — NOT regenerable, see the gallery section
 tools/
   build.mjs      data/conversations.json -> web/data/{index,artifacts,pages,corpus}.json + chats/*.json
+  questions.mjs  question gallery pipeline: --digest / --check-work / --tags / --merge / --check
+  questions-lib.mjs  its pure logic, unit-tested without the corpus
+  qextract-prompt.md the single source of the extraction instructions
   serve.mjs      static server + /api/search, 127.0.0.1 only
   cdp.mjs        run an expression in a headless Chrome and print the result
   shot.mjs       pixel-exact screenshots at a given size and device scale factor
   inspect/       Swift instruments used to decode the reference screenshot
+test/            node --test suites (zero dependencies)
 web/
   index.html  styles.css  app.js  md.js  artifacts.js
   data/          generated; safe to delete and rebuild
