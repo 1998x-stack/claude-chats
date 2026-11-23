@@ -358,3 +358,33 @@ export function fillOrigins(questions, lookup) {
   }
   return questions;
 }
+
+/** Module ids are slugs: they appear in the URL `#/questions/<id>`. */
+const MODULE_ID_RE = /^[a-z0-9][a-z0-9-]*$/;
+
+/**
+ * Structural check on qwork/modules.json, the tag -> module table produced by
+ * the clustering pass. Bounds are the spec's 10–16, and `misc` must exist so
+ * every question has somewhere to land.
+ */
+export function validateModules(data) {
+  if (!data || typeof data !== 'object' || Array.isArray(data)) return { ok: false, errors: ['不是对象'] };
+  if (!Array.isArray(data.modules)) return { ok: false, errors: ['modules 不是数组'] };
+  const errors = [];
+  const modules = data.modules;
+  if (modules.length < 10 || modules.length > 16) {
+    errors.push(`模块数量 ${modules.length} 不在 10–16 之间`);
+  }
+  const ids = new Set();
+  for (const m of modules) {
+    const at = m?.id ?? '?';
+    if (typeof m?.id !== 'string' || !MODULE_ID_RE.test(m.id)) errors.push(`模块 id 不是 slug: ${at}`);
+    else if (ids.has(m.id)) errors.push(`模块 id 重复: ${at}`);
+    else ids.add(m.id);
+    if (typeof m?.name !== 'string' || !m.name.trim()) errors.push(`模块 ${at} 缺 name`);
+    if (typeof m?.desc !== 'string') errors.push(`模块 ${at} 缺 desc`);
+    if (!Array.isArray(m?.tags) || !m.tags.length) errors.push(`模块 ${at} 的 tags 为空`);
+  }
+  if (!modules.some((m) => m?.id === 'misc')) errors.push('缺少 misc 兜底模块');
+  return { ok: errors.length === 0, errors };
+}
