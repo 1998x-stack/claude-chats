@@ -97,6 +97,29 @@ test('原文为空的附件问题卡片可读，且不渲染成 HTML', async () 
   assert.ok(out.text.trim().length > 0);
 });
 
+test('原始提问里的 markdown 与标签按纯文本呈现，不渲染成 HTML', async () => {
+  // 142 originals contain markdown-looking text and 68 contain HTML-looking tags
+  // (old <antArtifact> blocks). A quote has to stay a quote.
+  const target = DATA.questions.find((q) => q.sources.some((s) => /\*\*|^\s*[-*] |<[a-z]+[ >]/m.test(s.orig)));
+  assert.ok(target, '数据集里应当有含 markdown/标签的原文');
+  const out = await probe('plaintext', `
+    location.hash = '#/questions/${target.module}';
+    await new Promise((r) => setTimeout(r, 1400));
+    const item = document.querySelector('.q-item[data-qid="${target.id}"]');
+    if (item) item.querySelector('details')?.setAttribute('open', '');
+    const t = item?.querySelector('.q-orig-text');
+    return {
+      found: !!t,
+      tagsInside: t ? t.querySelectorAll('*').length : -1,
+      renderedStrong: t ? t.querySelectorAll('strong, em, table, a, code').length : -1,
+      text: (t?.textContent || '').slice(0, 60),
+    };`);
+  assert.equal(out.found, true, '找不到原文节点');
+  assert.equal(out.tagsInside, 0, '原文节点里不应该有子元素');
+  assert.equal(out.renderedStrong, 0, '原文被当成 markdown 渲染了');
+  assert.ok(out.text.length > 0);
+});
+
 test('不存在的模块不崩，页面没有横向溢出', async () => {
   const out = await probe('missing', `
     location.hash = '#/questions/does-not-exist-at-all';

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { normalizeStd, dedupeQuestions, assignModule, validateQuestions, fillOrigins } from '../tools/questions-lib.mjs';
 
 const MODULES = [
@@ -166,4 +167,15 @@ test('去重确实合并了重复提问，且原文一条都没丢', () => {
   for (const q of multi) {
     for (const s of q.sources) assert.equal(typeof s.orig, 'string');
   }
+});
+
+test('--merge 是可重现的：两次运行只有 builtAt 不同', () => {
+  const strip = () => {
+    const d = JSON.parse(fs.readFileSync('web/data/questions.json', 'utf8'));
+    delete d.builtAt;
+    return JSON.stringify(d);
+  };
+  const first = strip();
+  execFileSync('node', ['tools/questions.mjs', '--merge'], { stdio: 'ignore' });
+  assert.equal(strip(), first, '两次 merge 的结果不一致，说明有非确定性来源');
 });
