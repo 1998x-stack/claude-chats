@@ -24,7 +24,7 @@ conversation in the export, verbatim.** There is no server on Pages, so
 (names, summaries, previews); full-text corpus search is local-only. The question
 gallery's own search is client-side either way, so it works in both.
 
-Deploys run from `.github/workflows/pages.yml` on every push to `master`: it runs
+Deploys run from `.github/workflows/pages.yml` on every push to `main`: it runs
 the test suite, copies `web/` into an artifact (minus the pipeline inputs
 `data/refine/` and `data/qdigest/`), and deploys it. `web/data/` is committed
 precisely so Pages can serve it.
