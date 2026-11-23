@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { findChrome } from '../tools/chrome.mjs';
 
 /**
  * These assert on the real DOM through tools/cdp.mjs, because the gallery is
@@ -10,6 +11,12 @@ import { execFileSync } from 'node:child_process';
  */
 const BASE = 'http://127.0.0.1:8787';
 const DATA = JSON.parse(fs.readFileSync('web/data/questions.json', 'utf8'));
+
+// These tests need a real browser. Without one they are unrunnable rather than
+// failing, so they skip with a reason instead of turning CI red on a machine
+// that simply has no Chrome (set CHROME_PATH to point at one).
+const CHROME = findChrome();
+const skip = CHROME ? false : 'no Chrome/Chromium found; set CHROME_PATH to run the UI tests';
 
 async function probe(name, expr, wait = '3500') {
   return probeAt('', name, expr, wait);
@@ -26,7 +33,7 @@ async function probeAt(at, name, expr, wait = '3500') {
   return JSON.parse(text);
 }
 
-test('总览列出全部模块卡片，计数之和等于问题总数', async () => {
+test('总览列出全部模块卡片，计数之和等于问题总数', { skip }, async () => {
   const out = await probe('overview', `
     location.hash = '#/questions';
     await new Promise((r) => setTimeout(r, 1200));
@@ -42,7 +49,7 @@ test('总览列出全部模块卡片，计数之和等于问题总数', async ()
   assert.ok(out.names.every((n) => n.length > 0));
 });
 
-test('模块页只列该模块的问题，标准问题、原文与复制按钮都在', async () => {
+test('模块页只列该模块的问题，标准问题、原文与复制按钮都在', { skip }, async () => {
   const mod = DATA.modules.find((m) => m.count > 0);
   const out = await probe('module', `
     location.hash = '#/questions/${mod.id}';
@@ -64,7 +71,7 @@ test('模块页只列该模块的问题，标准问题、原文与复制按钮�
   assert.equal(out.everyCopy, true);
 });
 
-test('点「复制问题」复制到的正是这条标准问题', async () => {
+test('点「复制问题」复制到的正是这条标准问题', { skip }, async () => {
   const mod = DATA.modules.find((m) => m.count > 0);
   const out = await probe('copy', `
     location.hash = '#/questions/${mod.id}';
@@ -85,7 +92,7 @@ test('点「复制问题」复制到的正是这条标准问题', async () => {
   assert.equal(out.after, '已复制');
 });
 
-test('原文为空的附件问题卡片可读，且不渲染成 HTML', async () => {
+test('原文为空的附件问题卡片可读，且不渲染成 HTML', { skip }, async () => {
   const blank = DATA.questions.find((q) => q.sources.every((s) => !s.orig.trim()) && q.hasAttachment);
   assert.ok(blank, '数据集里应当有「只有附件」的问题');
   const out = await probe('blank', `
@@ -102,7 +109,7 @@ test('原文为空的附件问题卡片可读，且不渲染成 HTML', async () 
   assert.ok(out.text.trim().length > 0);
 });
 
-test('原始提问里的 markdown 与标签按纯文本呈现，不渲染成 HTML', async () => {
+test('原始提问里的 markdown 与标签按纯文本呈现，不渲染成 HTML', { skip }, async () => {
   // 142 originals contain markdown-looking text and 68 contain HTML-looking tags
   // (old <antArtifact> blocks). A quote has to stay a quote.
   const target = DATA.questions.find((q) => q.sources.some((s) => /\*\*|^\s*[-*] |<[a-z]+[ >]/m.test(s.orig)));
@@ -125,7 +132,7 @@ test('原始提问里的 markdown 与标签按纯文本呈现，不渲染成 HTM
   assert.ok(out.text.length > 0);
 });
 
-test('不存在的模块不崩，页面没有横向溢出', async () => {
+test('不存在的模块不崩，页面没有横向溢出', { skip }, async () => {
   const out = await probe('missing', `
     location.hash = '#/questions/does-not-exist-at-all';
     await new Promise((r) => setTimeout(r, 1000));
@@ -138,7 +145,7 @@ test('不存在的模块不崩，页面没有横向溢出', async () => {
   assert.ok(out.text.length > 0, '应当给出一个空状态而不是白屏');
 });
 
-test('来源对话链接指向 #/c/<convId>/m/<msgId>', async () => {
+test('来源对话链接指向 #/c/<convId>/m/<msgId>', { skip }, async () => {
   const mod = DATA.modules.find((m) => m.count > 0);
   const out = await probe('links', `
     location.hash = '#/questions/${mod.id}';
@@ -149,7 +156,7 @@ test('来源对话链接指向 #/c/<convId>/m/<msgId>', async () => {
   assert.equal(out.bad, 0, `有 ${out.bad} 个来源链接格式不对`);
 });
 
-test('直接打开 #/questions 也会渲染出模块卡片（冷启动不再卡在骨架）', async () => {
+test('直接打开 #/questions 也会渲染出模块卡片（冷启动不再卡在骨架）', { skip }, async () => {
   const out = await probeAt('#/questions', 'cold', `
     await new Promise((r) => setTimeout(r, 1500));
     return {
@@ -162,7 +169,7 @@ test('直接打开 #/questions 也会渲染出模块卡片（冷启动不再卡�
   assert.equal(out.sidebar, true, '侧栏没有画廊入口');
 });
 
-test('模块内搜索会收窄结果，且不影响全局搜索', async () => {
+test('模块内搜索会收窄结果，且不影响全局搜索', { skip }, async () => {
   const mod = DATA.modules.find((m) => m.count > 10);
   const needle = '论文';
   const expected = DATA.questions.filter((q) => q.module === mod.id
@@ -194,7 +201,7 @@ test('模块内搜索会收窄结果，且不影响全局搜索', async () => {
   assert.equal(out.hash, `#/questions/${mod.id}`, '搜索不该改变路由');
 });
 
-test('附件类问题有标记，且可以一键只看附件', async () => {
+test('附件类问题有标记，且可以一键只看附件', { skip }, async () => {
   const mod = DATA.modules.find((m) => m.count > 5);
   const att = DATA.questions.filter((q) => q.module === mod.id && q.hasAttachment).length;
   assert.ok(att > 0, '这个模块里没有附件类问题，换一个模块做样本');
@@ -218,7 +225,7 @@ test('附件类问题有标记，且可以一键只看附件', async () => {
   assert.equal(out.allAtt, true, '筛选后出现了非附件问题');
 });
 
-test('跳转标记只应用一次，切换思考/工具不会把视野拽回锚点', async () => {
+test('跳转标记只应用一次，切换思考/工具不会把视野拽回锚点', { skip }, async () => {
   const src = DATA.questions[0].sources[0];
   const out = await probe('anchoronce', `
     location.hash = '#/c/${src.convId}/m/${src.msgIds[0]}';

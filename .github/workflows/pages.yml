@@ -32,7 +32,16 @@ jobs:
       - name: Run the test suite
         # An explicit glob, not `node --test test/`: a bare directory argument is
         # resolved as a module path on some Node versions.
-        run: node --test test/*.test.mjs
+        # The UI tests drive the real viewer over CDP, so it has to be running;
+        # they skip themselves when the machine has no Chrome.
+        run: |
+          set -eu
+          node tools/serve.mjs > /tmp/serve.log 2>&1 &
+          for _ in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:8787/ && break
+            sleep 1
+          done
+          node --test test/*.test.mjs
 
       - name: Assemble the static site
         run: |

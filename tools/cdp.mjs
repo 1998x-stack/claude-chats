@@ -5,6 +5,7 @@
  *   node /tmp/cdp.mjs <url> <expr-file> [--wait ms] [--size WxH] [--dpr n]
  */
 import { spawn } from 'node:child_process';
+import { chromePath } from './chrome.mjs';
 import fs from 'node:fs';
 
 const [url, exprFile, ...rest] = process.argv.slice(2);
@@ -17,7 +18,7 @@ const SIZE = arg('size', '1512x861');
 const DPR = Number(arg('dpr', 2));
 const [W, H] = SIZE.split('x').map(Number);
 const PORT = 9333 + Math.floor(Math.random() * 400);
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const CHROME = chromePath();
 
 const chrome = spawn(CHROME, [
   '--headless=new', '--disable-gpu', '--no-sandbox', '--hide-scrollbars',

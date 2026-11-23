@@ -9,6 +9,7 @@
  *                       [--before expr.js] [--full]
  */
 import { spawn } from 'node:child_process';
+import { chromePath } from './chrome.mjs';
 import fs from 'node:fs';
 
 const [url, out, ...rest] = process.argv.slice(2);
@@ -19,7 +20,7 @@ const WAIT = Number(arg('wait', 4000));
 const BEFORE = arg('before', null);
 const FULL = rest.includes('--full');
 const PORT = 9800 + Math.floor(Math.random() * 300);
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const CHROME = chromePath();
 
 const chrome = spawn(CHROME, [
   '--headless=new', '--disable-gpu', '--no-sandbox', '--hide-scrollbars',
