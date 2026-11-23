@@ -15,7 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isCandidate, partition, buildSlicePayload, clipSnippet } from './questions-lib.mjs';
+import { isCandidate, partition, buildSlicePayload, clipSnippet, validateWork } from './questions-lib.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CHATS = path.join(ROOT, 'web', 'data', 'chats');
@@ -37,7 +37,12 @@ function readChats() {
 }
 
 function digest() {
-  const sliceSize = argNum('slice', 30);
+  // 20 conversations per slice keeps every part under the ~50KB single-read
+  // limit even with Chinese text; the caps are bytes (see clipSnippet).
+  const sliceSize = argNum('slice', 20);
+  const maxText = argNum('maxtx', 600);
+  const maxSummary = argNum('maxsum', 300);
+  const maxAtt = argNum('maxatt', 160);
   const candidates = { total: 0, excludedEmptyNoAttachment: 0, excludedContinueLike: 0 };
   let msgs = 0;
 
@@ -46,17 +51,18 @@ function digest() {
       convId: chat.id,
       name: chat.name || chat.displayName || '',
       date: String(chat.created || '').slice(0, 10),
-      summary: chat.summary || '',
+      summary: clipSnippet(chat.summary || '', maxSummary),
       msgs: [],
     };
     for (const m of chat.messages || []) {
       if (m.sender !== 'human') continue;
       candidates.total++;
-      const text = norm((m.blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')).trim();
+      const full = norm((m.blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')).trim();
+      const text = clipSnippet(full, maxText);
       const atts = (m.attachments || []).map((a) => ({
         name: a.name || '',
         chars: (a.text || '').length,
-        snippet: clipSnippet(norm(a.text || '')),
+        snippet: clipSnippet(norm(a.text || ''), maxAtt),
       }));
       if (!text && !atts.length) { candidates.excludedEmptyNoAttachment++; continue; }
       if (!isCandidate({ text, atts })) { candidates.excludedContinueLike++; continue; }
@@ -91,7 +97,52 @@ function digest() {
   console.log(`   candidates ${candidates.total} − empty ${candidates.excludedEmptyNoAttachment} − continue ${candidates.excludedContinueLike}`);
 }
 
-const MODES = [['--digest', digest]];
+const pad = (i) => String(i).padStart(2, '0');
+const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
+
+/** Validate every subagent's output against the slice it was handed. */
+function checkWork() {
+  const manifest = readJson(path.join(QDIGEST, 'manifest.json'));
+  const errors = [];
+  let total = 0;
+  const covered = new Set();
+  const slices = [];
+
+  for (let i = 0; i < manifest.chunks; i++) {
+    const slice = readJson(path.join(QDIGEST, `part-${pad(i)}.json`));
+    slices.push(slice);
+    const file = path.join(QWORK, `part-${pad(i)}.json`);
+    if (!fs.existsSync(file)) { errors.push(`缺 qwork/part-${pad(i)}.json`); continue; }
+    let payload;
+    try {
+      payload = readJson(file);
+    } catch (e) {
+      errors.push(`qwork/part-${pad(i)}.json 不是合法 JSON: ${e.message}`);
+      continue;
+    }
+    const r = validateWork(payload, slice);
+    if (!r.ok) errors.push(...r.errors.map((e) => `part-${pad(i)}: ${e}`));
+    total += (payload.questions || []).length;
+    for (const q of payload.questions || []) {
+      for (const id of q.msgIds || []) covered.add(`${q.convId}|${id}`);
+    }
+  }
+
+  let uncovered = 0;
+  for (const slice of slices) {
+    for (const c of slice.convs) for (const m of c.msgs) if (!covered.has(`${c.convId}|${m.id}`)) uncovered++;
+  }
+
+  if (errors.length) {
+    for (const e of errors.slice(0, 40)) console.error(e);
+    if (errors.length > 40) console.error(`…还有 ${errors.length - 40} 条`);
+    console.error(`FAIL ${errors.length} 条错误`);
+    process.exit(1);
+  }
+  console.log(`ok ${manifest.chunks} 片 / ${total} 条问题 / 未覆盖 ${uncovered}`);
+}
+
+const MODES = [['--digest', digest], ['--check-work', checkWork]];
 const mode = process.argv.slice(2).find((a) => MODES.some(([flag]) => flag === a));
 if (!mode) {
   console.error(`usage: node tools/questions.mjs ${MODES.map(([f]) => f).join(' | ')}`);

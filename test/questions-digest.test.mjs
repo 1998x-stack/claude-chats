@@ -10,15 +10,15 @@ test('--digest 产出 24 片，总数与口径一致', () => {
   execFileSync('node', ['tools/questions.mjs', '--digest'], { stdio: 'ignore' });
   const m = JSON.parse(fs.readFileSync(path.join(OUT, 'manifest.json'), 'utf8'));
   assert.equal(m.convs, 705);
-  assert.equal(m.chunks, 24);
-  assert.equal(m.sliceSize, 30);
+  assert.equal(m.chunks, 36);
+  assert.equal(m.sliceSize, 20);
   assert.equal(m.msgs, 1296);
   assert.equal(m.candidates.total, 1457);
   assert.equal(m.candidates.excludedEmptyNoAttachment, 10);
   assert.equal(m.candidates.excludedContinueLike, 151);
-  assert.equal(m.files.length, 24);
+  assert.equal(m.files.length, 36);
   assert.equal(m.files[0], 'part-00.json');
-  assert.equal(m.files[23], 'part-23.json');
+  assert.equal(m.files[35], 'part-35.json');
 });
 
 test('切片内容自洽：对话总数等于 705，附件片段不超过 200 字', () => {
@@ -33,7 +33,7 @@ test('切片内容自洽：对话总数等于 705，附件片段不超过 200 �
       assert.ok(!('blocks' in c) && !('toolResults' in c));
       for (const mm of c.msgs) {
         msgs++;
-        for (const a of mm.atts) assert.ok(a.snippet.length <= 201);
+        for (const a of mm.atts) assert.ok(Buffer.byteLength(a.snippet, 'utf8') <= 160);
       }
     }
   }
@@ -54,6 +54,20 @@ test('零提问的对话仍占切片位置，结构不破', () => {
     }
   }
   assert.ok(withZero > 0, '导出里的空对话应当仍然占据切片位置');
+});
+
+test('每条消息与摘要都被截断，单片必须能一次读完（<48KB）', () => {
+  execFileSync('node', ['tools/questions.mjs', '--digest'], { stdio: 'ignore' });
+  const files = fs.readdirSync(OUT).filter((f) => f.startsWith('part-'));
+  for (const f of files) {
+    const bytes = fs.statSync(path.join(OUT, f)).size;
+    assert.ok(bytes < 48 * 1024, `${f} 有 ${bytes} 字节，超过一次读取的上限`);
+    const p = JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8'));
+    for (const c of p.convs) {
+      assert.ok(Buffer.byteLength(c.summary, 'utf8') <= 300, `${c.convId} 的 summary 没截断`);
+      for (const mm of c.msgs) assert.ok(Buffer.byteLength(mm.text, 'utf8') <= 600, `${mm.id} 的 text 没截断`);
+    }
+  }
 });
 
 test('U+2028 不会破坏切片 JSON', () => {

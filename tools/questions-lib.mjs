@@ -23,11 +23,15 @@ export const KINDS = [
 /**
  * Required fields on every extracted question. The prompt is tested against
  * this list so the instructions and the validator cannot drift apart.
- * Conversation metadata (name, date) is deliberately absent: the subagents do
- * not need it, and --merge joins it from web/data/index.json.
+ *
+ * `orig` is deliberately NOT here. Asking a model to reproduce long verbatim
+ * text is the thing it is worst at, and the first extraction attempt died on it.
+ * Subagents point at messages by id; --merge restores the exact text from the
+ * chat file, so "原文永远可见" holds by construction rather than by trust.
+ * Conversation metadata (name, date) is absent for the same reason.
  */
 export const QUESTION_FIELDS = [
-  'convId', 'msgIds', 'subject', 'std', 'orig', 'kinds', 'tags', 'hasAttachment',
+  'convId', 'msgIds', 'subject', 'std', 'kinds', 'tags', 'hasAttachment',
 ];
 
 /**
@@ -60,15 +64,30 @@ export function partition(items, size) {
 }
 
 /**
- * First `n` characters, with an ellipsis when cut. Used to give the extraction
- * subagents just enough of an attachment to name it in the question.
+ * Clip to at most `maxBytes` of UTF-8, with an ellipsis when cut.
+ *
+ * The unit is bytes, not characters, because the limit being respected is a
+ * file-read limit: this corpus is Chinese, three bytes per character, and a
+ * 600-character cap produced 69 KB slices that no subagent could read in one
+ * call (the first extraction attempt paged them with `head -c` and died).
+ * Never splits a character.
  * @param {string} text
- * @param {number} [n]
+ * @param {number} [maxBytes]
  * @returns {string}
  */
-export function clipSnippet(text, n = 200) {
+export function clipSnippet(text, maxBytes = 200) {
   const s = String(text ?? '');
-  return s.length <= n ? s : `${s.slice(0, n)}…`;
+  if (Buffer.byteLength(s, 'utf8') <= maxBytes) return s;
+  const room = maxBytes - Buffer.byteLength('…', 'utf8');
+  let out = '';
+  let used = 0;
+  for (const ch of s) {
+    const b = Buffer.byteLength(ch, 'utf8');
+    if (used + b > room) break;
+    out += ch;
+    used += b;
+  }
+  return `${out}…`;
 }
 
 /**
@@ -127,10 +146,12 @@ export function validateWork(payload, slice) {
     const at = `Q${i}(${q.convId || '?'})`;
     const conv = convById.get(q.convId);
     if (!conv) errors.push(`${at} convId 不在本片: ${q.convId}`);
-    for (const f of ['std', 'orig', 'subject']) {
+    for (const f of ['std', 'subject']) {
       if (typeof q[f] !== 'string') errors.push(`${at} ${f} 不是字符串`);
       else if (f === 'std' && !q[f].trim()) errors.push(`${at} std 为空`);
     }
+    // orig is optional: --merge restores it from the conversation file.
+    if (q.orig !== undefined && typeof q.orig !== 'string') errors.push(`${at} orig 不是字符串`);
     if (!Array.isArray(q.msgIds) || !q.msgIds.length) {
       errors.push(`${at} msgIds 为空`);
     } else if (conv) {
@@ -316,4 +337,24 @@ export function validateQuestions(data) {
     if (m.count !== actual) errors.push(`模块 ${m.id} count=${m.count} 但实际 ${actual}`);
   }
   return { ok: errors.length === 0, errors };
+}
+
+/**
+ * Fill in each source's verbatim text from the conversation files, keyed
+ * `${convId}|${msgId}`. A question's sources are joined in msgIds order with a
+ * newline, so a multi-turn merge reads as the original exchange.
+ * @param {object[]} questions
+ * @param {Map<string,string>} lookup
+ * @returns {object[]} the same array, mutated
+ */
+export function fillOrigins(questions, lookup) {
+  for (const q of questions || []) {
+    for (const src of q.sources || []) {
+      src.orig = (src.msgIds || [])
+        .map((id) => lookup.get(`${src.convId}|${id}`))
+        .filter((t) => typeof t === 'string')
+        .join('\n');
+    }
+  }
+  return questions;
 }

@@ -66,7 +66,7 @@
    排除 文本为空且无附件（仅 10 条）
    排除 continue 类（151 条）
    ─────
-   提取输入 1,296 条消息，切成 24 片（每片 30 个对话，30–91 条消息）
+   提取输入 1,296 条消息，切成 36 片（每片 20 个对话，每片 ≤32KB UTF-8）
 ```
 
 `1017 − 910 = 107` 是**重复出现次数**；"59 种文本重复"是**按种类**计的，两者不冲突，
@@ -105,7 +105,8 @@
 web/data/chats/*.json  (705)
   │  tools/questions.mjs --digest      切片 + 剥离噪声字段（含附件名与前 ~200 字）
   ▼
-web/data/qdigest/part-NN.json          约 30 个对话/片，只含 convId/name/date/summary/human msgs
+web/data/qdigest/part-NN.json          20 个对话/片，只含 convId/name/date/summary/human msgs
+                                       text/summary/snippet 按**字节**截断，保证一片能一次读完
   │  子代理并行（只读，各写一片）
   ▼
 qwork/part-NN.json                     提取结果（保留为交付物；**不能放 web/data**）
@@ -166,6 +167,7 @@ web/data/questions.json                { modules[], questions[] }（可由 qwork
 5. 不合并两个独立需求；同一需求的多轮追问才合并
 6. 附件消息：标准问题点名附件（"分析附件 paste-2.txt（8KB 代码）…"）
 7. 短消息：用上下文补全（`fix the err` → "修复 X 的报错"）
+8. **不要抄原文**：只给 `msgIds`；输入的 `text` 可能以 `…` 截断，不影响指认来源
 
 ### 问题类型枚举（`kinds`）
 

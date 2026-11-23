@@ -15,11 +15,18 @@ test('partition 均分且不丢项、不产生空片', () => {
   assert.deepEqual(partition([], 3), []);
 });
 
-test('clipSnippet 截断到 200 字并加省略号，短文本原样', () => {
+test('clipSnippet 按字节截断，短文本原样', () => {
   assert.equal(clipSnippet('abc'), 'abc');
-  assert.equal(clipSnippet('x'.repeat(250)).length, 201);
-  assert.equal(clipSnippet('x'.repeat(201)).length, 201);
+  assert.equal(Buffer.byteLength(clipSnippet('x'.repeat(250)), 'utf8'), 200);
   assert.equal(clipSnippet('x'.repeat(200)), 'x'.repeat(200));
+});
+
+test('clipSnippet 处理中文时按字节裁、不切出半个字符', () => {
+  const cut = clipSnippet('中'.repeat(300), 60);
+  assert.ok(Buffer.byteLength(cut, 'utf8') <= 60);
+  assert.ok(!cut.includes('\ufffd'));
+  assert.ok(cut.endsWith('…'));
+  assert.equal(clipSnippet('中'.repeat(10), 60), '中'.repeat(10));
 });
 
 test('buildSlicePayload 只带必要字段，不透出 blocks/toolResults', () => {

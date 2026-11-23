@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeStd, dedupeQuestions, assignModule, validateQuestions } from '../tools/questions-lib.mjs';
+import { normalizeStd, dedupeQuestions, assignModule, validateQuestions, fillOrigins } from '../tools/questions-lib.mjs';
 
 const MODULES = [
   { id: 'code', name: '代码实现', desc: '', tags: ['Python', '重构'] },
@@ -63,6 +63,23 @@ test('并列命中取表序在前者', () => {
     { id: 'second', name: '', desc: '', tags: ['x'] },
   ];
   assert.equal(assignModule({ tags: ['x'] }, mods).module, 'first');
+});
+
+test('原文由 msgIds 从对话文件里逐字还原，不等子代理抄写', () => {
+  const lookup = new Map([
+    ['c1|m1', '原话一。\n第二行'],
+    ['c1|m2', '原话二'],
+  ]);
+  const qs = [{
+    std: 'x', subject: 's', kinds: [], tags: [], hasAttachment: false,
+    sources: [
+      { convId: 'c1', convName: 'n', date: 'd', msgIds: ['m1', 'm2'], orig: '' },
+      { convId: 'c2', convName: 'n2', date: 'd', msgIds: ['mX'], orig: '' },
+    ],
+  }];
+  fillOrigins(qs, lookup);
+  assert.equal(qs[0].sources[0].orig, '原话一。\n第二行\n原话二');
+  assert.equal(qs[0].sources[1].orig, '');
 });
 
 test('模块计数互不重叠且等于归属到它的条数', () => {
