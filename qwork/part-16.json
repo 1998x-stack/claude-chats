@@ -1,0 +1,257 @@
+{
+  "chunk": 16,
+  "questions": [
+    {
+      "convId": "7344a93e-0962-472e-acaa-de6f852335d3",
+      "msgIds": ["019b278f-b2a7-775e-b03d-161d80462717"],
+      "subject": "费曼学习法的智能体视角理解",
+      "std": "解释什么是费曼学习法，并用智能体（AI Agent）的思想去理解它的各个环节。",
+      "kinds": ["学习理解"],
+      "tags": ["费曼学习法", "智能体", "学习方法"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "7351e82f-1d16-425b-80f0-8e15fbb8509f",
+      "msgIds": ["019daffc-4cae-7b3b-9adf-e8f5cfcb14d8", "019dbe2d-2e0a-7688-9a28-ca87284adf59"],
+      "subject": "Mathlib4 Lean 核心组件调查",
+      "std": "详细调查 leanprover-community/mathlib4 仓库，梳理 Lean 的核心组件与核心内容，并逐个绘制设计图以加深理解。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["Mathlib4", "Lean", "形式化数学", "仓库调研"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "739c7b4b-ef8f-45ec-9bea-da4ba7b241bd",
+      "msgIds": ["ced3faf1-79d9-41a1-9afe-607244e6b44b", "8b829165-1ae6-4728-84e4-ba52b67521d4"],
+      "subject": "RAPTOR 论文分析与项目设计",
+      "std": "按附件任务书逐步深入分析 RAPTOR 论文，提取论文中的 RAPTOR 框架与实验，并设计 RAPTOR 项目的代码结构与分类。",
+      "kinds": ["研究调研", "方案设计"],
+      "tags": ["RAPTOR", "检索增强", "论文分析", "代码架构"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "73ab6b48-9eb9-472b-80fa-59cad03e0f86",
+      "msgIds": ["019f357f-5a07-7d3d-890f-b35f7c62aa8e"],
+      "subject": "预训练语料清洗论文深度解析",
+      "std": "深度搜索并解析预训练语料清洗领域的奠基性论文，包括 C4 数据集等定义工业标准清洗流水线的工作。",
+      "kinds": ["研究调研"],
+      "tags": ["预训练语料", "数据清洗", "论文分析"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "73ab6b48-9eb9-472b-80fa-59cad03e0f86",
+      "msgIds": ["019f357f-5a07-7d3d-890f-b35f7c62aa8e", "019f3670-98a5-7fd4-9d01-7e51ec58b33d"],
+      "subject": "清洗工作发展脉络与组件分析",
+      "std": "构建这些语料清洗工作的系列发展脉络并做可视化设计，解耦并逐一详细分析各个组件与各篇论文，持续产出 markdown 文档。",
+      "kinds": ["内容写作", "分析评估"],
+      "tags": ["预训练语料", "数据清洗", "发展脉络", "可视化"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "73eef875-227a-4650-ba29-1796ce0c16e9",
+      "msgIds": ["83826862-8f5e-485b-9386-73f0f7799b13"],
+      "subject": "ESR 转型企业服务平台战略",
+      "std": "为 ESR（易商红木，港交所 1821）制定从工业地产开发商升级为企业综合服务平台的业务战略，设计空间载体与涵盖政府资源对接、产学研合作、产业链整合、FA 服务的增值服务包。",
+      "kinds": ["方案设计"],
+      "tags": ["不动产战略", "企业服务平台", "增值服务", "产业地产"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "73eef875-227a-4650-ba29-1796ce0c16e9",
+      "msgIds": ["2ae30aef-4ffa-4a0d-ab04-14e89820a3c1"],
+      "subject": "ESR 角色化 PROMPT 更新",
+      "std": "更新 PROMPT 版本，将角色设定为 ESR 的产业经济分析师与企业服务内容策划专家，并结合 ESR 的公司定位、客户群体与业务内容。",
+      "kinds": ["内容写作"],
+      "tags": ["提示工程", "企业服务平台", "不动产战略"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "741b5a8d-44c2-4039-8dae-3da7d44e65aa",
+      "msgIds": ["019e3ae5-69e4-7f0b-b479-6c4203cbf18a"],
+      "subject": "Agentic 架构逐篇深度复盘",
+      "std": "逐个阅读 all-agentic-architectures 仓库及其配套文章，对每种 Agentic 架构做深度复盘分析与总结讲解，构建详细的技术文章。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["Agentic架构", "架构模式", "技术文章", "多智能体"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "74241ee7-90d0-43be-87be-0bbcfee0ec6d",
+      "msgIds": ["186b7c53-7cc3-4728-aec1-ebfb0fafac64"],
+      "subject": "ES 知识图谱检索代码详析",
+      "std": "详细分析附件 paste.txt（约 10KB 代码）中基于 Elasticsearch 的树状知识图谱检索实现，越详细越好。",
+      "kinds": ["分析评估"],
+      "tags": ["Elasticsearch", "知识图谱", "检索查询", "代码分析"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "74241ee7-90d0-43be-87be-0bbcfee0ec6d",
+      "msgIds": ["78751e30-6b5a-4199-a910-ddc5c2aa2197", "f8e72cb1-6eb2-4583-8757-534c75292acb", "a6e8e759-da34-4c1b-9add-3b35c02ca7ff", "3f005cca-f5ac-4a08-a741-06d694d0e91a", "a2cc64b4-f03c-401a-8dcd-6e8f84adf9cf", "bd692aa6-6a7f-493c-a6fa-1c3338bc0c8e"],
+      "subject": "ES 口语化查询的检索重构",
+      "std": "改进该检索代码：按中英文标点把口语化 query 切分为多个子 query，结合 nodeName、nodeKeyWordList、relatedTreeNodeList、nodeLevel 重新设计查询逻辑，尤其是 query_body。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["Elasticsearch", "query_body", "知识图谱", "召回优化"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "74408fd5-e8a0-4042-9e58-1b651cefd5b5",
+      "msgIds": ["019b5f83-b6fa-7339-89e6-0175ca399f54"],
+      "subject": "本地大模型浏览器工具构建",
+      "std": "用 Ollama（0.5b 做分类与意图判断、4b 做内容分析与 JSON 提取）配合 Selenium 与 trafilatura 构建智能网页分析浏览器工具，先调研其工作机制与网页分块方法，再逐个文件给出代码框架。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["Ollama", "Selenium", "网页抓取", "本地大模型"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "74408fd5-e8a0-4042-9e58-1b651cefd5b5",
+      "msgIds": ["019b5f98-937f-71b2-ae24-16dd98ce8033"],
+      "subject": "Selenium 浏览器引擎改进",
+      "std": "检索并检查改进 intelligent-browser-tool 项目的 browser_engine.py（基于 Selenium 的网页获取与交互引擎），修复其中的问题。",
+      "kinds": ["代码调试"],
+      "tags": ["Selenium", "浏览器引擎", "代码改进"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "74408fd5-e8a0-4042-9e58-1b651cefd5b5",
+      "msgIds": ["019b5f98-937f-71b2-ae24-16dd98ce8033", "019b5f9e-9986-7337-a7c2-30cf6c647f0c"],
+      "subject": "报告生成失败报错修复",
+      "std": "修复 intelligent-browser-tool 中报告生成失败的报错，涉及 generate_all_reports 与 generate_summary_report、generate_category_report 的调用链。",
+      "kinds": ["代码调试"],
+      "tags": ["Python报错", "报告生成", "代码调试"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "7478e067-c7cf-4e48-ae22-639c6dade2c3",
+      "msgIds": ["d70f2873-4d4b-4110-8bc8-834f17ac3043"],
+      "subject": "PoT 规划执行分离框架",
+      "std": "讲解计划链（PoT）中规划与执行分离的 prompt 框架及其工作方式。",
+      "kinds": ["学习理解"],
+      "tags": ["提示工程", "计划链PoT", "规划执行分离"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "747ff4f6-5805-4850-9e7e-c7e3b7a8fbd1",
+      "msgIds": ["68413563-6506-4e4e-bfe5-42cbce6a5a25"],
+      "subject": "文本标题总结的要求与细节",
+      "std": "如何从一段文本中做标题总结，需要哪些具体要求和细节点，才能得到最精要的标题。",
+      "kinds": ["学习理解"],
+      "tags": ["标题生成", "文本摘要", "提示工程"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "747ff4f6-5805-4850-9e7e-c7e3b7a8fbd1",
+      "msgIds": ["c544fb6a-bb32-4c65-bd40-8170ca1c5865", "03bc8c92-61ee-414e-aa38-2f7a064e0d24", "7e817dd5-178a-4f3e-9f1a-f587d5d4700e"],
+      "subject": "标题生成 PROMPT 构建与简化",
+      "std": "按指定结构（Role、Profile、Goals、Constrains、Skills、Workflow）构建「标题生成」PROMPT，输出 title 字段的 JSON，并在保留核心能力的前提下简化该 PROMPT。",
+      "kinds": ["内容写作", "技术实现"],
+      "tags": ["提示工程", "标题生成", "结构化输出"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "74a8d3e4-a8db-4419-b68e-acfa5512ffaf",
+      "msgIds": ["a5495ebb-2200-4072-908a-4cbf53372fda"],
+      "subject": "江西县域社会保障实证研究",
+      "std": "按任务书以专家研究团队的标准，系统研究江西省县域社会结构、人口变迁、劳动就业、退休养老、住房公积金与公共资源分配之间的关系，给出真实可追溯的实证分析与政策研究。",
+      "kinds": ["研究调研", "数据处理"],
+      "tags": ["江西县域", "社会保障", "人口变迁", "公共财政"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "74acf28f-73b4-4bba-b3df-2af12bc416d2",
+      "msgIds": ["518562a7-1a94-4803-b6f3-ad4ffc499e04", "b302c525-2850-401c-91eb-a095ec1874e2", "9f74ca25-36d8-4253-b95a-a41dac006a14"],
+      "subject": "职位名称清洗函数迭代",
+      "std": "分析招聘数据处理代码，构建以 job_names 为输入、输出唯一清洗后职位名称的函数，并持续补充清洗模式与规则、修复清洗效果差的边界案例。",
+      "kinds": ["数据处理", "代码调试"],
+      "tags": ["职位名称清洗", "数据清洗", "正则表达式", "招聘数据"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "74f90758-248f-40f6-a3f0-70439c9a4ef8",
+      "msgIds": ["019be006-8ae7-70ac-a6de-dae2a406f9e2", "019be00a-9e9f-70df-a174-6bdc4b4be814"],
+      "subject": "PromptBuilder 模块化改造",
+      "std": "按附件任务书把出题系统的 PromptBuilder 改造成可插拔的模块化构建器：按题型与题型难度等输入参数只组装相关的 prompt 模块，以减少 token 消耗和信息干扰，并补上 get_details 的逻辑。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["提示工程", "模块化重构", "出题系统"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "75722916-6419-42bf-874a-53b59c9ef6f3",
+      "msgIds": ["bdb54115-0f6e-42eb-8108-64c23ba5053e"],
+      "subject": "学术政策实体抽取 PROMPT 改进",
+      "std": "改进实体抽取 prompt：判断每个提取的实体是否需要抽象、是否需要保留，把保研、综测等口语化实体转化为高校专业术语，并补充示例。",
+      "kinds": ["技术实现"],
+      "tags": ["提示工程", "实体抽取", "术语归一化", "高校政策"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "75e19329-6309-4a05-8aa4-d6b9f11dc2e5",
+      "msgIds": ["019b7e5c-be40-7538-b55b-25c55dc20804"],
+      "subject": "epub2notion 导入效果优化",
+      "std": "完善 EPUB 解析并存入 Notion 嵌套页面的项目：更全面地解析 EPUB（含图片导入 Notion）、充分利用 quote 等 Notion 元素增强阅读体验、改善 blocks 超限截断导致的内容缺失，并给出代码。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["EPUB", "Notion API", "嵌套页面", "内容转换"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "75e19329-6309-4a05-8aa4-d6b9f11dc2e5",
+      "msgIds": ["019b7e80-49a8-70a5-b054-40eb01499520"],
+      "subject": "ar5iv2notion 仓库构建",
+      "std": "参考已有 ar5iv 与 epub2notion 代码构建 ar5iv2notion：输入 arXiv id 提取标题作者，用 quote、table 等元素写入 Notion，再用 arXiv API 抓取参考文献并建子页面。",
+      "kinds": ["技术实现"],
+      "tags": ["arXiv", "Notion API", "文献抓取", "内容转换"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "75e19329-6309-4a05-8aa4-d6b9f11dc2e5",
+      "msgIds": ["019b7e85-ce5e-72f5-b6c1-f8d2b25db89a", "019b8108-905d-7511-b186-c24c7823e44c"],
+      "subject": "项目文件清点补齐打包",
+      "std": "列出 ar5iv-to-notion 与 notion-plugins 项目中已完成与未完成的文件，继续补齐剩余文件并打包成 zip 供下载。",
+      "kinds": ["技术实现"],
+      "tags": ["项目清点", "代码交付", "打包"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "75e19329-6309-4a05-8aa4-d6b9f11dc2e5",
+      "msgIds": ["019b7e8f-4b66-739c-8955-e39d2cdb9659"],
+      "subject": "Notion 插件产品设计与调研",
+      "std": "设计两个 Notion 插件（传入 EPUB 在当前或指定页面创建一本书的嵌套页面；传入 arXiv id 创建论文页面并含参考文献子页面），并做市场调研、产品设计与发布到 Notion 市场的方案。",
+      "kinds": ["方案设计", "研究调研"],
+      "tags": ["Notion插件", "产品设计", "市场调研", "发布计划"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "75e71aeb-a240-4c6a-97e0-bb9b214492ba",
+      "msgIds": ["01a0476e-3071-7fcc-8bd5-99a71c9ec847"],
+      "subject": "招聘需求与技术栈对比分析",
+      "std": "搜索调查 BOSS 直聘上 AI 初创公司与大公司的招聘需求，分别分析对应的技术栈、盈利模式以及大公司新部门的方向，产出两份 markdown。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["招聘分析", "技术栈", "盈利模式", "BOSS直聘"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "75fb7a3e-c1c8-4b72-8d70-e0052cca2f41",
+      "msgIds": ["019afbe1-29a0-7514-9855-8f744684c3e9"],
+      "subject": "知识树 AI 出题系统设计",
+      "std": "按附件设计基于知识树结构的 AI 出题系统：点题、路径题与综合题三类题型的生成方式。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["AI出题", "知识树", "教育技术", "系统设计"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "76dc0fcc-ed28-4dfe-a347-63194aa3dda9",
+      "msgIds": ["019d7ff6-cf6c-7a78-b81a-e16429e56738", "019d8111-9fb6-7fac-98e3-a1d350da1d53"],
+      "subject": "统计学发展史与经典论文",
+      "std": "梳理统计学的发展史与推动学科发展的经典论文，先逐个列出详细的时间线，再逐篇产出深度科普文章。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["统计学史", "经典论文", "科普写作", "时间线"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "76eb3ce1-ac77-4a8c-a461-ee8ae3ee03ba",
+      "msgIds": ["019d09be-fcaf-7e77-96b7-7e7d46bb9a23", "019d09cb-ecc2-73f6-8088-bdb3e9d22b59", "019d09d7-77b0-79b4-ae24-35ac42ef00ae"],
+      "subject": "Manim 梯形面积教学动画",
+      "std": "按附件《Manim 数学教学动画生成专业指南》与任务定义，为五年级梯形面积公式一课生成 Manim 教学动画：研读技能文档、产出 storyboard.md 分镜脚本并完成验证实现，输出 1080×1920 竖屏视频代码。",
+      "kinds": ["技术实现", "内容写作"],
+      "tags": ["Manim", "数学教学动画", "分镜脚本", "短视频"],
+      "hasAttachment": true
+    }
+  ]
+}

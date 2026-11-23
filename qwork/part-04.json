@@ -1,0 +1,717 @@
+{
+  "chunk": 4,
+  "questions": [
+    {
+      "convId": "19f78b1c-2974-49af-a26c-78b2be573f7c",
+      "msgIds": [
+        "019c0378-79c5-7653-826a-dc975d3c8b40"
+      ],
+      "subject": "百度千帆网页搜索客户端",
+      "std": "参照给定的 curl 调用示例（/v2/ai_search/web_search）与返回结构，开发封装百度千帆 AI 搜索网页搜索接口的客户端类，并整合附件中的搜索结果转换实现。",
+      "kinds": [
+        "技术实现"
+      ],
+      "tags": [
+        "百度千帆",
+        "搜索API",
+        "HTTP客户端",
+        "Python工程"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1abd8ca2-8325-4ca6-a4f0-f68149dcc928",
+      "msgIds": [
+        "019b4f6f-2df9-751d-befd-eb05580577e9"
+      ],
+      "subject": "planTags 模板互斥重构",
+      "std": "根据附件中的反馈重构 Python services 模块：修正 planTags 与 template 互斥的业务逻辑，并移除 EXTRACTION_PROMPT_TEMPLATE 及针对 planTags 的提取逻辑。",
+      "kinds": [
+        "技术实现"
+      ],
+      "tags": [
+        "代码重构",
+        "AI教案生成",
+        "业务逻辑",
+        "提示词模板"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1b69dbd2-7e93-4df5-9cdd-227a629100d2",
+      "msgIds": [
+        "019eaa5c-0fce-7765-a3cf-c033f7e828a8",
+        "019eaa61-cebb-7986-8cc2-5acd5b2b2dbf"
+      ],
+      "subject": "广告投放流程设计与前端",
+      "std": "分析广告投放流程图，梳理 DSP 竞价、ECPM 出价到投放数据回传的完整链路并完成投放流程设计，随后构建对应的前端界面设计。",
+      "kinds": [
+        "方案设计",
+        "技术实现"
+      ],
+      "tags": [
+        "广告投放",
+        "程序化广告",
+        "DSP",
+        "流程设计"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1b69dbd2-7e93-4df5-9cdd-227a629100d2",
+      "msgIds": [
+        "019eaa5c-0fce-7765-a3cf-c033f7e828a8"
+      ],
+      "subject": "广告投放术语讲解文档",
+      "std": "编写广告投放术语讲解文档，解释 DSP、ADX、OCPD、ECPM、SSP、RTA 等概念。",
+      "kinds": [
+        "学习理解",
+        "内容写作"
+      ],
+      "tags": [
+        "广告投放",
+        "术语解释",
+        "程序化广告",
+        "DSP"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1be77f36-dbe3-49af-b415-09343fe702b1",
+      "msgIds": [
+        "019b59ac-e2f0-7052-95cb-841384f180be"
+      ],
+      "subject": "论文聚合系统整体构建",
+      "std": "构建 HuggingFace Papers 聚合系统：按月抓取 votes>50 论文存 JSONL，提取 ar5iv 正文，用 ollama qwen3:0.6b 做分类、关键词与 labels 提取，并写入 Notion 页面与数据库。",
+      "kinds": [
+        "技术实现",
+        "数据处理"
+      ],
+      "tags": [
+        "论文聚合",
+        "HuggingFace",
+        "网页抓取",
+        "Ollama",
+        "Notion"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1be77f36-dbe3-49af-b415-09343fe702b1",
+      "msgIds": [
+        "019b59c7-9060-7640-b912-d873747030a7"
+      ],
+      "subject": "改进 scraper_hf 抓取脚本",
+      "std": "结合附件中 HuggingFace papers 页面的 HTML 结构，改进 scraper_hf.py 抓取脚本。",
+      "kinds": [
+        "技术实现"
+      ],
+      "tags": [
+        "网页抓取",
+        "HuggingFace",
+        "BeautifulSoup",
+        "论文聚合"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1be77f36-dbe3-49af-b415-09343fe702b1",
+      "msgIds": [
+        "019b59f9-8ba3-76f5-ab92-ceb2b5d040f6"
+      ],
+      "subject": "Notion 连接 404 排查",
+      "std": "排查并修复 Notion 连接失败问题：调用 api.notion.com 时返回 404 Not Found。",
+      "kinds": [
+        "代码调试"
+      ],
+      "tags": [
+        "Notion",
+        "API调试",
+        "论文聚合",
+        "报错修复"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1be77f36-dbe3-49af-b415-09343fe702b1",
+      "msgIds": [
+        "019b5a01-20b7-752d-9161-87a532896f3c",
+        "019b5a04-63fd-7428-8b46-c7e53fb317ba",
+        "019b5a13-049c-76af-8a16-cb46ff8251d7"
+      ],
+      "subject": "Notion 创建页面 400 修复",
+      "std": "修复向 Notion 创建论文页面（如 1706.03762）时反复出现的 400 Bad Request 错误并改正相关代码。",
+      "kinds": [
+        "代码调试"
+      ],
+      "tags": [
+        "Notion",
+        "API调试",
+        "论文聚合",
+        "报错修复"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1be77f36-dbe3-49af-b415-09343fe702b1",
+      "msgIds": [
+        "019b5a07-b881-725e-8d31-0e5574fc100b"
+      ],
+      "subject": "自动创建 Notion 数据库属性",
+      "std": "让 notion_client.py 自动创建数据库缺失的推荐属性（Paper ID、Authors、Category、Keywords、Labels、Upvotes 等），不再依赖手动添加。",
+      "kinds": [
+        "技术实现",
+        "工具环境"
+      ],
+      "tags": [
+        "Notion",
+        "数据库Schema",
+        "论文聚合",
+        "自动化"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1be77f36-dbe3-49af-b415-09343fe702b1",
+      "msgIds": [
+        "019b5b79-7be4-74f1-8c1d-eea9a9820279"
+      ],
+      "subject": "分阶段重构论文系统代码",
+      "std": "分阶段逐文件重构论文聚合系统：代理管理抓取 HuggingFace 存 JSONL、抓取 ar5iv、写入 Notion（注意 schema）、LLM 处理，各阶段可保存状态重跑；采用 CleanRL 设计原则与 asyncio 并发 3。",
+      "kinds": [
+        "方案设计",
+        "技术实现"
+      ],
+      "tags": [
+        "代码架构",
+        "CleanRL",
+        "代理管理",
+        "asyncio",
+        "论文聚合"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1bf3ef0e-537c-46b4-82f0-3fe38063fd7e",
+      "msgIds": [
+        "019ae285-b45c-7086-9a56-8fa3f9020f11"
+      ],
+      "subject": "Embedding 服务与递归文本切分",
+      "std": "构建 embedding 部署项目：分批 batch_size=32 处理 textList，短文本直接取向量，长文本先按标点切句，再以 chunk_size=512、overlap 64 递归切分，overlap 须为完整句子。",
+      "kinds": [
+        "技术实现",
+        "数据处理"
+      ],
+      "tags": [
+        "文本切分",
+        "Embedding",
+        "批处理",
+        "Python工程"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1bf3ef0e-537c-46b4-82f0-3fe38063fd7e",
+      "msgIds": [
+        "019ae296-54f7-77b3-9aa0-91a96b0cb7c4"
+      ],
+      "subject": "补齐 README 测试与启动脚本",
+      "std": "为 embedding 服务项目补充 README.md、test.py 与 gunicorn 启动脚本。",
+      "kinds": [
+        "技术实现",
+        "工具环境"
+      ],
+      "tags": [
+        "Embedding",
+        "工程化",
+        "测试",
+        "文档"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1bfd88b9-f37a-44b1-9b24-bcff574ca037",
+      "msgIds": [
+        "b393e902-52c6-449b-90a3-aab5eb5510d9",
+        "de6fad09-1ec8-4f00-bf90-1c71c7806b2b",
+        "2ce22a34-a7fc-4380-b483-8ec888900f8e",
+        "7ca0b4ee-2c29-4858-88c7-f9a302db85e3"
+      ],
+      "subject": "分析停用词与实体提取代码",
+      "std": "详细分析附件 paste.txt（约 5KB 代码）中停用词集与实体/关键词提取逻辑的实现与问题。",
+      "kinds": [
+        "分析评估",
+        "学习理解"
+      ],
+      "tags": [
+        "代码分析",
+        "停用词",
+        "实体提取",
+        "文本处理"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1cebd95e-139a-490b-a235-a4f50ab9def4",
+      "msgIds": [
+        "e7da35e0-7b41-4d2a-93a8-bf9602851cd8"
+      ],
+      "subject": "RAG 提示词增加思考与 JSON 规则",
+      "std": "为 RAG_FLOW 统一查询分析与改写提示词新增两条规则：用指定标签展示思考过程，并用指定标签输出 JSON 格式的最终答案。",
+      "kinds": [
+        "内容写作",
+        "技术实现"
+      ],
+      "tags": [
+        "提示词工程",
+        "RAG",
+        "查询改写",
+        "JSON输出"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1cebd95e-139a-490b-a235-a4f50ab9def4",
+      "msgIds": [
+        "759726e3-ec9e-4e6c-b3aa-1d3e435d0496"
+      ],
+      "subject": "优化查询语句优化阶段提示词",
+      "std": "改进提示词中「第三阶段：查询语句优化」的流程，使其处理多意图与多主体查询：确定问题类型与数量、提取实体关键词并细节化替换扩充、按意图数量返回单个或多个格式化查询。",
+      "kinds": [
+        "内容写作",
+        "技术实现"
+      ],
+      "tags": [
+        "提示词工程",
+        "查询改写",
+        "多意图",
+        "RAG"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1cebd95e-139a-490b-a235-a4f50ab9def4",
+      "msgIds": [
+        "a7d76eab-98f5-423f-b844-83057f26c58f",
+        "976caa60-9f52-45c8-bbcb-e18a5c8d86a1"
+      ],
+      "subject": "输出完整 RAG_FLOW 提示词",
+      "std": "根据以上改动给出完整的 RAG_FLOW 提示词全文。",
+      "kinds": [
+        "内容写作"
+      ],
+      "tags": [
+        "提示词工程",
+        "RAG",
+        "查询改写"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1d2a25fa-90e7-45b0-b8d2-331f60860bb4",
+      "msgIds": [
+        "019e95e5-abeb-735c-a993-88f6c3d8d88d"
+      ],
+      "subject": "金融风控变量漂移监控方案",
+      "std": "深度调研并设计金融风控领域基于日志数据的自动化监控方案，用于检测和预警模型变量漂移。",
+      "kinds": [
+        "研究调研",
+        "方案设计"
+      ],
+      "tags": [
+        "金融风控",
+        "模型监控",
+        "变量漂移",
+        "日志分析"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e00c280-5c8c-4f10-85f7-00d842378809",
+      "msgIds": [
+        "019d2428-cf38-74cd-b4b8-f6b5c3a6bfaf"
+      ],
+      "subject": "景德镇卡地克瓷瓦调研",
+      "std": "从多个角度搜索调查景德镇卡地克瓷瓦的品牌与产品信息。",
+      "kinds": [
+        "研究调研"
+      ],
+      "tags": [
+        "瓷瓦品牌",
+        "景德镇",
+        "市场调研",
+        "抖音运营"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e00c280-5c8c-4f10-85f7-00d842378809",
+      "msgIds": [
+        "019d2428-cf38-74cd-b4b8-f6b5c3a6bfaf"
+      ],
+      "subject": "AI 短剧与电影级制作经验调研",
+      "std": "搜索调查 AI 短剧制作经验（包含 Seedance 提示词经验）与电影级制作经验。",
+      "kinds": [
+        "研究调研"
+      ],
+      "tags": [
+        "AI短剧",
+        "Seedance",
+        "视频制作",
+        "提示词工程"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e00c280-5c8c-4f10-85f7-00d842378809",
+      "msgIds": [
+        "019d2428-cf38-74cd-b4b8-f6b5c3a6bfaf"
+      ],
+      "subject": "抖音热门短视频配音调研",
+      "std": "搜集近期较火的抖音短视频配音，梳理可用的配音风格与素材。",
+      "kinds": [
+        "研究调研"
+      ],
+      "tags": [
+        "抖音运营",
+        "短视频配音",
+        "内容创作"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e00c280-5c8c-4f10-85f7-00d842378809",
+      "msgIds": [
+        "019d2428-cf38-74cd-b4b8-f6b5c3a6bfaf"
+      ],
+      "subject": "卡地克抖音账号内容构建",
+      "std": "基于上述调研结果，为抖音「卡地克」瓷瓦账号深度构建内容方案。",
+      "kinds": [
+        "方案设计",
+        "内容写作"
+      ],
+      "tags": [
+        "抖音运营",
+        "短视频内容",
+        "瓷瓦品牌",
+        "账号定位"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e00c280-5c8c-4f10-85f7-00d842378809",
+      "msgIds": [
+        "019d2466-757b-7c9d-b934-fe01e075411c",
+        "019d246a-f05c-79d4-9ccb-e9ed06a82c3f",
+        "019d2529-86f5-77d5-8dad-c6ff8f5227ec"
+      ],
+      "subject": "卡地克短剧分镜脚本撰写",
+      "std": "使用 kadike-prompt skill 撰写卡地克瓷瓦短剧脚本：以小镇妈妈让儿子搬瓦、「搬瓦累还是读书累」开场，包含 logo 面特写与录取通知书桥段，logo 写作「卡地克」，保留妈妈提问台词并去掉「好瓦托起好家，好家出好儿」。",
+      "kinds": [
+        "内容写作"
+      ],
+      "tags": [
+        "AI短剧",
+        "分镜脚本",
+        "瓷瓦品牌",
+        "抖音运营"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e19b100-ac47-4e3a-beb8-f1e59a4d1ecc",
+      "msgIds": [
+        "ffc072a6-f6dc-45ea-94f9-103a247ad85b"
+      ],
+      "subject": "论文逐步极详细解析提取",
+      "std": "逐步极详细地分析论文，并提取模型结构、数据结构与数据集、实验设置、不同 ablation 实验对比以及图表分析。",
+      "kinds": [
+        "分析评估",
+        "研究调研"
+      ],
+      "tags": [
+        "论文解析",
+        "Ablation实验",
+        "实验设置",
+        "图表分析"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e19b100-ac47-4e3a-beb8-f1e59a4d1ecc",
+      "msgIds": [
+        "ffc072a6-f6dc-45ea-94f9-103a247ad85b"
+      ],
+      "subject": "Ablation 实验项目框架设计",
+      "std": "设计支持 ablation study 的项目框架与代码分类：采用 factory 模式，输出 figures、tensorboard、loguru 日志与 config yaml，并逐文件逐 artifact 给出工业级代码。",
+      "kinds": [
+        "方案设计",
+        "技术实现"
+      ],
+      "tags": [
+        "代码架构",
+        "Factory模式",
+        "实验管理",
+        "Python工程"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e726aa2-8b97-464c-983c-6a803ec19601",
+      "msgIds": [
+        "69f148bf-28b1-4a23-b4d9-30bdd20e4fa6"
+      ],
+      "subject": "结构化提示词模板构建",
+      "std": "按 Role、Profile、Goals、Constrains、Skills、Workflow、Initialization 的结构，构建用于小红书数学主题内容创作的提示词。",
+      "kinds": [
+        "内容写作"
+      ],
+      "tags": [
+        "提示词工程",
+        "结构化模板",
+        "小红书",
+        "数学内容"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1e985953-2ae0-42b9-a238-75371f069ac1",
+      "msgIds": [
+        "019d42b3-2b05-7e17-bd2b-8e067f285b67",
+        "019d4496-4b56-7482-b165-fd04a28018f4",
+        "019d4498-2391-74ee-a436-1e20f8dffe49",
+        "019d449a-2aaa-71c9-9437-88ae021728e2",
+        "019d449b-e5cb-74bd-84d7-298b4e22ad32",
+        "019d44a3-32e6-76d5-a252-46c3573d85c0",
+        "019d44a4-dbf8-76f9-87a9-6ff13cb6d1f4",
+        "019d44a6-d37c-742d-93f4-6c78e48eecdd",
+        "019d44a7-e4b5-7548-9afe-5be6304a64d0",
+        "019d44ab-448a-75f4-8e03-a61a33f1119f",
+        "019d44ad-a781-7480-a009-60be3aaeda71",
+        "019d47b7-e581-7b59-87e3-ca22c0be8d71"
+      ],
+      "subject": "MCP UI 标准详解与对比",
+      "std": "详解 MCP UI 是什么、能有什么作用、涉及哪些标准，并展开各标准的诞生背景、所解决的问题及对比分析，配合中文可视化图表深入讲解。",
+      "kinds": [
+        "学习理解",
+        "研究调研"
+      ],
+      "tags": [
+        "MCP",
+        "UI标准",
+        "协议对比",
+        "AI Agent"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1eaf67d5-e564-4494-9678-87a7a6fa5f27",
+      "msgIds": [
+        "019ebf04-f18f-7493-bb5b-4cc8c63ad8ec"
+      ],
+      "subject": "隐性知识转显性方法论 Skill",
+      "std": "构建一个隐性知识转显性知识的 skill：输入职场的会议、演讲报告与聊天记录，挖掘其中的隐性知识，做深度复盘与整合，最终提炼一系列方法论，并覆盖不同场景下的 reference。",
+      "kinds": [
+        "方案设计",
+        "内容写作"
+      ],
+      "tags": [
+        "隐性知识",
+        "方法论提炼",
+        "技能设计",
+        "知识管理"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1fe4a4f3-288b-4333-b33a-9e08f0b99282",
+      "msgIds": [
+        "293b54e8-f34b-4608-a450-30be3c6404c6",
+        "e5610b54-d3a4-4a93-84fc-e44cd6a7df73"
+      ],
+      "subject": "关键词提取提示词构建",
+      "std": "构建从文本中提取关键词（尤其是专业关键词）的提示词，输出 JSON，包含 ordinaryKeywords 与 professionalKeywords 两个字段。",
+      "kinds": [
+        "内容写作",
+        "技术实现"
+      ],
+      "tags": [
+        "提示词工程",
+        "关键词提取",
+        "JSON输出",
+        "文本处理"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "20135430-100f-427c-a861-d9e7b8d3cff5",
+      "msgIds": [
+        "15e05f46-9b3f-4fe3-bdcb-a46397defbef"
+      ],
+      "subject": "改进日志系统 Log 类",
+      "std": "改写并改进给定的 Log 日志系统类代码：负责检查与创建日志目录，记录系统各类信息与异常。",
+      "kinds": [
+        "技术实现",
+        "代码调试"
+      ],
+      "tags": [
+        "代码重构",
+        "日志系统",
+        "Python工程"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "20135430-100f-427c-a861-d9e7b8d3cff5",
+      "msgIds": [
+        "51c563b6-e2dd-4626-9a70-6a033e3e3a4d"
+      ],
+      "subject": "逐步改进计时装饰器代码",
+      "std": "逐步改写并改进给定代码：print_func_time 计时装饰器，以及基于 Lock、datetime 与 logger 的工具实现。",
+      "kinds": [
+        "技术实现",
+        "代码调试"
+      ],
+      "tags": [
+        "代码重构",
+        "装饰器",
+        "Python工程"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "20135430-100f-427c-a861-d9e7b8d3cff5",
+      "msgIds": [
+        "e2158cab-06f9-4d6c-a0c3-1e6e694bd387"
+      ],
+      "subject": "改进 rewrite_query 函数",
+      "std": "在已知被调用的函数均已实现的前提下，分析并改进 rewrite_query 函数：查询同义改写、从上下文提取专业/学院信息、按 rewrite_type 选择不同提示模板。",
+      "kinds": [
+        "分析评估",
+        "技术实现"
+      ],
+      "tags": [
+        "代码重构",
+        "查询改写",
+        "RAG",
+        "Python工程"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "2062ebf7-4325-4541-b944-4bb7c457dcab",
+      "msgIds": [
+        "019b4584-74eb-7323-9a87-d830806267d9"
+      ],
+      "subject": "知识转视频流程图提示词设计",
+      "std": "为「知识内容输入 → AI 生成 mermaid 流程图 → 用户交互编辑 → AI 迭代优化 → 节点转 scenes → Manim 渲染 → 视频输出」的流程，设计面向不同学科的提示词与 few-shot 示例。",
+      "kinds": [
+        "方案设计",
+        "内容写作"
+      ],
+      "tags": [
+        "提示词工程",
+        "Mermaid流程图",
+        "Manim",
+        "Few-shot",
+        "视频生成"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "2062ebf7-4325-4541-b944-4bb7c457dcab",
+      "msgIds": [
+        "019b4584-74eb-7323-9a87-d830806267d9"
+      ],
+      "subject": "知识转视频系统代码架构",
+      "std": "设计知识转视频流程图系统的代码分类与架构，并逐文件逐个 artifact 给出实现（含 OpenAI API Key、Base URL 与模型配置）。",
+      "kinds": [
+        "方案设计",
+        "技术实现"
+      ],
+      "tags": [
+        "代码架构",
+        "视频生成",
+        "Manim",
+        "Python工程"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "208050de-7b3e-4386-b11b-8bd82abdeeb0",
+      "msgIds": [
+        "019d683e-5000-7380-99b2-b17c9fe071f9"
+      ],
+      "subject": "LLM wiki 组件详细分析",
+      "std": "结合附件中的 LLM Wiki 说明，详细分析该模式（由 LLM agent 维护的持续累积个人知识库）的实现细节，拆解为各个组件逐一展开。",
+      "kinds": [
+        "学习理解",
+        "分析评估"
+      ],
+      "tags": [
+        "LLM wiki",
+        "个人知识库",
+        "组件分析",
+        "AI Agent"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "208050de-7b3e-4386-b11b-8bd82abdeeb0",
+      "msgIds": [
+        "019d6a84-cd3c-7658-bde6-5a75a1009073"
+      ],
+      "subject": "贝叶斯视角重构 LLM wiki 更新",
+      "std": "结合贝叶斯定理的更新思想，分析新的 raw 文件与 QA 数据进入时 llm-wiki 应如何更新迭代，并重新考虑与搭建整个体系，拆解各子系统与子组件。",
+      "kinds": [
+        "方案设计",
+        "分析评估"
+      ],
+      "tags": [
+        "LLM wiki",
+        "贝叶斯更新",
+        "知识库迭代",
+        "系统设计"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "20e8cf78-66a4-492c-833f-fd36fa73cebd",
+      "msgIds": [
+        "019e9738-e3eb-764e-a19d-ba6e7fe3919b"
+      ],
+      "subject": "AI Agent 沙箱核心技术调研",
+      "std": "深度调研与分析 AI Agent sandbox 的核心技术、前沿新技术与关键设计。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "AI Agent",
+        "Sandbox",
+        "沙箱隔离",
+        "前沿技术"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "21c04d30-b7e1-43ca-9f73-1732ba932422",
+      "msgIds": [
+        "019d90ff-dca4-7907-8ef8-c9b4709fa563"
+      ],
+      "subject": "各语言 LSP 工具调研",
+      "std": "详细调研各主流编程语言的 LSP 工具，分别分析不同版本的构建方式与使用方式。",
+      "kinds": [
+        "研究调研",
+        "工具环境"
+      ],
+      "tags": [
+        "LSP",
+        "语言服务器",
+        "开发工具",
+        "编辑器集成"
+      ],
+      "hasAttachment": false
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateWork } from '../tools/questions-lib.mjs';
+import { validateWork, shardFiles } from '../tools/questions-lib.mjs';
 
 const slice = { chunk: 0, convs: [{ convId: 'c1', msgs: [{ id: 'm1' }, { id: 'm2' }] }] };
 const q = {
@@ -41,4 +41,12 @@ test('不再要求 orig（原文由合并阶段还原），但仍要求 std 与 
 
 test('hasAttachment 必须是布尔', () => {
   assert.equal(validateWork(wrap({ ...q, hasAttachment: 'true' }), slice).ok, false);
+});
+
+test('shardFiles 把 part-20 的各分片都算作 chunk 20，不会误吞 part-2', () => {
+  const files = ['part-02.json', 'part-20.json', 'part-20-a.json', 'part-20-b.json', 'part-21.json', 'manifest.json'];
+  assert.deepEqual(shardFiles(files, 20), ['part-20-a.json', 'part-20-b.json', 'part-20.json']);
+  assert.deepEqual(shardFiles(files, 2), ['part-02.json']);
+  assert.deepEqual(shardFiles(files, 21), ['part-21.json']);
+  assert.deepEqual(shardFiles(files, 7), []);
 });

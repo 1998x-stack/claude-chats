@@ -1,0 +1,275 @@
+{
+  "chunk": 0,
+  "questions": [
+    {
+      "convId": "0002442e-81b8-4efd-9904-40e0c67b5367",
+      "msgIds": ["019bb2ad-d3f6-744a-9455-cf930ae0061b"],
+      "subject": "鲁迅《狂人日记》写法调研",
+      "std": "调研《狂人日记》的写作手法与鲁迅式讽刺风格，以及美国「斩杀线」议题的相关背景资料。",
+      "kinds": ["研究调研"],
+      "tags": ["文学写作", "鲁迅", "讽刺文学", "政策议题"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0002442e-81b8-4efd-9904-40e0c67b5367",
+      "msgIds": ["019bb2ad-d3f6-744a-9455-cf930ae0061b"],
+      "subject": "仿《狂人日记》讽刺美国斩杀线",
+      "std": "依照《狂人日记》的写作手法创作一篇文章，讽刺美国的「斩杀线」现象。",
+      "kinds": ["内容写作"],
+      "tags": ["文学写作", "鲁迅", "讽刺文学", "政策议题"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0002442e-81b8-4efd-9904-40e0c67b5367",
+      "msgIds": ["019bb2be-3e33-72ee-a666-1bb32f6acc05"],
+      "subject": "润美华人「甜甜圈」事迹调研",
+      "std": "搜索调查赴美华人「甜甜圈」的相关事迹，作为仿写《阿Q正传》风格文章的素材。",
+      "kinds": ["研究调研"],
+      "tags": ["文学写作", "阿Q正传", "海外华人", "素材调研"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0002442e-81b8-4efd-9904-40e0c67b5367",
+      "msgIds": ["019bb2be-3e33-72ee-a666-1bb32f6acc05"],
+      "subject": "仿《阿Q正传》写精神胜利法",
+      "std": "模仿《阿Q正传》的讽刺风格写一篇文章，塑造信奉「美国梦」却以精神胜利法自我安慰的人物形象。",
+      "kinds": ["内容写作"],
+      "tags": ["文学写作", "阿Q正传", "讽刺文学", "精神胜利法"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "004a9139-6375-48d5-89c7-ece9ac7dd19b",
+      "msgIds": ["019ef9aa-d227-72ee-b636-f03d19624dc6", "019efc3d-e2bf-74bb-a2a8-e60794ef8dd4"],
+      "subject": "Text2SQL 论文博客仓库调研",
+      "std": "对 Text2SQL 相关论文、工程博客与 GitHub 仓库做详细调研，深入分析细节内容并分类整理成系列文档。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["Text2SQL", "NL2SQL", "文献调研", "开源仓库"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "009d64e5-a2e9-43c4-b44d-d9873c7e2668",
+      "msgIds": ["7881e573-a616-4f24-812b-315fb134c0e7"],
+      "subject": "LeetMath 重复训练系统设计",
+      "std": "结合 LeetMath 项目文档与数据库 schema（如 tags），调研 Anki 类复习产品的做法，设计一套重复训练系统与类 Anki 卡片网站方案。",
+      "kinds": ["方案设计", "研究调研"],
+      "tags": ["间隔重复", "Anki", "数据库设计", "数学学习", "产品调研"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "00f3886a-b213-40c6-a823-5a046627f2ab",
+      "msgIds": ["019d3512-2509-79e3-8bd3-1fc67375a242"],
+      "subject": "Ralph-loop 核心框架深度调研",
+      "std": "深度调查 Ralph-loop（Ralph Wiggum 技术）skill 的核心内容框架，逐部分展开讲解，并输出一篇专业技术博客和一篇面向大众的科普博客。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["Ralph-loop", "AI Agent", "自主编码", "技术博客"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "00f3886a-b213-40c6-a823-5a046627f2ab",
+      "msgIds": ["019d5bfc-8c0c-7c8d-a9b4-fabeb861a769"],
+      "subject": "ralph-loop skill 结构与循环原理",
+      "std": "说明 ralph-loop 的核心架构与代码框架，给出完整 skill 内容组织（skill.md、scripts/、references/），并解释它持续循环的实现原理。",
+      "kinds": ["技术实现", "学习理解"],
+      "tags": ["Ralph-loop", "AI Agent", "技能设计", "循环控制"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0126c6e9-2c16-4df2-9122-f5915e1a5222",
+      "msgIds": ["6cf9efb0-8f4b-4e96-aae5-0529517ca0d9"],
+      "subject": "正十七边形尺规作图证明",
+      "std": "证明正十七边形可以尺规作图，要求不使用分析工具、尽量自行推导完成证明。",
+      "kinds": ["学习理解"],
+      "tags": ["尺规作图", "几何证明", "数论", "数学证明"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "015a5677-8714-41d5-8f4f-43818887c693",
+      "msgIds": ["019c9b7b-a72f-7c7c-86a2-210c71626ac0", "019c9b7c-3f12-7088-aa9b-767f9675d1d1"],
+      "subject": "长时运行 Agent harness 原理调研",
+      "std": "深度搜索并思考 Anthropic 关于长时运行智能体 harness 设计文章的底层原理与机制，从各个方面全面展现并输出文档。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["harness", "长时运行Agent", "上下文工程", "Anthropic"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "015a5677-8714-41d5-8f4f-43818887c693",
+      "msgIds": ["019c9b7b-a72f-7c7c-86a2-210c71626ac0", "019c9b7c-3f12-7088-aa9b-767f9675d1d1", "019c9b8a-5a0a-7ee4-9ef1-35643b139d80"],
+      "subject": "构建 Harness engineering skill",
+      "std": "综合 Anthropic 与 OpenAI 关于 harness engineering 的文章内容，用 skill creator 构建一个可下载的 long-running.skill，并注意自检。",
+      "kinds": ["技术实现", "工具环境"],
+      "tags": ["harness", "技能设计", "skill-creator", "Agent工程"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0171573d-5c93-4a09-b907-6434a145c5a2",
+      "msgIds": ["019cd6c5-3272-756d-83ba-ef53abbca09f"],
+      "subject": "Python 项目知识图谱生成系统",
+      "std": "设计并实现 Python 项目知识图谱生成系统：输入项目路径，用 AST 构建依赖、调用、包含等关系，以函数为核心并预留扩展接口（factory 模式）。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["知识图谱", "AST", "Python", "代码分析", "依赖关系"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0241e3f9-50da-48ff-b9fe-e4e1df95ef12",
+      "msgIds": ["019ecf85-39b9-7146-a58a-4414eeb7b66a"],
+      "subject": "工业级 Excel 解析与 RAG 检索",
+      "std": "调研工业级场景下异构 Excel（如汽车信息管理各组件）的处理难点与常见陷阱，设计一套 Excel 解析清洗方案以支撑 RAG 检索分析。",
+      "kinds": ["研究调研", "方案设计"],
+      "tags": ["Excel解析", "RAG", "数据清洗", "异构数据", "工业场景"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "027bf93b-aa00-4f74-b7b5-a1e4ad5519d9",
+      "msgIds": ["019d6c91-de9b-710c-a7ee-4ed87d9edc5c", "019d6c93-1712-732f-835f-d59b614f50d2"],
+      "subject": "从零构建超时空要塞游戏",
+      "std": "依据附件中的《超时空要塞（Macross Fortress）》游戏构建任务书，由 Code Agent 从零还原并实现这款 3D 隧道飞行射击游戏。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["游戏开发", "超时空要塞", "Lua", "UrhoX", "飞行射击"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0282fd86-8006-442f-bb80-8d7b59f78d5a",
+      "msgIds": ["1a941fd2-5c95-48fb-9782-4dd50b4ad957"],
+      "subject": "WebResearcher 论文与 IterSearch",
+      "std": "极为详细地逐步分析 WebResearcher 长程智能体论文，并提取其中的 IterSearch 框架与实验设计（不涉及 RL 微调部分）。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["WebResearcher", "IterSearch", "长程智能体", "论文精读"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0282fd86-8006-442f-bb80-8d7b59f78d5a",
+      "msgIds": ["1a941fd2-5c95-48fb-9782-4dd50b4ad957"],
+      "subject": "IterSearch 项目代码设计",
+      "std": "设计 IterSearch 项目的代码分类与模块结构，按工业级标准逐文件给出完整实现代码（假定已有 OpenAI API 密钥）。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["IterSearch", "项目架构", "代码设计", "工业级实现"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "02e62611-af0e-4c1f-9b78-6954369856a1",
+      "msgIds": ["019b4f88-69c0-7100-868f-5a84b4a84337", "019b4f89-0330-7139-b5b2-ee9d8244125e"],
+      "subject": "Dify 上传与 Milvus 检索系统",
+      "std": "分析附件中 Dify 与 Milvus 的相关代码，构建基于 Dify 文件上传和 Milvus 文档查询的内容检索系统。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["Dify", "Milvus", "RAG", "向量检索", "文件上传"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "039fffd2-e0cd-4187-8e7d-9c693b862bab",
+      "msgIds": ["3001e54a-cb63-485e-ba89-6d62e20c982b"],
+      "subject": "职位专业信息抽取代码分析",
+      "std": "详细分析附件代码中从职位描述提取专业信息的实现逻辑（如 _extract_professional_info），逐层说明其设计思路。",
+      "kinds": ["分析评估", "学习理解"],
+      "tags": ["信息抽取", "职位描述", "文本匹配", "代码分析"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "039fffd2-e0cd-4187-8e7d-9c693b862bab",
+      "msgIds": ["70732a1b-59ef-47e3-b4bb-bf16186f4738"],
+      "subject": "重写职位匹配类与评分输出",
+      "std": "改进并重写该类（重点是 process_job_descriptions），输出职位描述、Category、各专业及相似度评分：类别分超过 90 取该类别全部专业，超过 80 取专业分超过 70 的项。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["信息抽取", "职位描述", "相似度评分", "代码重构"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "03b3b570-2cbe-4600-8d24-d95ca8ef9727",
+      "msgIds": ["b7e74a0e-e827-499a-adbe-434aff66fc61", "4b87a844-023b-4ed6-9743-2183173fd0bb", "c71fcc36-e0a3-4dba-b68a-f433795ecd2f"],
+      "subject": "Python 数据清洗函数与嵌套 JSON",
+      "std": "按附件要求用 Python 实现列表数据的清洗与处理函数，并把处理结果组织成嵌套 JSON 结构输出。",
+      "kinds": ["技术实现", "数据处理"],
+      "tags": ["Python", "数据清洗", "嵌套JSON", "函数实现"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0507249d-5d93-471c-93f4-34fbf9e7ad01",
+      "msgIds": ["92198cfb-297a-43f0-b9e4-fed79c6913ab"],
+      "subject": "知识图谱问答提示词优化",
+      "std": "改进「知识图谱问答分析专家」提示词，使其结构更清晰、表达更规范，同时不遗漏原有的任务说明与节点信息提取要求。",
+      "kinds": ["内容写作", "分析评估"],
+      "tags": ["提示词工程", "知识图谱", "问答系统", "节点抽取"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "05177cac-edd6-4a6e-a81a-d049a80ad28d",
+      "msgIds": ["019c08e4-6ad1-7475-aab3-6031b8ee460d"],
+      "subject": "三角形外心 Manim 动画制作",
+      "std": "利用附件中的 manim skill 资源，制作面向初中生的三角形外心讲解动画视频，适配 TikTok 竖屏并逐步展开题目解答。",
+      "kinds": ["技术实现", "内容写作"],
+      "tags": ["Manim", "动画制作", "初中数学", "几何外心", "竖屏视频"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "05320757-7445-4fa4-856b-6af13c88a49c",
+      "msgIds": ["208aac68-93ae-4291-846d-62d9c350dc44"],
+      "subject": "Rainbow DQN 论文精读",
+      "std": "极为详细地分析 Rainbow DQN 论文，提取模型结构、环境与数据结构、实验设置，以及不同消融实验的对比与图表分析。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["Rainbow DQN", "强化学习", "论文精读", "消融实验"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "05320757-7445-4fa4-856b-6af13c88a49c",
+      "msgIds": ["208aac68-93ae-4291-846d-62d9c350dc44"],
+      "subject": "Rainbow DQN 项目框架与代码",
+      "std": "设计 Rainbow DQN 项目框架，采用 factory 模式支持消融实验，输出图表、TensorBoard 与 loguru 日志，并逐文件给出工业级实现代码。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["Rainbow DQN", "强化学习", "factory模式", "工业级实现", "消融实验"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "05c751d0-410c-455a-9f5a-9054a8fd9d4d",
+      "msgIds": ["8f5c30d2-b72f-4c4c-b784-5045f180362e"],
+      "subject": "Overcooked 游戏逻辑调查",
+      "std": "调查 Overcooked（胡闹厨房）的游戏机制与设计逻辑，梳理其核心玩法要点。",
+      "kinds": ["研究调研"],
+      "tags": ["游戏设计", "Overcooked", "玩法机制", "调研"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "05c751d0-410c-455a-9f5a-9054a8fd9d4d",
+      "msgIds": ["e74feb4b-793e-4540-949b-1c91352ce6ad", "8f5c30d2-b72f-4c4c-b784-5045f180362e", "f62cb0a9-c5a8-4423-b9b9-b782086ffbaa"],
+      "subject": "飞机调度模拟游戏设计",
+      "std": "参考 Overcooked 的游戏逻辑，设计一款飞机调度模拟游戏的方案，并深入思考与规划其实现。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["游戏设计", "飞机调度", "模拟经营", "Overcooked"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "05cd2ee6-f371-4056-add1-261de6761ba5",
+      "msgIds": ["019f3547-17e6-7085-bf43-ad81dd374530"],
+      "subject": "新闻联播分析 skill 构建",
+      "std": "用 skill creator 构建「新闻联播分析」skill：设计 SKILL.md 与 references，数据源采用 cn.govopendata.com 的分日 URL，并在 2026-07-01、07-03、07-05 上测试。",
+      "kinds": ["技术实现", "工具环境"],
+      "tags": ["技能设计", "新闻联播", "skill-creator", "政策分析"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "05d34d17-09a8-4a27-8a67-a09d41570fd6",
+      "msgIds": ["e5974f77-22b6-4deb-815d-d021252f3574", "910b164f-3d11-4b17-8cf4-c2bdb11e7d2c", "1d38a1e7-ce39-4349-83ba-324153d57097", "db079124-988e-46a2-863e-dba6792326b1"],
+      "subject": "Query 改写提示词改进",
+      "std": "改进 Query 改写提示词：按 5W2H 确定问题类型与数量、判断 query 与 context 相关性并抽取实体，补充 few-shot 示例与实体抽象规则（如把口语化表述转为高校专业术语）。",
+      "kinds": ["内容写作", "分析评估"],
+      "tags": ["提示词工程", "Query改写", "RAG", "实体抽取", "few-shot"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "05f7fe8b-15c9-4b65-9971-341ae83f969d",
+      "msgIds": ["eb29d2ef-6ac1-4a9b-86dd-44184429e010", "fe2d5115-aa09-4dea-a3e6-fa29fc44391e"],
+      "subject": "ResNet 论文精读",
+      "std": "极为详细地分析 ResNet 论文，提取模型结构、数据集与数据结构、实验设置，以及不同消融实验的对比与图表分析。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["ResNet", "计算机视觉", "论文精读", "消融实验"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "05f7fe8b-15c9-4b65-9971-341ae83f969d",
+      "msgIds": ["eb29d2ef-6ac1-4a9b-86dd-44184429e010", "fe2d5115-aa09-4dea-a3e6-fa29fc44391e"],
+      "subject": "ResNet 项目框架与代码",
+      "std": "设计 ResNet 项目框架，采用 factory 模式支持消融实验，输出图表、TensorBoard 与 loguru 日志，并逐文件给出工业级实现代码。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["ResNet", "计算机视觉", "factory模式", "工业级实现", "消融实验"],
+      "hasAttachment": false
+    }
+  ]
+}

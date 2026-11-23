@@ -1,0 +1,266 @@
+{
+  "chunk": 3,
+  "questions": [
+    {
+      "convId": "13691032-c384-47b1-acd9-77d070028ed6",
+      "msgIds": ["71bb8e3d-4496-4520-9f58-b46b4bdde419"],
+      "subject": "日志解析代码适配新格式",
+      "std": "改进日志解析代码以适配现在的数据：用正则匹配 START 与 FINISHED 之间的职位日志块，并随机抽样处理提取内容。",
+      "kinds": ["技术实现"],
+      "tags": ["日志解析", "正则表达式", "Python", "数据适配"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1402cec8-70d4-450a-8a89-541addb8b406",
+      "msgIds": [
+        "019c8149-dc7b-76f7-9ac2-e38269f633d2",
+        "019c814d-b722-744c-8d64-c220d55c86d9",
+        "019c82de-2de9-7350-8d76-9dc6429f9cc1",
+        "019c82e9-7c4f-7187-89e9-2f40a8cf772a",
+        "019c82fc-260e-7041-8516-3efe062bb4be",
+        "019c8303-6498-73b6-8fab-b77da1e21cb5"
+      ],
+      "subject": "Manim 数学教学动画生成",
+      "std": "依据 Manim 数学教学动画生成指南（附件），为给定数学题目/知识点生成 TikTok 竖屏教学动画代码：先解压研读技能文档并构建 storyboard.md 分镜脚本，再实现并渲染动画。",
+      "kinds": ["技术实现", "内容写作"],
+      "tags": ["Manim", "数学教学", "动画视频", "视频生成"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "1402cec8-70d4-450a-8a89-541addb8b406",
+      "msgIds": [
+        "019c82f3-5f14-76a1-82fb-5128000f4363"
+      ],
+      "subject": "修复 Manim 代码渲染报错",
+      "std": "修复本地运行 Manim 动画代码时的报错（含 LaTeX Unicode 字符编译错误），解决 like_radicals.py、quadratic_radical.py、radical_mul_div.py 等文件中的同类问题。",
+      "kinds": ["代码调试"],
+      "tags": ["Manim", "代码调试", "LaTeX", "报错修复"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "147e6a91-2360-4b89-a05c-0ec2a5bf475b",
+      "msgIds": [
+        "f0cc8df2-3cd4-4468-bd1e-aa905325d5c4",
+        "114a4152-7d0a-4b4e-a08d-51ee9a680b32"
+      ],
+      "subject": "完善 PPT 大纲生成 Prompt",
+      "std": "完善“PPT 大纲内容生成大师”的 Prompt：根据 PDF 生成层次递进、采用 numbered list 的 PPT 大纲与内容，并按角色、Profile、Goals 等结构规范化 Prompt 模板。",
+      "kinds": ["方案设计", "内容写作"],
+      "tags": ["Prompt工程", "PPT大纲", "文档生成", "结构化模板"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "155cc58e-81db-4ff1-bfc2-7497854cf296",
+      "msgIds": ["019bb1d6-0162-718d-8111-4e0f09842bc4"],
+      "subject": "优化 MinHashDeduplicator 代码",
+      "std": "优化 MinHashDeduplicator 代码（附件）：在保持接口出入参数不变的前提下，提升性能与数值稳定性，参考所给优化思路与经验总结。",
+      "kinds": ["技术实现"],
+      "tags": ["MinHash", "去重", "性能优化", "数值稳定性"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "155cc58e-81db-4ff1-bfc2-7497854cf296",
+      "msgIds": ["019bb669-e0fb-751d-8ede-8e30e8309eaa"],
+      "subject": "修复 MinHash 去重器报错",
+      "std": "修复 MinHash 去重器代码的运行报错：LSH query 时 _MinHashSignature 对象没有 len() 导致 TypeError。",
+      "kinds": ["代码调试"],
+      "tags": ["MinHash", "去重", "代码调试", "异常修复"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1583c924-8336-49ad-a784-9a6fab8058ff",
+      "msgIds": ["019cbef8-9f43-760e-ac0a-c2bd7798aea1"],
+      "subject": "调研 law+LLM 构建文档",
+      "std": "搜索获取 The Claude-Native Law Firm 及相关 law+LLM 的资料、准则与经验，思考分析后构建完整的 markdown 文档。",
+      "kinds": ["研究调研"],
+      "tags": ["法律科技", "LLM应用", "知识调研", "Claude"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1583c924-8336-49ad-a784-9a6fab8058ff",
+      "msgIds": [
+        "019cbef8-9f43-760e-ac0a-c2bd7798aea1",
+        "019cbefd-52c0-7378-a4e7-5bbacb79af98"
+      ],
+      "subject": "构建并丰富 law.skill",
+      "std": "采用 skill creator，参考 The Claude-Native Law Firm 中的 skill 推理逻辑构建 law.skill，并通过搜索补充更多知识、丰富 references、scripts、evals 等内容。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["Claude Skill", "法律科技", "技能框架", "Prompt工程"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "15eabfb7-129b-4fac-b08d-46a812c04d4e",
+      "msgIds": ["019d41aa-6920-7673-9689-7a0f92237c50"],
+      "subject": "Linter 工具对比分析",
+      "std": "详细搜索调查并对比分析代码检查工具（Linter），以 Ruff 等为例。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["代码检查", "Linter", "工具对比", "静态分析"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "15ed5b5b-ca5d-448e-bb50-64df7f04ca2b",
+      "msgIds": [
+        "019bbfca-deac-719c-9e6b-d47d82c27a02",
+        "019bbfcb-e29a-765c-8b27-5409cb36bc28",
+        "019bbfd3-71c2-77ad-b1a4-5141347d099e"
+      ],
+      "subject": "改进题目生成系统代码",
+      "std": "改进附件中的题目生成系统 Python 代码（prompt_config、context_builder、chapter_generator、knowledge_generator 等模块），并打包成可下载的 zip。",
+      "kinds": ["技术实现"],
+      "tags": ["Python", "题目生成", "代码重构", "系统设计"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "15ed5b5b-ca5d-448e-bb50-64df7f04ca2b",
+      "msgIds": [
+        "019bbfd9-2a65-77c8-b21f-0211cf7c16f0",
+        "019bbfda-a45a-724a-9adb-41016a14d9bf"
+      ],
+      "subject": "复查修复题目生成代码",
+      "std": "复查并修复题目生成系统各模块（prompt_config、context_builder、chapter_generator、knowledge_generator）报错，如 PromptBuilder 的 AttributeError。",
+      "kinds": ["代码调试"],
+      "tags": ["Python", "代码调试", "题目生成", "异常修复"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "16b4ce85-4ce2-43f1-8538-9842d3067d67",
+      "msgIds": [
+        "31d1862d-4a50-4d75-8164-f5e820a70e5d",
+        "492dd021-5341-4538-a6a7-b16fdbadc750",
+        "87ada87a-24c1-42fa-9c7d-735eee0b348e",
+        "7644ad19-842c-413b-b8e9-40837cc731ab"
+      ],
+      "subject": "openkp 训练代码修复",
+      "std": "详细分析并修正、最终给出使用 openkp 数据集训练关键词抽取/序列标注模型的完整可靠代码，解决 TypeError、IndexError、ArrowInvalid 等报错。",
+      "kinds": ["代码调试", "技术实现"],
+      "tags": ["Transformers", "序列标注", "openkp数据集", "关键词抽取"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "16bf3ba4-be7a-4d23-b406-f8720aeaa92f",
+      "msgIds": ["019ce7f2-305e-7e3e-ab01-771242f9f658"],
+      "subject": "Mesh Generation API 调研",
+      "std": "搜索调查研究 Mesh Generation API，整理相关技术与实现方案。",
+      "kinds": ["研究调研"],
+      "tags": ["Mesh生成", "API调研", "3D建模", "技术调研"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "16d70161-fd50-4d82-b60c-93605abae0d4",
+      "msgIds": ["019c44e5-18cf-72c6-b86a-f30c3962154b"],
+      "subject": "Manim 动画生成指南应用",
+      "std": "依据附件中的 Manim 数学教学动画生成指南，为数学题目/知识点生成 Manim 教学动画视频代码。",
+      "kinds": ["技术实现", "内容写作"],
+      "tags": ["Manim", "数学教学", "动画视频", "视频生成"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "16d8484d-01f0-400c-8eda-25baf79922ab",
+      "msgIds": ["15cea227-7a97-4a4c-9508-8682e4a346a7"],
+      "subject": "修复 DFS 树路径死循环",
+      "std": "详细分析附件中的树路径查找代码，修复 fromNodeLevel = toNodeLevel 关系导致 DFS 过程中陷入死循环的问题。",
+      "kinds": ["代码调试", "分析评估"],
+      "tags": ["DFS", "图遍历", "死循环", "算法调试"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "17157c1b-31a1-4cb2-9cc6-f03438043603",
+      "msgIds": [
+        "5a534743-0ba0-4250-984f-8d903e8fe7ba",
+        "e87afac3-05bc-4329-b5e1-fe678ef8db40",
+        "3fae7510-48fd-4841-8266-a6800a5af102"
+      ],
+      "subject": "知识图谱系统重构",
+      "std": "深度分析并重构知识图谱构建系统代码：分组整理代码、修复错误，补充详细的中文注释与文档，并设计模块化组件。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["知识图谱", "代码重构", "模块化", "代码文档"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "18b48e46-14a1-43d9-9fec-676b817caa6c",
+      "msgIds": ["6c677033-063e-441f-a9de-136bc3e84880"],
+      "subject": "重写连续名词提取函数",
+      "std": "分析并重写 extract_and_merge_continuous_nouns 函数：从词性标注列表中提取连续名词片段，并更新其在权重字典中的权重。",
+      "kinds": ["代码调试", "分析评估"],
+      "tags": ["关键词提取", "词性标注", "中文分词", "Python"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "18b48e46-14a1-43d9-9fec-676b817caa6c",
+      "msgIds": ["56211600-4585-44ad-8b03-71df1b4cfc23"],
+      "subject": "改进加权关键词构建函数",
+      "std": "分析并改进 build_weighted_keywords_zh 函数：构建中文加权关键词列表，支持 all 与 filter 两种模式。",
+      "kinds": ["代码调试", "分析评估"],
+      "tags": ["关键词提取", "词性标注", "中文分词", "Python"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "192f0ad1-3c50-4cdd-b5f0-a40bcc84489f",
+      "msgIds": ["019bbbf2-e1e6-75f4-8e41-8705e1802e42"],
+      "subject": "修复 Neo4j 子图查询",
+      "std": "深度思考、搜索并分析修复 Neo4j Cypher 子图查询语句：通过 apoc.path.subgraphAll 查找根节点及其子图并返回节点与关系。",
+      "kinds": ["代码调试", "技术实现"],
+      "tags": ["Neo4j", "Cypher", "子图查询", "APOC"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "192f0ad1-3c50-4cdd-b5f0-a40bcc84489f",
+      "msgIds": [
+        "019bbc07-cf9d-75fd-b452-65720f9d8e64",
+        "019bbc07-eec7-7426-84e3-9aacf387f7b7",
+        "019bbc08-16ce-70bc-9051-57753fe2a65a",
+        "019bbc08-54a9-70de-827f-e458dfcf6b83",
+        "019bbc08-aa72-7343-88c0-14041891c5b3",
+        "019bbc09-243a-7502-b0e4-71f8ad3904f9",
+        "019bbc09-c7c4-72e8-97c5-b22ecf202a3e",
+        "019bbc0a-ab5a-7470-9fea-fe044ca3c078",
+        "019bbc0c-2684-717b-aebb-6ae111da37d0",
+        "019bbc0e-25bd-737d-889f-9bfc3ffd99d4",
+        "019bbc23-2c78-703f-a0e4-6a58d0acfa7c",
+        "019bbc23-5038-76ec-b441-377e4f8fb9fe",
+        "019bbc23-7a21-7024-94ca-9927715a0ab5",
+        "019bbc23-b5fc-726b-a4f6-c2e4de232124",
+        "019bbc24-07cd-7147-a220-0ecba875869f",
+        "019bbc24-7e4f-73b4-8a9f-2f511d738ff6",
+        "019bbc25-3041-7271-a875-389df4ff76fe",
+        "019bbc26-19f9-70ea-ad76-9209e247215a",
+        "019bbc26-4442-777e-ba4d-a8a7b5ecceb3",
+        "019bbc26-6536-7216-b105-889eed4f292a",
+        "019bbc26-94df-72a2-aa0e-bc45e2cafa51",
+        "019bbc26-d34d-7240-94d2-a912670b9efa",
+        "019bbc27-24ab-72c1-9ea4-fedfcd4ed062",
+        "019bbc27-8e1e-71d2-a5ad-09295bdad291",
+        "019bbc28-30d3-700b-bf79-7938cb515039",
+        "019bbc29-2a82-7119-9c33-7d4fc64f23c7",
+        "019bbc2a-96b7-71c9-9f6b-1affb0e59cfe",
+        "019bbc2c-8dce-73c5-b849-f64b0ab48c09"
+      ],
+      "subject": "向量检索增加子图入参",
+      "std": "为 Neo4j 向量检索函数 vector_search 增加 root_element_id 入参，用于指定搜索的子图根节点。",
+      "kinds": ["技术实现"],
+      "tags": ["Neo4j", "向量检索", "子图过滤", "RAG"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "199f4939-871b-4c6b-861d-87b0e8b92f21",
+      "msgIds": [
+        "019d18d6-387c-7044-b48f-180ab21ba35e",
+        "019d18d7-7da5-71bf-a97a-fc94ed665407"
+      ],
+      "subject": "完善 LLM-as-Judge 架构",
+      "std": "分析、评估并完善基于 LLM-as-Judge 的 Eval 系统技术架构，覆盖模型切换、知识变动等核心场景。",
+      "kinds": ["分析评估", "方案设计"],
+      "tags": ["LLM评估", "LLM-as-Judge", "技术架构", "评测系统"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "199f4939-871b-4c6b-861d-87b0e8b92f21",
+      "msgIds": ["019d19df-2c69-7993-87a6-a729656e4907"],
+      "subject": "LLM-as-Judge 论文调研",
+      "std": "研究 LLM-as-Judge Eval 系统在模型切换、知识变动、API 变动三大核心场景的相关论文，输出论文分析文档并给出系统技术架构设计新版本。",
+      "kinds": ["研究调研", "方案设计"],
+      "tags": ["LLM评估", "LLM-as-Judge", "论文调研", "技术架构"],
+      "hasAttachment": false
+    }
+  ]
+}

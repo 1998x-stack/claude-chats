@@ -1,0 +1,230 @@
+{
+  "chunk": 12,
+  "questions": [
+    {
+      "convId": "5810cf24-cea5-4bb3-aa66-2a83e6ef56f9",
+      "msgIds": ["019eb4a1-7e50-76de-887b-906ddf0f38e7"],
+      "subject": "superpowers 组件衔接收系统论分析",
+      "std": "以系统论视角深入分析 GitHub 仓库 obra/superpowers 的 gstack 各组件与模块，梳理组件之间的衔接关系、核心内容与板块划分，并逐个输出 Markdown 分析文档。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["AI编程代理", "系统论", "组件分析", "开源仓库"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "591ee6a2-4a49-46fb-b83f-5d01165ab17f",
+      "msgIds": ["019d7807-61d9-7967-8fc0-176663ddee64"],
+      "subject": "编程代理 write 工具机理分析",
+      "std": "分析 Claude Code、Codex CLI、Cursor 等 AI 编程代理中 write 类工具背后的实现机理。",
+      "kinds": ["分析评估", "研究调研"],
+      "tags": ["AI编程代理", "工具实现机理", "代码生成"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "593b8522-2901-4aa4-ab0d-b6da06a594a1",
+      "msgIds": ["019a5811-b1c5-7618-b33c-7606cafa593f"],
+      "subject": "LangGraph 构建 ReAct 流水线",
+      "std": "按附件规范，用 LangGraph 的 StateGraph、node、edge 构建一条 ReAct（推理与行动）流水线，并给出对应的搜索工具设计。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["LangGraph", "ReAct", "智能体编排", "知识树"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "593b8522-2901-4aa4-ab0d-b6da06a594a1",
+      "msgIds": ["019a5830-b7a1-7471-87bb-67c6b880ebbc"],
+      "subject": "按搜索工具代码设计函数",
+      "std": "依据附件中的搜索工具代码与接口约定（忽略 LLM_URL 等外部变量与包的占位），为知识树构建系统设计各函数的具体实现。",
+      "kinds": ["技术实现"],
+      "tags": ["LangGraph", "函数设计", "知识检索", "知识树"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "599e8827-109a-4e38-83a4-1f670f4099e0",
+      "msgIds": ["019db5db-41af-7499-a358-7283fd613655"],
+      "subject": "GBrain 组件与工具深度调研",
+      "std": "深度搜索调研 GitHub 开源项目 GBrain（Garry Tan 的个人知识大脑框架）的全部组件、工具与子系统，分别调研分析并逐个输出详细的 Markdown 文档。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["GBrain", "个人知识库", "组件调研", "开源框架"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "59eb6cc0-ebdd-4416-a66f-b26a06be19ad",
+      "msgIds": ["5e759343-4758-4029-b7d3-ed3e91f415e0", "17dd0619-1b0a-4abc-b1d0-4a8c87a4d18c"],
+      "subject": "关键词提取与权重计算代码分析",
+      "std": "详细分析附件 paste.txt 中关键词提取与权重计算的代码，说明停用词集过滤、实体与关键词打分等核心逻辑。",
+      "kinds": ["分析评估"],
+      "tags": ["关键词提取", "文本分析", "代码解读"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "5a605a19-9d99-4ac0-9267-e62c89087fe9",
+      "msgIds": ["1c2d6644-9133-4086-9df3-35d18ac7f124", "ae2cc757-ff33-48e9-9847-fe3a59999be7"],
+      "subject": "Markdown 分块正则与 Unicode 属性",
+      "std": "分析附件中用于 Markdown 文本分块的 JavaScript 正则表达式，说明它如何覆盖标题、列表、代码块、表格、LaTeX 等结构，并解释 Emoji_Presentation、Extended_Pictographic 等 Unicode 属性的含义。",
+      "kinds": ["分析评估", "学习理解"],
+      "tags": ["正则表达式", "Markdown分块", "Unicode", "文本处理"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "5a605a19-9d99-4ac0-9267-e62c89087fe9",
+      "msgIds": ["9bb7d25a-5146-465b-b7d8-6975fb3757bb", "072a9e02-c8bf-4a6c-9afd-ae856266a1da"],
+      "subject": "正则分块逻辑改写为 Python",
+      "std": "用 Python 重写附件中的文本分块正则逻辑，完整处理 Emoji_Presentation、Extended_Pictographic 等 Unicode 属性；要求工业级实现、命名与可读性良好、遵循 Google 风格并覆盖全部边界情况与所有模式，不得遗漏。",
+      "kinds": ["技术实现", "代码调试"],
+      "tags": ["正则表达式", "Python", "文本分块", "代码移植"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5a605a19-9d99-4ac0-9267-e62c89087fe9",
+      "msgIds": ["e2539e23-6061-4457-b507-a69821781a30"],
+      "subject": "全部正则模式的中文说明文档",
+      "std": "Write a README documenting all the regex patterns used for text chunking, with the content in Chinese.",
+      "kinds": ["内容写作"],
+      "tags": ["正则表达式", "文档撰写", "文本分块"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5aaccb3e-05c9-4559-a81e-f89c2d6b9cc6",
+      "msgIds": ["019be4ea-3ef4-755b-aecf-732ed01c02e3"],
+      "subject": "按关系类型选择图检索逻辑",
+      "std": "在 Neo4j 知识图谱中实现按关系类型区分邻居检索的函数：连接为「包含」的边沿用 get_neighbour 逻辑，连接为「关联」或「前后序」的边改用 BFS 沿该类关系取全部节点。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["知识图谱", "Neo4j", "图检索", "关系类型"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5b5c0a79-4f90-4099-bbac-927861851713",
+      "msgIds": ["139f6850-b348-487f-a66b-5fcc4240196e"],
+      "subject": "PPO 论文精读与实验要素提取",
+      "std": "极度详细地分析 PPO 论文，提取其中的模型结构、数据结构与环境设计、实验设置、不同 ablation 实验对比以及图表分析结论。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["强化学习", "PPO", "论文精读", "消融实验"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "5b5c0a79-4f90-4099-bbac-927861851713",
+      "msgIds": ["139f6850-b348-487f-a66b-5fcc4240196e"],
+      "subject": "PPO 工程框架与逐文件代码",
+      "std": "设计 PPO 项目的工程框架，用工厂模式支持 ablation 实验，产出图表、TensorBoard 与 loguru 日志，并给出按代码分类、逐文件的工业级实现（命名与可读性良好、遵循 Google 风格）。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["强化学习", "PPO", "工程框架", "消融实验"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "5bc2bfef-fb19-4165-901e-5587c165cbd0",
+      "msgIds": ["79378184-84c6-431d-9c18-c53269cbedc9"],
+      "subject": "dataclass 重构 ES 取数函数",
+      "std": "用 dataclass 重写并改进 fetch_data_es 函数：从 Elasticsearch 精确匹配 knowledgeBaseId 与 nodeUid 查询数据并返回结果。",
+      "kinds": ["技术实现"],
+      "tags": ["Elasticsearch", "dataclass", "代码重构", "Python"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5be205e5-0ad2-4396-9096-095a1c9529d3",
+      "msgIds": ["019d3a01-fc1f-7498-88f5-960fd1caf2b8"],
+      "subject": "张居正考成法与一条鞭法详解",
+      "std": "深度搜索分析张居正改革的考成法与一条鞭法，逐个展开讲解其内容、运作方式与影响，并分别输出详细的 Markdown 文档。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["明代历史", "张居正改革", "考成法", "一条鞭法"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5bf09795-9aff-46b6-b1a7-3c95e7f0d620",
+      "msgIds": ["c78ac906-aae7-4eb2-8873-d3063603cedf"],
+      "subject": "HyDE 论文框架与实验提取",
+      "std": "按步骤极度详细地分析 HyDE 论文，提取其 HyDE 框架设计与实验结果。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["HyDE", "检索增强", "论文精读", "稠密检索"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5bf09795-9aff-46b6-b1a7-3c95e7f0d620",
+      "msgIds": ["c78ac906-aae7-4eb2-8873-d3063603cedf", "b55d42e4-f963-4fdc-9526-b8981ad85256"],
+      "subject": "HyDE 项目逐文件实现与重建",
+      "std": "设计 HyDE 项目的代码分类并逐文件给出工业级实现（假设已有 API key）；随后改用 qwen-0.6B 模型并加载 Wikipedia 数据集重建该项目，按给定目录结构生成各模块文件。",
+      "kinds": ["技术实现", "方案设计"],
+      "tags": ["HyDE", "检索增强", "Qwen", "项目重构"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5c8a6e3b-2a8c-4897-957e-a1e344c7b5c4",
+      "msgIds": ["8cf25850-3541-49d7-816d-ac02add01b6d", "dc327be2-db4b-48c9-b5f5-7a4699ba63f8", "f33da4bb-ab31-4ca8-975c-58a814a674c7"],
+      "subject": "三个 prompt 整合与结构化改进",
+      "std": "把附件中的三个 prompt 逐步整合为一个，再按 Role/Profile/Goals/Constrains/Skills/Workflow/Initialization 结构模板改进，最后结合 Mermaid 图呈现其工作流。",
+      "kinds": ["内容写作", "方案设计"],
+      "tags": ["Prompt工程", "提示词模板", "Mermaid", "提示词整合"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "5cb81478-16fe-4ef2-95af-9de633b40d37",
+      "msgIds": ["948bdc11-4f41-4d00-abb7-d9bd41c9471b"],
+      "subject": "QASPER 数据集检索评估系统",
+      "std": "基于 allenai/qasper 数据集构建工业级检索评估系统，实现 BM25、moka-ai/m3e-base 向量检索以及两者加权混合共三种检索方法并给出评估指标。",
+      "kinds": ["技术实现", "分析评估"],
+      "tags": ["检索增强", "QASPER", "BM25", "向量检索"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5d70bbd5-7567-4c2d-84dc-d2a7635c0bf6",
+      "msgIds": ["019b27a0-bb35-755f-b697-504c93a8baf1", "019b27bb-1ef4-721d-aee3-a3e993f11cfe"],
+      "subject": "LangGraph 费曼学习法工作流设计",
+      "std": "基于 settings.yml 中读入的知识树 JSON 数据，用 LangGraph 设计费曼学习法工作流：由教授与学生对 agent 对话，把知识节点讲清并检验学生理解。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["LangGraph", "费曼学习法", "知识树", "智能体对话"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5e019a67-eba3-4e94-a13c-1dacc9b0cc50",
+      "msgIds": ["c6be0e41-5e56-483d-bf31-d7ce06340f41", "5f8324e1-c86c-4d57-8352-85817dd8958d", "8c45628d-57aa-45d1-b244-3b76c74e189c"],
+      "subject": "按结构模板重写 prompt",
+      "std": "按 Role、Profile（author/version/description）、Goals、Constrains、Skills、Workflow、Initialization 的结构模板重写给定的 prompt。",
+      "kinds": ["内容写作"],
+      "tags": ["Prompt工程", "提示词模板", "结构化重写"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5e206225-bd18-40e0-a8ed-76f5c1ea290b",
+      "msgIds": ["ed9de553-eff5-46cc-9944-0dbe4aed30d0"],
+      "subject": "SingleRank 文档压缩类实现",
+      "std": "基于已有的 DocChunker 与 tokenize_text，用 SingleRank 构建文档压缩类：输入 doc、query、max_length、topN（query 默认 None），按 topN 或 max_length 截取并保持 chunk 原顺序。",
+      "kinds": ["技术实现"],
+      "tags": ["文档压缩", "SingleRank", "图排序", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "5e206225-bd18-40e0-a8ed-76f5c1ea290b",
+      "msgIds": ["875fe127-ca76-4e72-a9cb-a0d6a25dd866"],
+      "subject": "PositionRank 文档压缩实现",
+      "std": "沿用前述分块与打分逻辑，实现 PositionRank 的文档压缩方案，覆盖带 query 与不带 query 两种模式。",
+      "kinds": ["技术实现"],
+      "tags": ["文档压缩", "PositionRank", "关键词权重", "Python"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5e37a961-75a8-4255-ba8e-288d22ae469d",
+      "msgIds": ["5b068178-67b7-4629-b0ad-7545d8419dc5"],
+      "subject": "脚本重构为类结构与测试文件",
+      "std": "分析附件中的 Python 脚本并重写为类结构，用中文写 docstring 与注释，输出主文件和测试文件两个文件，被引用的函数均按已导入处理。",
+      "kinds": ["技术实现"],
+      "tags": ["代码重构", "类设计", "Elasticsearch", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "5ebf8aef-02c5-4e4a-8aea-160854a6f92f",
+      "msgIds": ["01a079ee-481b-74a6-bc69-26c5d6ec1889"],
+      "subject": "灰色套利案件检索与分类分析",
+      "std": "在中国裁判文书网等法律文书库中尽可能全地检索灰色套利案件，分门别类做深度分析，并构建详细的 Markdown 报告。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["灰色套利", "裁判文书", "法律检索", "案例分类"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "5ecbade3-67eb-4414-80eb-61731f39b6b3",
+      "msgIds": ["019ea6c3-c331-7e79-a741-cbed60054f6a"],
+      "subject": "金融信贷六类团队指标体系看板",
+      "std": "设计一份交互式参考看板，详细讲解金融信贷业务中六个角色的关键指标：业务模型（AUC、KS、IV、PSI、WOE、VIF、OOT 等）、风控、投放渠道、运营、财务管理以及助贷业务负责人的指标。",
+      "kinds": ["内容写作", "技术实现"],
+      "tags": ["金融风控", "指标体系", "信贷业务", "交互看板"],
+      "hasAttachment": false
+    }
+  ]
+}

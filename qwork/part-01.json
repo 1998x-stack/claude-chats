@@ -1,0 +1,244 @@
+{
+  "chunk": 1,
+  "questions": [
+    {
+      "convId": "06561665-5426-4e32-8fd2-0efcb01c8a0b",
+      "msgIds": ["019e3e40-1fb1-7ca3-8155-923815b11e43"],
+      "subject": "OpenHarness 仓库逐模块深度分析",
+      "std": "深度搜索、分析、思考 HKUDS/OpenHarness 仓库，对每个模块与组件做深度复盘总结，并分别为它们构建详细的技术文章。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["开源项目", "源码分析", "技术文档", "深度研究"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "06ace01a-f8ff-4558-8614-5e6eca77f419",
+      "msgIds": ["019aebdc-6bbd-7181-9f3a-6f964f007ec4"],
+      "subject": "精炼学生学情分析系统 PRD",
+      "std": "整理并精炼基于知识树的学生学情分析系统 PRD，说明知识树节点结构与后续新增字段的设计。",
+      "kinds": ["方案设计", "内容写作"],
+      "tags": ["产品需求文档", "知识树", "学情分析", "教育科技"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "06d62708-8f71-43a7-8270-ac334144b712",
+      "msgIds": ["019a59fd-4fff-77a5-b7cd-7e94c4a299e7"],
+      "subject": "知识树标签与关系提示词优化",
+      "std": "优化知识树标签与关系设计的提示词，要求任务、步骤、输出结果、设计要求与限制条件清晰明确，输出一个精要的 prompt。",
+      "kinds": ["内容写作", "方案设计"],
+      "tags": ["提示词工程", "知识树", "知识图谱", "标签设计"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0729dc06-4cfc-47be-bcfe-ee4d4dcb3d55",
+      "msgIds": ["019e006a-db20-7143-87b3-79eb721f979a"],
+      "subject": "Building Effective Agents 深度解析",
+      "std": "深度搜索、思考并分析 Anthropic《Building Effective Agents》一文，详细展开其中的技术细节，构建成系列技术文章。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["智能体", "LLM 工程", "技术文档", "深度研究"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "072f0200-569b-4c86-9dae-4315df667535",
+      "msgIds": [
+        "019d7ed6-bc81-754f-b3b5-bbc3673539c7",
+        "019d7ff7-0d53-7684-96b1-62ea54ef76c3",
+        "019d8111-aaba-7fe3-9589-83754abe28a7"
+      ],
+      "subject": "经典 ML 论文时间线与逐篇解读",
+      "std": "梳理经典机器学习论文的详细发展时间线，并逐篇产出详细的科普解读文章。",
+      "kinds": ["研究调研", "内容写作"],
+      "tags": ["机器学习", "论文解读", "技术时间线", "科普写作"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0779b252-2732-45b9-b239-a1b48e6bf6f2",
+      "msgIds": ["019ca8ca-9ce8-7a27-8e85-009fc08d497f"],
+      "subject": "3D Manim 数学教学动画生成",
+      "std": "参考附件的 Manim 数学教学动画生成指南，制作一个使用 3D 能力的 Manim 教学动画。",
+      "kinds": ["技术实现"],
+      "tags": ["Manim", "动画生成", "数学可视化", "教学视频"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "078650bc-a3a9-4bcf-8e2a-0203b83b0a94",
+      "msgIds": ["2ef3f441-9271-4e3a-9435-dc3c7442f2df", "1052237c-cd20-4cf4-86e2-61997683e837"],
+      "subject": "查询改写提示词分析与格式改造",
+      "std": "详细分析 QUERY_REWRITE_PROMPT_GENERAL_V3 改写提示词，并按给定模板在内容不变的前提下改写其格式。",
+      "kinds": ["分析评估", "内容写作"],
+      "tags": ["提示词工程", "查询改写", "检索增强"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "07b07b4c-faaa-491c-bbd2-13874d0e2f2f",
+      "msgIds": ["7fffbe28-7ce2-46be-9a3b-ab9356644a78", "88edf438-1c1e-4388-ad66-cd4c513aed81"],
+      "subject": "Qwen 小模型 RAG 项目逐文件实现",
+      "std": "用 Qwen3-0.6B 与 Qwen3-Embedding-0.6B 搭建基于 simple-wikipedia 数据集的 RAG 项目，按 loguru 与 config 规范逐文件给出数据集处理、向量与 BM25 检索、混合检索、查询处理、上下文组织与流水线代码。",
+      "kinds": ["技术实现"],
+      "tags": ["RAG", "向量检索", "Qwen", "代码实现"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "07df87bb-2cfc-47a6-889d-c6ab245d5601",
+      "msgIds": [
+        "019be118-a7ad-716a-b21c-09e9054d8ccc",
+        "019be11b-089e-727a-bd8c-c24fd6c74f98",
+        "019be11b-2416-736f-8507-90de7a58b592",
+        "019be11b-465a-721d-8664-0d3530623ffa",
+        "019be11b-7629-753c-a284-a9b8287fb52a"
+      ],
+      "subject": "律所信息并发抓取与 Selenium 重写",
+      "std": "对输入 JSON 中的所有律所 URL 并发抓取页面，提取表彰信息、行业处分、责任事故、司法建议四类数量并整数化，按行业处分/责任事故/司法建议大于 0 与表彰数量排序过滤，再改用 Selenium 重写。",
+      "kinds": ["技术实现", "数据处理"],
+      "tags": ["网络爬虫", "asyncio", "Selenium", "数据采集"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0837da0c-646a-49da-b887-a51a4abb92a5",
+      "msgIds": ["019bd4bb-18a6-74cb-8390-e024f35c4d9e"],
+      "subject": "多知识点 QA 数据集构造",
+      "std": "根据附件中的 JSON 图数据详细构造覆盖多个知识点的 QA 数据集，至少 40 条，并保证引用上下文足以回答问题、未引用的上下文不能回答问题。",
+      "kinds": ["数据处理"],
+      "tags": ["数据集构建", "知识图谱", "问答生成", "检索增强"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0841a8cd-d3d7-44dc-abd5-9486bcaecbdc",
+      "msgIds": ["019ab390-c3ac-7433-8967-299dcaa7de21"],
+      "subject": "PyTorch 从零实现 RLHF 三阶段",
+      "std": "用 PyTorch 从零实现 RLHF：用 wikipedia 数据做 SFT、用 yitingxie/rlhf-reward-datasets 训练奖励模型，并以包含 clip、value、entropy 与 KL 项的 PPO 损失优化。",
+      "kinds": ["技术实现"],
+      "tags": ["RLHF", "PPO", "PyTorch", "大模型训练"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "086e06ce-70a1-48a1-8dee-0a1063d3d2e4",
+      "msgIds": ["019cb2ff-5fa7-76d8-bf93-136c6d35a86e", "019cb30d-6be9-786e-8959-4c5bc4300a42"],
+      "subject": "新浪财经 7×24 接口分析与客户端",
+      "std": "分析新浪财经 7×24 直播页面各 tag 分类对应的请求接口与响应结构，并据此构建对应的 Python 数据获取客户端。",
+      "kinds": ["研究调研", "技术实现"],
+      "tags": ["财经数据", "接口分析", "网络爬虫", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "088304f9-0cc2-41f4-8f8c-89df59aeca4e",
+      "msgIds": ["276c913b-e0ca-4b00-95bc-7773a72b335c"],
+      "subject": "paths 图结构数据建模",
+      "std": "根据 paths 中 nodes 与 edges 的字段结构，设计并构建相应的图数据模型。",
+      "kinds": ["方案设计"],
+      "tags": ["知识图谱", "数据结构", "字段映射"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "09f0c8ab-2530-4c4f-ab0a-ad3cfddea933",
+      "msgIds": ["019f36ae-f7a2-7976-8692-51391ba867f7"],
+      "subject": "预训练语料清洗论文与组件解析",
+      "std": "深度搜索解析预训练语料清洗的奠基性论文，解耦其中各个组件并详细研究分析，构建成系列详细文章。",
+      "kinds": ["研究调研", "分析评估"],
+      "tags": ["预训练语料", "语料清洗", "论文解读", "技术文档"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "09f0c8ab-2530-4c4f-ab0a-ad3cfddea933",
+      "msgIds": ["019f36ae-f7a2-7976-8692-51391ba867f7"],
+      "subject": "语料清洗技术发展脉络可视化",
+      "std": "梳理预训练语料清洗工作的发展脉络，并构建 claude design 可视化呈现。",
+      "kinds": ["方案设计", "研究调研"],
+      "tags": ["预训练语料", "语料清洗", "技术脉络", "可视化"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "09ffd537-e116-4a22-91bf-c864e787747e",
+      "msgIds": ["019d8f76-6827-754f-a0db-22adfdf971f5"],
+      "subject": "各语言 LSP 工具与构建调研",
+      "std": "详细调研各语言的 LSP 工具及其不同版本的构建方式，分别进行分析，产出详细的 markdown 文档。",
+      "kinds": ["研究调研"],
+      "tags": ["LSP", "语言服务器", "构建工具链", "技术调研"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0a262eba-a436-4626-ba49-d5d0e76ee954",
+      "msgIds": [
+        "019aecb1-1213-725f-9ca4-9a885c151cf6",
+        "019aecba-98d8-715c-a15a-cf2b1b7538e5",
+        "019aecba-ded6-716b-9ec6-2f1bdaabce7b"
+      ],
+      "subject": "PDF 逐页转知识树流程实现",
+      "std": "设计并实现 PDF 转知识树流程：把 data/ 下逐页 JSON 经长文本抽取、子树合并、节点名润色等模块，用 LangGraph 编排成层级知识树并给出入口程序。",
+      "kinds": ["技术实现"],
+      "tags": ["PDF 解析", "知识树", "LangGraph", "文档处理"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0a8a560a-8393-4504-94c4-1a7b5dd38152",
+      "msgIds": ["019edebf-9381-7626-a706-666cad54d358", "019ee7d0-1362-7720-b491-286108843f49"],
+      "subject": "PDF 解析库源码与对比分析",
+      "std": "以系统论视角吃透 opendataload-pdf 与 MinerU 的组件、模块及源码衔接，产出一系列深入分析文档，并补充与 Docling 的对比。",
+      "kinds": ["分析评估", "研究调研"],
+      "tags": ["PDF 解析", "源码分析", "MinerU", "Docling"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0ab40dd2-0f82-4ec3-8788-29b08ac39ed3",
+      "msgIds": ["019cf1c0-dacd-771d-91c3-9fc4b16450af", "019cf1c2-ed41-79f7-b923-18e8aad393b1"],
+      "subject": "本地生活爆品发现工具设计",
+      "std": "以美团专家视角设计本地生活平台潜力爆品的抢购与转售机制，并围绕个人用户的潜力爆品发现与提醒工具需求逐一实现。",
+      "kinds": ["方案设计", "技术实现"],
+      "tags": ["本地生活", "美团", "商业分析", "工具设计"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0ab40dd2-0f82-4ec3-8788-29b08ac39ed3",
+      "msgIds": ["019cf441-1452-7972-9529-806d82fb4c4d", "019cf52f-11ee-7601-96ce-4f8ca1039a1f"],
+      "subject": "项目文件整理与打包下载",
+      "std": "整理项目文件结构并打包成 zip 便于下载。",
+      "kinds": ["工具环境"],
+      "tags": ["文件整理", "打包下载", "工程组织"],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0ab40dd2-0f82-4ec3-8788-29b08ac39ed3",
+      "msgIds": ["019cf44a-b159-7a6b-be27-b1194da0618f"],
+      "subject": "套利模式分析文章与代码框架",
+      "std": "润色并输出完整的《美团本地生活套利模式的商业本质与平台博弈全景分析》markdown 文档，同时给出完整的代码逻辑思路框架 markdown。",
+      "kinds": ["内容写作", "方案设计"],
+      "tags": ["美团", "商业分析", "内容写作", "代码框架"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0ab40dd2-0f82-4ec3-8788-29b08ac39ed3",
+      "msgIds": ["019cf44a-b159-7a6b-be27-b1194da0618f"],
+      "subject": "mock 模式运行失败排查修复",
+      "std": "python main.py --mock 无法跑通，用深度工作法排查问题并完善代码。",
+      "kinds": ["代码调试"],
+      "tags": ["本地生活", "Python", "代码调试"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0b17a142-d745-49e0-ad36-6c262e27a240",
+      "msgIds": ["98b61404-8486-4b88-a8e5-c91be53c081f"],
+      "subject": "文本处理代码分析与重写",
+      "std": "分析附件 paste.txt 中的编码与文本处理代码并重写。",
+      "kinds": ["技术实现", "分析评估"],
+      "tags": ["代码重构", "文本相似度", "Python"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0b17a142-d745-49e0-ad36-6c262e27a240",
+      "msgIds": ["388f6f4a-f70f-4d80-8a9c-2d46e54979bc"],
+      "subject": "结构化推理协议文本解读",
+      "std": "解读附件 paste.txt（9KB 协议文本）中关于结构化推理与高质量回答的要求。",
+      "kinds": ["学习理解", "分析评估"],
+      "tags": ["提示词协议", "推理方法", "提示词工程"],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0b17a142-d745-49e0-ad36-6c262e27a240",
+      "msgIds": ["43023361-84a7-4ce3-bf36-5a2d429ea738"],
+      "subject": "相似度服务客户端代码重写",
+      "std": "重写 SimilarityServiceClient 相似度查询客户端代码。",
+      "kinds": ["技术实现"],
+      "tags": ["代码重构", "接口调用", "Python"],
+      "hasAttachment": false
+    }
+  ]
+}

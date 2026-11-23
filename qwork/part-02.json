@@ -1,0 +1,556 @@
+{
+  "chunk": 2,
+  "questions": [
+    {
+      "convId": "0b281dae-3d85-4324-8abc-68f146a6e162",
+      "msgIds": [
+        "019ebf0e-51e6-71f4-8d45-e4992e6c1639"
+      ],
+      "subject": "skills 仓库组件架构系统论分析",
+      "std": "分析 GitHub 仓库 mattpocock/skills 的各个组件与模块，采用系统论视角深入剖析组件之间的衔接关系、核心内容与板块划分。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "开源项目分析",
+        "Agent Skills",
+        "系统论",
+        "架构设计"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0b782818-bb49-49a4-b044-409f3646b368",
+      "msgIds": [
+        "019c8084-7df4-72a9-b5c8-9b85331b2c54"
+      ],
+      "subject": "中国各省著名景点旅游指南",
+      "std": "逐省搜索中国的著名旅游景点，逐个分析与思考，给出详细的分析与旅游指南。",
+      "kinds": [
+        "研究调研",
+        "内容写作"
+      ],
+      "tags": [
+        "旅游",
+        "景点指南",
+        "中国地理"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0b9d41f1-2f90-4693-8356-2aca62f2b384",
+      "msgIds": [
+        "9f54526b-b43f-47be-bd8e-7222eb1e0d89"
+      ],
+      "subject": "查询改写 prompt 小幅打磨",
+      "std": "对一段大学政策类文件智能查询改写的 prompt 做小幅润色，只修正个别不通顺或有误的句子与词，要求不要大修大改。",
+      "kinds": [
+        "内容写作",
+        "分析评估"
+      ],
+      "tags": [
+        "Prompt工程",
+        "查询改写",
+        "文本润色"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0c82dd5e-cada-4825-8620-fe5db82d4dac",
+      "msgIds": [
+        "019b0c33-fade-71c7-b179-937593c151a3"
+      ],
+      "subject": "教案系统三个提示词模板编写",
+      "std": "按附件中的任务说明，为教案生成系统的三个用户提示词模板（问题生成、报告生成、段落润色）编写 prompt。",
+      "kinds": [
+        "内容写作",
+        "技术实现"
+      ],
+      "tags": [
+        "Prompt工程",
+        "教案生成",
+        "FastAPI"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0c82dd5e-cada-4825-8620-fe5db82d4dac",
+      "msgIds": [
+        "019b0c4d-5400-76ca-8453-d6fd10ec275c"
+      ],
+      "subject": "四个 API 的 curl 调用示例",
+      "std": "main.py 已能运行，请给出四个接口的若干 curl 调用示例。",
+      "kinds": [
+        "技术实现",
+        "工具环境"
+      ],
+      "tags": [
+        "FastAPI",
+        "接口调试",
+        "curl"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0c82dd5e-cada-4825-8620-fe5db82d4dac",
+      "msgIds": [
+        "019b0c57-b3d2-765f-98a5-5a3d85856753"
+      ],
+      "subject": "问题生成接口校验报错修复",
+      "std": "调用生成问题接口时报 pydantic ValidationError（构造 QuestionGenerationData 时校验失败），请定位并修复。",
+      "kinds": [
+        "代码调试"
+      ],
+      "tags": [
+        "Pydantic",
+        "FastAPI",
+        "报错修复"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0c82dd5e-cada-4825-8620-fe5db82d4dac",
+      "msgIds": [
+        "019b0c5e-1cfe-7451-b375-0af6592363d8"
+      ],
+      "subject": "文档导出 PDF 跨平台修复",
+      "std": "文档导出接口在 convert_markdown_to_pdf 处报错，请修复并使其兼容不同平台。",
+      "kinds": [
+        "代码调试",
+        "工具环境"
+      ],
+      "tags": [
+        "PDF导出",
+        "跨平台",
+        "Markdown转换"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0c82dd5e-cada-4825-8620-fe5db82d4dac",
+      "msgIds": [
+        "019b1223-ddf7-745e-a022-890817c75878"
+      ],
+      "subject": "搭建教案生成 Skill 目录",
+      "std": "参照 Skill 的两层结构（元数据 Name 与 Description、SKILL.md 详细指令）为教案生成搭建 skill_lesson_plan/ 目录。",
+      "kinds": [
+        "技术实现",
+        "方案设计"
+      ],
+      "tags": [
+        "Agent Skills",
+        "教案生成",
+        "目录结构"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0ca51bb5-9ad3-4204-91d0-e61da8615e0f",
+      "msgIds": [
+        "c407b804-912d-4151-865e-ce7855cab30e"
+      ],
+      "subject": "LeetMath 复现与打包",
+      "std": "浏览 GitHub 仓库 1998x-stack/LeetMath 的文件，设计实现计划并一步一步完成，先下载项目，完成后返回代码与数据压缩包。",
+      "kinds": [
+        "技术实现",
+        "方案设计"
+      ],
+      "tags": [
+        "LeetMath",
+        "开源项目复现",
+        "实现计划"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0ceaa96f-970d-4fd8-921c-06fbb478c6a2",
+      "msgIds": [
+        "019be07e-8122-7229-a7cf-a12c30a81507"
+      ],
+      "subject": "上海殷泽律所与律师背景调查",
+      "std": "深度搜索并研究上海殷泽律师事务所的具体情况，给出邱继峰等六位执业律师的详细背景，以及该律所过往背后的故事与细节。",
+      "kinds": [
+        "研究调研"
+      ],
+      "tags": [
+        "律师行业",
+        "背景调查",
+        "上海"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0cf4e087-edd9-40ba-b270-6fec825d6ae7",
+      "msgIds": [
+        "019c7bd3-5aab-7385-8904-ed8355fa58f1"
+      ],
+      "subject": "pi agent 算法与架构分析",
+      "std": "结合 badlogic/pi-mono 仓库与 pi 的博客文章，深入分析 pi agent 的算法流程、方法论与哲学思想，并给出新版 pi agent 架构设计。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "Pi Agent",
+        "算法流程",
+        "架构设计"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0cf4e087-edd9-40ba-b270-6fec825d6ae7",
+      "msgIds": [
+        "019c7bd3-5aab-7385-8904-ed8355fa58f1",
+        "019c8011-9d47-72ac-af74-8813065c8eb6"
+      ],
+      "subject": "LangGraph 版 pi agent",
+      "std": "用 LangGraph 逐文件设计并实现一个新的 pi agent workflow 项目，通过 OpenAI 的 apikey/model/baseurl 配置，日志用 loguru 并记录 traceback。",
+      "kinds": [
+        "技术实现",
+        "方案设计"
+      ],
+      "tags": [
+        "LangGraph",
+        "Pi Agent",
+        "项目脚手架"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0cf4e087-edd9-40ba-b270-6fec825d6ae7",
+      "msgIds": [
+        "019c8027-c23a-72e4-9711-f85188d70a10"
+      ],
+      "subject": "按 import 关系复审并打包",
+      "std": "依据各文件的 import 关系（用 bash 与 grep 提取）重新审视并改进该项目代码、修复问题，最后把整个项目打包成 zip 供下载。",
+      "kinds": [
+        "代码调试",
+        "技术实现"
+      ],
+      "tags": [
+        "代码重构",
+        "依赖分析",
+        "打包"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0edc19fb-ec2c-4d94-950c-7e8dad353d18",
+      "msgIds": [
+        "0fae1780-d94c-4f01-b7a8-3b02dd926b61"
+      ],
+      "subject": "附件 Python 代码分析与重写",
+      "std": "详细分析附件 paste.txt（约 4.9KB 的 Python 代码），并用更清晰简洁的类结构重写它。",
+      "kinds": [
+        "分析评估",
+        "技术实现"
+      ],
+      "tags": [
+        "Python",
+        "代码重构",
+        "JSON解析"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0edc19fb-ec2c-4d94-950c-7e8dad353d18",
+      "msgIds": [
+        "7a16b5d3-b70a-4de0-8dbe-c37376ba191d"
+      ],
+      "subject": "提取 __init__ 中的全部模式",
+      "std": "列出 __init__ 函数里定义的所有正则模式，并重新检查与改进全部函数。",
+      "kinds": [
+        "代码调试",
+        "分析评估"
+      ],
+      "tags": [
+        "Python",
+        "正则表达式",
+        "代码重构"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0edc19fb-ec2c-4d94-950c-7e8dad353d18",
+      "msgIds": [
+        "5baf5364-983e-43c1-9635-5b968d547408"
+      ],
+      "subject": "JSON 提取函数返回 None",
+      "std": "移除注释后 extract_json_from_text 提取到的 JSON 结果为 None，请检查该函数的实现并修复。",
+      "kinds": [
+        "代码调试"
+      ],
+      "tags": [
+        "JSON解析",
+        "函数调试",
+        "Python"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "0f6c72d8-ec3e-465b-bb05-1b18aa142e5a",
+      "msgIds": [
+        "019b2cac-1199-72c9-86d0-584c8351e235"
+      ],
+      "subject": "四科面试 hashcards 构造",
+      "std": "按附件中的 hashcards 思路与题目大纲，分别构造机器学习、深度学习、强化学习、大语言模型四份面试卡片 markdown。",
+      "kinds": [
+        "内容写作",
+        "学习理解"
+      ],
+      "tags": [
+        "面试准备",
+        "间隔重复",
+        "hashcards",
+        "大语言模型"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0f7d7330-83d3-48e3-9622-36911660f2c6",
+      "msgIds": [
+        "019a528f-b225-7635-ad2e-73122dd48b6e"
+      ],
+      "subject": "base_tree_utils 类设计",
+      "std": "先分析附件中的代码，再规划 base_tree_utils/ 目录下基础树生产类的设计与实现，并逐文件给出代码。",
+      "kinds": [
+        "方案设计",
+        "技术实现"
+      ],
+      "tags": [
+        "LangGraph",
+        "基树生成",
+        "类设计"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0f7d7330-83d3-48e3-9622-36911660f2c6",
+      "msgIds": [
+        "019a52ba-ef24-7497-87d6-532b88507308"
+      ],
+      "subject": "修复 LangGraph 传参报错",
+      "std": "修复 LangGraph 工作流执行报错：传入的是 BaseTreeState 对象，而框架期望 dict。",
+      "kinds": [
+        "代码调试"
+      ],
+      "tags": [
+        "LangGraph",
+        "状态管理",
+        "报错修复"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "0fcfa7de-273e-42c8-8794-2c9ea31598f3",
+      "msgIds": [
+        "019f3adb-6c0c-7b6b-b60a-46f95d8841d2",
+        "019f3ce8-bc6b-7ddf-90e0-a54e46b6d809"
+      ],
+      "subject": "科研工具包核心模块拆解",
+      "std": "深度分析 GitHub 仓库 WangHuiNEU/open-science-toolkit 的核心模块与组件，拆解背后 LLM for Science 的核心流程并给出可视化产物。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "开源项目分析",
+        "LLM for Science",
+        "架构设计",
+        "可视化"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1071ae46-e535-439c-ac3c-a01161f2f909",
+      "msgIds": [
+        "019ce523-9ebc-715b-9cb0-3fbfe00cf021"
+      ],
+      "subject": "教育教务 RAG 全链路优化",
+      "std": "梳理我在智慧树从零搭建、面向学校教学与教务场景的知识问答 RAG 系统，以及分三阶段提升效果的做法，做全链路深度分析。",
+      "kinds": [
+        "分析评估",
+        "方案设计"
+      ],
+      "tags": [
+        "RAG",
+        "检索增强",
+        "知识问答",
+        "教育场景"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "10e7fec4-3d55-488a-9d40-c824b41daf75",
+      "msgIds": [
+        "019c0df3-3703-72cf-8556-a03bd91ed531"
+      ],
+      "subject": "初中数学知识点 JSON 续写",
+      "std": "按附件中上海初中数学各年级章节清单逐条展开知识点，从八年级第一学期第十九章勾股定理的逆定理之后接续构建 JSON 列表，每条含公式、相关知识点与 manim 元素。",
+      "kinds": [
+        "数据处理",
+        "内容写作"
+      ],
+      "tags": [
+        "初中数学",
+        "知识点梳理",
+        "JSON结构",
+        "Manim"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "11da0226-ae6c-425b-bd8f-0673dcdc11ad",
+      "msgIds": [
+        "019cce35-fcb6-71bb-8ec5-79c292e7b714",
+        "019cce3a-46d2-7234-ae34-1c1e24649746",
+        "019cce40-774d-7333-8000-2f2b82e823f8"
+      ],
+      "subject": "数字 0-10 的 Manim 动画",
+      "std": "按 Manim 数学教学动画生成指南，为小学数字 0–10 制作竖屏 1080×1920 的教学动画视频代码，并先构建分镜脚本。",
+      "kinds": [
+        "技术实现",
+        "内容写作"
+      ],
+      "tags": [
+        "Manim",
+        "数学教学动画",
+        "短视频"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "11e393f0-3265-4843-b738-637977a1d128",
+      "msgIds": [
+        "7b12b8c4-e271-4149-9121-5db4c8de2750"
+      ],
+      "subject": "BERT 论文精读与结构提取",
+      "std": "极致详细地分析 BERT 论文，并提取模型结构、数据集、实验设置、各项 ablation 实验对比与图表分析。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "BERT",
+        "论文精读",
+        "消融实验",
+        "Transformer"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "11e393f0-3265-4843-b738-637977a1d128",
+      "msgIds": [
+        "7b12b8c4-e271-4149-9121-5db4c8de2750"
+      ],
+      "subject": "BERT 项目框架与代码设计",
+      "std": "为 BERT 论文设计项目框架，用 factory 模式支撑 ablation study，输出图表、TensorBoard 与 loguru 日志，并逐文件给出工业级代码。",
+      "kinds": [
+        "技术实现",
+        "方案设计"
+      ],
+      "tags": [
+        "BERT",
+        "工厂模式",
+        "消融实验",
+        "代码设计"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "11eab7f9-fe01-4302-9db8-262f54da0b6b",
+      "msgIds": [
+        "019edbd3-d0c5-7dfe-b61c-848ca7bddb57",
+        "019edd24-d42d-767a-a542-f75c5b88e3ca"
+      ],
+      "subject": "大模型 RL 算法演进分析",
+      "std": "深度分析大语言模型强化学习算法的演进：从 OpenAI 的 PPO、Anthropic 的 DPO、DeepSeek 的 GRPO，到适配 MoE 的 GSPO 与字节的 DAPO。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "强化学习",
+        "RLHF",
+        "算法演进",
+        "大语言模型"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "11eab7f9-fe01-4302-9db8-262f54da0b6b",
+      "msgIds": [
+        "019edebf-a56f-780e-93a8-ecb64a95194f"
+      ],
+      "subject": "GPT 三代演进与决策洞察",
+      "std": "深度分析 GPT-1 到 GPT-2、GPT-3 的演进路线，梳理前因后果、背后的关键决策与洞察。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "GPT系列",
+        "模型演进",
+        "大语言模型"
+      ],
+      "hasAttachment": false
+    },
+    {
+      "convId": "1263d0d7-8343-4652-bfc6-d975b5275ada",
+      "msgIds": [
+        "019c94db-be90-71ab-b504-3387b51d1661",
+        "019c94dd-2b86-7745-9a64-d014996f0e84",
+        "019c94dd-5c7c-764f-b1f1-882fa4a10b53",
+        "019c94dd-9329-7230-aaac-938e3735b850",
+        "019c94dd-ea0f-744b-8d0f-7943390ee5c0",
+        "019c94de-5aa8-724a-a6d6-30c77f315d22",
+        "019c94de-f7d5-7370-acc6-eb9dc6e5d58f",
+        "019c94df-dd61-77e4-9bf5-403a44c6e77d",
+        "019c94e1-6076-7687-9e23-81cff491975d",
+        "019c94e3-93a3-7161-a6ce-1438ed9bf8c3",
+        "019c94f8-7412-76cb-8c25-22f8c68ede71",
+        "019c94f8-a050-7277-bef7-204543a9f6d5",
+        "019c94f8-d50a-7346-95e1-5f3c4d351e96",
+        "019c94f9-18b6-71b1-acf8-eacce3d7baa5",
+        "019c94f9-85cc-77fa-9cb4-7f8eb8bb8b40",
+        "019c94fa-24c2-72e9-adad-045655a926e9",
+        "019c94fa-d225-7640-a978-bca070374de3",
+        "019c94fb-df93-77ab-8910-8a55e86c1cff",
+        "019c94fd-3eb3-7104-b0b7-78c08a9981bc",
+        "019c94ff-6d53-7632-baaa-73c434a5bad5"
+      ],
+      "subject": "按 Manim 指南产出动画代码",
+      "std": "按附件中 72KB 的 Manim 数学教学动画生成专业指南，依据给定数学题目或知识点，输出竖屏 1080×1920 教学动画的视频代码与 storyboard 分镜。",
+      "kinds": [
+        "技术实现",
+        "工具环境"
+      ],
+      "tags": [
+        "Manim",
+        "数学教学动画",
+        "技能文档"
+      ],
+      "hasAttachment": true
+    },
+    {
+      "convId": "13370eb7-f241-4ada-943c-e3a5ec36bc2f",
+      "msgIds": [
+        "019d47b7-d5f5-7a11-85d0-5275b3396be9"
+      ],
+      "subject": "泄露 Claude Code 源码分析",
+      "std": "逐文件阅读 2026 年 3 月泄露的 Claude Code 源码并搜索相关博客，针对各模块与系统架构撰写详细的科普博客式 markdown 分析文章。",
+      "kinds": [
+        "研究调研",
+        "分析评估"
+      ],
+      "tags": [
+        "Claude Code",
+        "源码分析",
+        "系统架构",
+        "科普写作"
+      ],
+      "hasAttachment": false
+    }
+  ]
+}

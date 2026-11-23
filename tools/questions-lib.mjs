@@ -388,3 +388,20 @@ export function validateModules(data) {
   if (!modules.some((m) => m?.id === 'misc')) errors.push('缺少 misc 兜底模块');
   return { ok: errors.length === 0, errors };
 }
+
+/**
+ * Which files in qwork/ belong to chunk `i`.
+ *
+ * A chunk may be written as one file (`part-07.json`) or split into shards
+ * (`part-07-a.json`, `part-07-b.json`) when its output would exceed the model's
+ * response limit — an oversized chunk must be retryable without reshuffling the
+ * digest. The 2-digit prefix keeps `part-2` from being read as `part-20`.
+ * @param {string[]} files names in qwork/
+ * @param {number} i chunk index
+ * @returns {string[]} sorted shard names
+ */
+export function shardFiles(files, i) {
+  const nn = String(i).padStart(2, '0');
+  const re = new RegExp(`^part-${nn}(?:-[a-z0-9]+)?\\.json$`);
+  return (files || []).filter((f) => re.test(f)).sort();
+}

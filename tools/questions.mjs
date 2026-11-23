@@ -15,7 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isCandidate, partition, buildSlicePayload, clipSnippet, validateWork } from './questions-lib.mjs';
+import { isCandidate, partition, buildSlicePayload, clipSnippet, validateWork, shardFiles } from './questions-lib.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CHATS = path.join(ROOT, 'web', 'data', 'chats');
@@ -111,20 +111,23 @@ function checkWork() {
   for (let i = 0; i < manifest.chunks; i++) {
     const slice = readJson(path.join(QDIGEST, `part-${pad(i)}.json`));
     slices.push(slice);
-    const file = path.join(QWORK, `part-${pad(i)}.json`);
-    if (!fs.existsSync(file)) { errors.push(`缺 qwork/part-${pad(i)}.json`); continue; }
-    let payload;
-    try {
-      payload = readJson(file);
-    } catch (e) {
-      errors.push(`qwork/part-${pad(i)}.json 不是合法 JSON: ${e.message}`);
-      continue;
-    }
-    const r = validateWork(payload, slice);
-    if (!r.ok) errors.push(...r.errors.map((e) => `part-${pad(i)}: ${e}`));
-    total += (payload.questions || []).length;
-    for (const q of payload.questions || []) {
-      for (const id of q.msgIds || []) covered.add(`${q.convId}|${id}`);
+    // A chunk is one file or several shards (see shardFiles).
+    const shards = shardFiles(fs.readdirSync(QWORK), i);
+    if (!shards.length) { errors.push(`缺 qwork/part-${pad(i)}.json`); continue; }
+    for (const shard of shards) {
+      let payload;
+      try {
+        payload = readJson(path.join(QWORK, shard));
+      } catch (e) {
+        errors.push(`qwork/${shard} 不是合法 JSON: ${e.message}`);
+        continue;
+      }
+      const r = validateWork(payload, slice);
+      if (!r.ok) errors.push(...r.errors.map((e) => `${shard}: ${e}`));
+      total += (payload.questions || []).length;
+      for (const q of payload.questions || []) {
+        for (const id of q.msgIds || []) covered.add(`${q.convId}|${id}`);
+      }
     }
   }
 
@@ -140,6 +143,11 @@ function checkWork() {
     process.exit(1);
   }
   console.log(`ok ${manifest.chunks} 片 / ${total} 条问题 / 未覆盖 ${uncovered}`);
+}
+
+/** Every extraction file, shards included, in a stable order. */
+function workFiles() {
+  return fs.readdirSync(QWORK).filter((f) => /^part-\d{2}(?:-[a-z0-9]+)?\.json$/.test(f)).sort();
 }
 
 const MODES = [['--digest', digest], ['--check-work', checkWork]];
