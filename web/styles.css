@@ -1181,3 +1181,100 @@ mark.hit[data-active="true"] { outline: 1px solid var(--link); }
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   question gallery
+   --------------------------------------------------------------------------- */
+
+.q-modules {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.q-module {
+  display: block;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+}
+.q-module:hover { border-color: var(--line-2); background: var(--surface-2); }
+.q-module-top { display: flex; align-items: baseline; gap: 8px; }
+.q-module-name { flex: 1 1 auto; color: var(--text); font-size: var(--fs-body); font-weight: 500; }
+.q-module-count {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+}
+.q-module-desc {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+}
+
+.q-items { display: flex; flex-direction: column; gap: 10px; }
+.q-item {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+.q-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.q-kinds { color: var(--accent); font-size: var(--fs-xs); }
+.q-merge { color: var(--text-3); font-size: var(--fs-xs); }
+.q-std {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+.q-orig-wrap { margin-bottom: 8px; }
+.q-orig-summary {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+}
+.q-orig-summary:hover { color: var(--text-2); }
+.q-orig {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-left: 2px solid var(--line-2);
+  background: var(--surface-2);
+  border-radius: 0 4px 4px 0;
+}
+.q-orig-meta { color: var(--text-3); font-size: var(--fs-xs); margin-bottom: 4px; }
+/* the original is shown as plain text on purpose: it is a quote, not a document */
+.q-orig-text {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.q-orig-note {
+  margin-bottom: 8px;
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-style: italic;
+}
+.q-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.q-src-link {
+  color: var(--link);
+  font-size: var(--fs-xs);
+  text-decoration: none;
+}
+.q-src-link:hover { text-decoration: underline; }
+.q-tags {
+  margin-left: auto;
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { normalizeStd, dedupeQuestions, assignModule, validateQuestions, fillOrigins } from '../tools/questions-lib.mjs';
 
 const MODULES = [
@@ -24,6 +25,15 @@ test('orig 相同则合并，sources 累积两条，原文都不丢', () => {
   assert.equal(out[0].sources.length, 2);
   assert.deepEqual(out[0].sources.map((s) => s.convId).sort(), ['c1', 'c2']);
   assert.ok(out[0].sources.every((s) => s.orig === '原话' && s.msgIds.length === 1));
+});
+
+test('没有 orig 字段的记录不会被误并（提取产物就是这个形状）', () => {
+  const out = dedupeQuestions([
+    rec({ std: '把博客改造成 Apple 动态风格', orig: undefined }),
+    rec({ convId: 'c2', msgIds: ['m2'], std: '为 Text2SQL 论文做调研并分类整理', orig: undefined }),
+    rec({ convId: 'c3', msgIds: ['m3'], std: '实现语义分块类并支持超参数', orig: undefined }),
+  ]);
+  assert.equal(out.length, 3, '缺少 orig 时不应把不同的问题并成一条');
 });
 
 test('两条真正不同的问题不会被误并', () => {
@@ -116,4 +126,44 @@ test('模块计数互不重叠且等于归属到它的条数', () => {
   dupId.questions.push(structuredClone(data.questions[0]));
   dupId.modules[0].count = 2;
   assert.equal(validateQuestions(dupId).ok, false);
+});
+
+// --- integration: the real pipeline output (needs --merge to have run) ---
+
+test('questions.json 合法、计数是分区、每条来源都有原文字段', () => {
+  const data = JSON.parse(fs.readFileSync('web/data/questions.json', 'utf8'));
+  assert.deepEqual(validateQuestions(data).errors, []);
+  assert.equal(data.modules.reduce((a, m) => a + m.count, 0), data.questions.length);
+  assert.equal(data.counts.merged, data.questions.length);
+  assert.ok(data.questions.length > 500, `只有 ${data.questions.length} 条问题`);
+  let refs = 0;
+  for (const q of data.questions) {
+    assert.ok(q.sources.length > 0, `${q.id} 没有来源`);
+    for (const s of q.sources) {
+      assert.equal(typeof s.orig, 'string');
+      assert.ok(s.msgIds.length > 0);
+      refs += s.msgIds.length;
+    }
+  }
+  assert.ok(refs > data.questions.length, '应当有合并了多条消息的问题');
+});
+
+test('原文为空的必定是附件消息，且这类问题的标准问题不是空的', () => {
+  const data = JSON.parse(fs.readFileSync('web/data/questions.json', 'utf8'));
+  const blank = data.questions.filter((q) => q.sources.every((s) => !s.orig.trim()));
+  assert.ok(blank.length > 0, '应当存在「只有附件、没有文字」的问题');
+  for (const q of blank) {
+    assert.equal(q.hasAttachment, true, `${q.id} 原文为空却不是附件消息`);
+    assert.ok(q.std.trim().length > 0, `${q.id} 的标准问题是空的`);
+  }
+});
+
+test('去重确实合并了重复提问，且原文一条都没丢', () => {
+  const data = JSON.parse(fs.readFileSync('web/data/questions.json', 'utf8'));
+  assert.ok(data.counts.input > data.counts.merged, '没有发生任何合并，去重可能没生效');
+  const multi = data.questions.filter((q) => q.sources.length > 1);
+  assert.ok(multi.length > 0, '没有多来源问题');
+  for (const q of multi) {
+    for (const s of q.sources) assert.equal(typeof s.orig, 'string');
+  }
 });

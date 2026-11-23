@@ -208,10 +208,15 @@ export function similarity(a, b) {
 /**
  * Collapse repeats into one question with every source kept.
  *
- * Two records are the same question when their `orig` normalizes identically or
- * their `std` is at least SIM_THRESHOLD similar. Nothing is ever dropped: each
- * source keeps its conversation, its message ids and its verbatim text, because
+ * Two records are the same question when their `std` is at least SIM_THRESHOLD
+ * similar. Nothing is ever dropped: each source keeps its conversation, its
+ * message ids and (once fillOrigins has run) its verbatim text, because
  * "原文永远可见" is the point of the gallery.
+ *
+ * The comparison is on `std` alone. It must NOT look at `orig`: extraction
+ * records carry no `orig` at all — the text is restored later by msgIds — so
+ * keying on it made every record compare equal on the empty string and
+ * collapsed all 926 questions into one.
  *
  * @param {object[]} recs extraction records joined with convName/date
  * @returns {object[]} questions with `sources[]`, ids assigned in input order
@@ -219,8 +224,7 @@ export function similarity(a, b) {
 export function dedupeQuestions(recs) {
   const out = [];
   for (const r of recs || []) {
-    const origKey = normalizeStd(r.orig);
-    let q = out.find((c) => c.origKey === origKey || similarity(c.std, r.std) >= SIM_THRESHOLD);
+    let q = out.find((c) => similarity(c.std, r.std) >= SIM_THRESHOLD);
     if (!q) {
       q = {
         id: `q-${String(out.length + 1).padStart(4, '0')}`,
@@ -230,7 +234,6 @@ export function dedupeQuestions(recs) {
         tags: [...(r.tags || [])],
         hasAttachment: !!r.hasAttachment,
         sources: [],
-        origKey,
       };
       out.push(q);
     } else {
@@ -253,7 +256,6 @@ export function dedupeQuestions(recs) {
       }
     }
   }
-  for (const q of out) delete q.origKey;
   return out;
 }
 
@@ -383,7 +385,9 @@ export function validateModules(data) {
     else ids.add(m.id);
     if (typeof m?.name !== 'string' || !m.name.trim()) errors.push(`模块 ${at} 缺 name`);
     if (typeof m?.desc !== 'string') errors.push(`模块 ${at} 缺 desc`);
-    if (!Array.isArray(m?.tags) || !m.tags.length) errors.push(`模块 ${at} 的 tags 为空`);
+    // `misc` is the fallback precisely because it matches no tag.
+    if (!Array.isArray(m?.tags)) errors.push(`模块 ${at} 的 tags 不是数组`);
+    else if (!m.tags.length && m.id !== 'misc') errors.push(`模块 ${at} 的 tags 为空`);
   }
   if (!modules.some((m) => m?.id === 'misc')) errors.push('缺少 misc 兜底模块');
   return { ok: errors.length === 0, errors };
