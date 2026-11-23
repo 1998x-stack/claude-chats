@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 import {
   isCandidate, partition, buildSlicePayload, clipSnippet, validateWork, shardFiles,
   validateModules, dedupeQuestions, assignModule, fillOrigins, validateQuestions,
-  tagKey, unresolvableMsgIds,
+  tagKey, unresolvableMsgIds, needsRefinement, sliceByBytes, applyRefinements,
 } from '../web/questions-lib.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,6 +27,8 @@ const CHATS = path.join(ROOT, 'web', 'data', 'chats');
 const QDIGEST = path.join(ROOT, 'web', 'data', 'qdigest');
 const QWORK = path.join(ROOT, 'qwork');
 const QUESTIONS = path.join(ROOT, 'web', 'data', 'questions.json');
+const REFINE = path.join(ROOT, 'web', 'data', 'refine');
+const REFINE_OUT = path.join(QWORK, 'refine-out');
 
 /** The export contains raw U+2028/U+2029, which are legal JSON but break line-based tools. */
 const norm = (s) => String(s ?? '').replace(/[\u2028\u2029]/g, '\n');
@@ -332,7 +334,163 @@ function check() {
   console.log(`   模块计数合计 ${sum} = 问题总数 ${data.questions.length}，msgId 全部可解析`);
 }
 
-const MODES = [['--digest', digest], ['--check-work', checkWork], ['--tags', tags], ['--merge', merge], ['--check', check]];
+/**
+ * The assistant text that follows a source message — context for resolving what
+ * "上述数据" pointed at. Bounded, because replies run to megabytes.
+ */
+function replyAfter(chat, msgId) {
+  const msgs = chat?.messages || [];
+  const at = msgs.findIndex((m) => m.id === msgId);
+  if (at < 0) return '';
+  for (let i = at + 1; i < msgs.length; i++) {
+    if (msgs[i].sender !== 'assistant') continue;
+    const text = norm((msgs[i].blocks || []).filter((b) => b.k === 'text').map((b) => b.md).join('\n')).trim();
+    if (text) return clipSnippet(text, 1200);
+  }
+  return '';
+}
+
+/**
+ * Slice the questions that need a refinement pass, giving each the FULL original
+ * text (never the 600-byte digest cap that caused the loss), the conversation
+ * name and summary, and the assistant's reply for resolving references.
+ */
+function refineDigest() {
+  // 40KB keeps every slice inside one tool read (the limit is ~50KB) while
+  // packing tightly enough that 411 questions need ~47 slices, not ~70.
+  const maxBytes = argNum('maxslice', 40000);
+  const data = requireJson(QUESTIONS, '先跑：node tools/questions.mjs --merge');
+  const index = requireJson(path.join(ROOT, 'web', 'data', 'index.json'), '先跑：node tools/build.mjs');
+  const meta = new Map((index.chats || []).map((c) => [c.id, c]));
+  const chats = new Map(readChats().map((c) => [c.id, c]));
+
+  const target = data.questions.filter(needsRefinement);
+  const records = target.map((q) => ({
+    id: q.id,
+    std: q.std,
+    subject: q.subject,
+    kinds: q.kinds,
+    tags: q.tags,
+    module: q.module,
+    summary: clipSnippet(String(meta.get(q.sources[0]?.convId)?.summary || ''), 400),
+    sources: q.sources.map((s) => ({
+      convName: s.convName,
+      date: s.date,
+      orig: s.orig,
+      reply: replyAfter(chats.get(s.convId), s.msgIds[s.msgIds.length - 1]),
+    })),
+  }));
+
+  const slices = sliceByBytes(records, maxBytes);
+  fs.rmSync(REFINE, { recursive: true, force: true });
+  fs.mkdirSync(REFINE, { recursive: true });
+  const files = slices.map((group, i) => {
+    const name = `part-${pad(i)}.json`;
+    fs.writeFileSync(path.join(REFINE, name), JSON.stringify({ chunk: i, questions: group }));
+    return name;
+  });
+  const sizes = files.map((f) => fs.statSync(path.join(REFINE, f)).size);
+  fs.writeFileSync(path.join(REFINE, 'manifest.json'), JSON.stringify({
+    builtAt: new Date().toISOString(),
+    maxBytes,
+    chunks: slices.length,
+    questions: records.length,
+    candidates: data.questions.length,
+    files,
+  }, null, 2));
+
+  console.log(`-> ${path.relative(ROOT, REFINE)}`);
+  console.log(`   ${records.length} 条待补全 / ${data.questions.length} 条问题 → ${slices.length} 片（最大 ${Math.round(Math.max(...sizes) / 1024)}KB，上限 ${Math.round(maxBytes / 1024)}KB）`);
+}
+
+/** Word-level diff positions, so a report can show what actually changed. */
+function firstDiff(a, b) {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  return i;
+}
+
+/** Patch the refined wording into questions.json, after writing a review report. */
+function refineApply() {
+  const data = requireJson(QUESTIONS, '先跑：node tools/questions.mjs --merge');
+  if (!fs.existsSync(REFINE_OUT)) {
+    console.error(`缺少 ${path.relative(ROOT, REFINE_OUT)}/`);
+    console.error('子代理把改写结果写进 qwork/refine-out/part-NN.json');
+    process.exit(1);
+  }
+  const files = fs.readdirSync(REFINE_OUT)
+    .filter((f) => /^part-\d{2}(?:-[a-z0-9]+)?\.json$/.test(f)).sort();
+  if (!files.length) {
+    console.error(`${path.relative(ROOT, REFINE_OUT)}/ 里没有 part-*.json`);
+    process.exit(1);
+  }
+
+  const records = [];
+  for (const f of files) {
+    let payload;
+    try {
+      payload = readJson(path.join(REFINE_OUT, f));
+    } catch (e) {
+      console.error(`qwork/refine-out/${f} 不是合法 JSON: ${e.message}`);
+      process.exit(1);
+    }
+    for (const r of Array.isArray(payload) ? payload : payload.questions || []) records.push(r);
+  }
+
+  const out = applyRefinements(data.questions, records);
+  if (out.errors.length) {
+    for (const e of out.errors.slice(0, 30)) console.error(e);
+    if (out.errors.length > 30) console.error(`…还有 ${out.errors.length - 30} 条`);
+    console.error(`FAIL ${out.errors.length} 条不合格，未写入任何改动`);
+    process.exit(1);
+  }
+
+  const before = new Map(data.questions.map((q) => [q.id, { std: q.std, subject: q.subject }]));
+  const changed = out.applied.filter((a) => before.get(a.id).std !== a.std
+    || before.get(a.id).subject !== a.subject);
+  const untouched = out.applied.length - changed.length;
+
+  data.questions = out.next;
+  data.refinedAt = new Date().toISOString();
+  data.counts.refined = out.applied.length;
+  fs.writeFileSync(QUESTIONS, JSON.stringify(data).replace(/[\u2028\u2029]/g, '\\n'));
+
+  const report = changed.map((a) => ({
+    id: a.id,
+    subject: a.subject,
+    before: before.get(a.id).std,
+    after: a.std,
+    note: a.note,
+    changedAtChar: firstDiff(before.get(a.id).std, a.std),
+  }));
+  fs.mkdirSync(QWORK, { recursive: true });
+  fs.writeFileSync(path.join(QWORK, 'refine-report.json'), JSON.stringify(report, null, 1));
+  const lines = ['# 标准问题补全报告', '',
+    `共 ${out.applied.length} 条参与补全，其中 ${changed.length} 条改写、${untouched} 条确认无需改动。`, ''];
+  for (const r of report) {
+    lines.push(`## ${r.id}${r.note ? ` — ${r.note}` : ''}`, '', `- 改前：${r.before}`, `- 改后：${r.after}`, '');
+  }
+  fs.writeFileSync(path.join(QWORK, 'refine-report.md'), lines.join('\n'));
+
+  // A rewrite can make two questions near-identical; merging would move ids, so
+  // report it instead of silently changing the data.
+  const keys = new Map();
+  for (const q of data.questions) {
+    const k = tagKey(q.std);
+    if (k) keys.set(k, (keys.get(k) || 0) + 1);
+  }
+  const dupes = [...keys.values()].filter((n) => n > 1).length;
+
+  console.log(`-> ${path.relative(ROOT, QUESTIONS)}`);
+  console.log(`   ${out.applied.length} 条参与：改写 ${changed.length} 条，确认无需改动 ${untouched} 条`);
+  console.log(`   报告：qwork/refine-report.md（逐条改前/改后）`);
+  console.log(`   改写后完全相同的标准问题：${dupes} 组${dupes ? '（未自动合并，见报告）' : ''}`);
+}
+
+const MODES = [
+  ['--digest', digest], ['--check-work', checkWork], ['--tags', tags], ['--merge', merge],
+  ['--check', check], ['--refine-digest', refineDigest], ['--refine-apply', refineApply],
+];
 const mode = process.argv.slice(2).find((a) => MODES.some(([flag]) => flag === a));
 if (!mode) {
   console.error(`usage: node tools/questions.mjs ${MODES.map(([f]) => f).join(' | ')}`);

@@ -1,0 +1,1 @@
+{"chunk":33,"questions":[{"id":"q-0659","std":"改造 search engine：用 0.6b 模型润色生成中英文搜索词以适配不同语言渠道，并通过 proxy manager 按所附 yaml 配置（mixed-port: 7890）管理代理节点。","subject":"搜索词润色与代理管理","note":"把原文没有的 search_engine/proxy_manager/Clash 回改为原文用词 search engine、proxy manager、yaml，0.6B 改回原文的 0.6b，并补出代理配置来源（原文所附 yaml 配置，mixed-port: 7890）"}]}

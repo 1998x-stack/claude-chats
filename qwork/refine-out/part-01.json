@@ -1,0 +1,10 @@
+{"chunk":1,"questions":[
+{"id":"q-0028","std":"改进 Query 改写提示词：按 5W2H 确定问题类型与数量、判断 QUERY 与 CONTEXT 相关性并抽取实体，加入 few-shot 示例与 Step-Back Prompting 实体抽象规则，把口语化表述转为高校专业术语。","subject":"Query 改写提示词改进","note":"补上原文后段新增的 Step-Back Prompting 抽象要求，并点名改造对象是 Query 改写提示词"},
+{"id":"q-0029","std":"极为详细地分析 ResNet 论文，提取模型结构、数据集与数据结构、实验设置，以及不同消融实验的对比与图表分析。","subject":"ResNet 论文精读","note":"无需改动"},
+{"id":"q-0030","std":"设计 ResNet 项目框架，采用 factory 模式支持消融实验，输出图表、TensorBoard 与 loguru 日志，并逐文件给出工业级实现代码。","subject":"ResNet 项目框架与代码","note":"无需改动"},
+{"id":"q-0032","std":"整理并精炼基于知识树的学生学情分析系统 PRD：给出知识树节点结构、新增做题次数与错误次数字段及熟练度分档，分析按学生或按节点存储的选型，并明确自下而上汇总、取根节点下三层生成学情分析。","subject":"知识树学情分析系统 PRD 精炼","note":"补上原文被省略的熟练度分档、存储选型分析与根节点下三层汇总生成学情分析等关键要求"},
+{"id":"q-0033","std":"优化知识树标签与关系设计的提示词，要求任务、步骤、输出结果、设计要求与限制条件清晰明确，输出一个精要的 prompt。","subject":"知识树标签与关系提示词优化","note":"无需改动"},
+{"id":"q-0037","std":"详细分析 QUERY_REWRITE_PROMPT_GENERAL_V3 这一查询改写提示词，并按 Role/Profile/Goals/Constrains 风格模板在内容不变的前提下改写其格式。","subject":"查询改写提示词分析与格式改造","note":"把悬空的「给定模板」点名为此消息内的 Role/Profile/Goals/Constrains 风格模板"},
+{"id":"q-0038","std":"用 Qwen3-0.6B 与 Qwen3-Embedding-0.6B 搭 simple-wikipedia 的 RAG 项目，按 loguru/config 逐文件给出数据处理、向量+BM25 混合检索、查询处理、上下文组织、流水线代码。","subject":"Qwen 小模型 RAG 项目逐文件实现","note":"信息已足够，仅压缩表述以合规（保留模型、数据集与逐文件组件清单）"},
+{"id":"q-0039","std":"用 Selenium 重写律所爬虫：并发抓取输入 JSON 中所有律所 URL，提取表彰/行业处分/责任事故/司法建议数量、成立年份与律师名单，按处分类>0 及表彰数排序过滤，输出 JSON/CSV 与年份-价格、年份-人数-价格曲线图。","subject":"律所信息并发抓取与 Selenium 重写","note":"补上原文要求的成立年份与律师名单提取、JSON/CSV 输出及两张年份-价格曲线图"}
+]}

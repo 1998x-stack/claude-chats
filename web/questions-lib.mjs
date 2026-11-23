@@ -456,3 +456,160 @@ export function unresolvableMsgIds(questions, lookup) {
   }
   return [...out];
 }
+
+// ---------------------------------------------------------------------------
+// refinement pass
+// ---------------------------------------------------------------------------
+
+/**
+ * Wording that points at something only named inside the conversation. A
+ * standard question has to stand alone, so these are the clearest signal that
+ * the rewrite kept a reference instead of resolving it.
+ */
+const DANGLING_RE = new RegExp([
+  '上述', '前述', '刚才', '此前',
+  '前面(?:那|这|的)', '上面(?:的|那)',
+  '(?<![应不])该(?=[^，。；]{0,10}(?:项目|系统|代码|文件|文档|方案|问题|数据|模型|函数|类|网站|脚本|内容|结果|表格))',
+  '(?<!这)这个(?=[^，。；]{0,10}(?:项目|系统|代码|文件|文档|方案|问题|数据|模型|函数|类|网站|脚本|内容|结果|表格))',
+  '此(?:项目|文件|代码|方案|系统|内容)',
+].join('|'));
+
+/** The digest cap a source was truncated at, in UTF-8 bytes. */
+export const SOURCE_BYTE_LIMIT = 600;
+
+/**
+ * Does this question need a refinement pass?
+ *
+ * Two ways information goes missing. Either the wording still points at
+ * something unnamed ("基于上述调研结果"), or the source is longer than the 600
+ * bytes the extractor was shown — 42% of sources are, and on average the
+ * extractors saw just 29% of the original text, so any detail below the cut
+ * was invisible to them.
+ * @param {{std?: string, sources?: {orig?: string}[]}} q
+ * @returns {boolean}
+ */
+export function needsRefinement(q) {
+  if (DANGLING_RE.test(String(q?.std ?? ''))) return true;
+  return (q?.sources || []).some((s) => byteLen(String(s?.orig ?? '')) > SOURCE_BYTE_LIMIT);
+}
+
+/**
+ * Whether text carries markup that should never reach a standard question.
+ *
+ * A bare placeholder such as `<structure>` is not markup: it is the literal
+ * name the user wrote in their own prompt, and dropping it would lose meaning.
+ * Markup proper — a closing tag, a self-closing tag, or a tag with attributes —
+ * is still rejected.
+ * @param {string} text
+ * @returns {boolean}
+ */
+const HTML_TAGS = new Set([
+  'a', 'b', 'blockquote', 'body', 'br', 'button', 'code', 'dd', 'div', 'dl', 'dt',
+  'em', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5',
+  'h6', 'head', 'header', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'li',
+  'main', 'nav', 'ol', 'p', 'pre', 'script', 'section', 'span', 'strong', 'style',
+  'sub', 'sup', 'svg', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul',
+]);
+
+export function hasHtml(text) {
+  const s = String(text ?? '');
+  const tags = s.match(/<[^>]*>/g) || [];
+  return tags.some((t) => {
+    const bare = /^<([^<>]+)>$/.exec(t);
+    // A bare word — no whitespace, no slash — is a placeholder the user wrote
+    // (`<structure>`, `<paste.txt>`), not markup. Anything with attributes, a
+    // closing slash, or a known element name is markup.
+    const name = bare && !/[\s/]/.test(bare[1]) ? bare[1] : null;
+    return name === null || HTML_TAGS.has(name);
+  });
+}
+
+/**
+ * How long a standard question may be, in characters.
+ *
+ * The unit is characters, but the information a character carries is not the
+ * same in every script: 120 Chinese characters is a dense 1-2 sentences, while
+ * 120 Latin characters is barely a clause. The limit is therefore per script —
+ * 120 for a CJK-dominant question, 240 otherwise — so a question in English is
+ * held to a comparable amount of content rather than a comparable glyph count.
+ * @param {string} text
+ * @returns {number}
+ */
+export function stdLimit(text) {
+  const s = String(text ?? '');
+  // A question containing any CJK is a Chinese question, even when it embeds
+  // English identifiers: the allowance follows the language of the prose, not
+  // a letter count that English terms would dominate.
+  return /[\u3400-\u9fff\uf900-\ufaff]/.test(s) ? 120 : 240;
+}
+
+/**
+ * Pack records into slices no larger than `maxBytes` of JSON, preserving order
+ * and never dropping or splitting a record. Sizing by bytes rather than count
+ * is what keeps every slice readable in one tool call: originals here run from
+ * 40 bytes to 37 KB.
+ * @template T
+ * @param {T[]} records
+ * @param {number} maxBytes
+ * @returns {T[][]}
+ */
+export function sliceByBytes(records, maxBytes) {
+  const slices = [];
+  let cur = [];
+  let size = 2; // the enclosing []
+  for (const r of records) {
+    const n = byteLen(JSON.stringify(r)) + 1; // + the comma
+    if (cur.length && size + n > maxBytes) { slices.push(cur); cur = []; size = 2; }
+    cur.push(r);
+    size += n;
+  }
+  if (cur.length) slices.push(cur);
+  return slices;
+}
+
+/**
+ * Patch refined wording back onto the questions.
+ *
+ * Only `std` and `subject` may change. Sources, tags, kinds, module and id are
+ * the pipeline's own bookkeeping — a rewrite touching them would invalidate the
+ * coverage, the module partition and the gallery's links. Untouched questions
+ * keep their identity, and the input array is never mutated.
+ *
+ * All-or-nothing: any error means nothing is applied, so a half-refined file
+ * can never be written.
+ * @param {object[]} questions
+ * @param {{id: string, std: string, subject?: string, note?: string}[]} records
+ * @param {{maxLen?: number}} [opts]
+ * @returns {{next: object[], applied: object[], errors: string[]}}
+ */
+export function applyRefinements(questions, records, { maxLen = 0 } = {}) {
+  const byId = new Map((questions || []).map((q) => [q.id, q]));
+  const errors = [];
+  const applied = [];
+  const seen = new Set();
+
+  for (const [i, r] of (records || []).entries()) {
+    if (!r || typeof r.id !== 'string' || !r.id) { errors.push(`第 ${i} 条缺 id`); continue; }
+    const at = r.id;
+    if (seen.has(at)) { errors.push(`${at} 重复出现`); continue; }
+    seen.add(at);
+    const target = byId.get(at);
+    if (!target) { errors.push(`${at} 在 questions.json 里不存在`); continue; }
+    const std = String(r.std ?? '').trim();
+    const subject = String(r.subject ?? '').trim();
+    if (!std) { errors.push(`${at} std 为空`); continue; }
+    const limit = maxLen || stdLimit(std);
+    if (std.length > limit) errors.push(`${at} 长度 ${std.length} 超过 ${limit}`);
+    if (hasHtml(std) || hasHtml(subject)) errors.push(`${at} 含 HTML 标签`);
+    if (errors.length) continue;
+    applied.push({ id: at, std, subject: subject || target.subject, note: r.note || '' });
+  }
+
+  if (errors.length) return { next: questions, applied: [], errors };
+  const patch = new Map(applied.map((a) => [a.id, a]));
+  const next = questions.map((q) => {
+    const p = patch.get(q.id);
+    return p ? { ...q, std: p.std, subject: p.subject } : q;
+  });
+  return { next, applied, errors: [] };
+}

@@ -1,7 +1,7 @@
 # Claude 存档 · Claude Archive
 
-A local, read-only viewer for a claude.ai data export, built to look and feel like
-claude.ai's own dark interface. No framework, no dependencies, no network access.
+A read-only viewer for a claude.ai data export, built to look and feel like
+claude.ai's own dark interface. No framework, no dependencies.
 
 ```
 node tools/build.mjs      # 238 MB conversations.json  ->  web/data/   (~8s)
@@ -9,8 +9,25 @@ node tools/questions.mjs --merge   # qwork/ -> web/data/questions.json (question
 node tools/serve.mjs      # http://127.0.0.1:8787/
 ```
 
-Then open the printed URL. Everything stays on this machine; the server binds to
-`127.0.0.1` only and nothing is ever uploaded.
+Then open the printed URL.
+
+## Two ways to run it
+
+**Local — the whole archive, full-text search.** `tools/serve.mjs` binds to
+`127.0.0.1` only and adds `/api/search`, which scans the 45 MB corpus server-side
+so it never reaches the browser.
+
+**Published — `https://1998x-stack.github.io/claude-chats/`.** The same viewer,
+served as a static site by GitHub Pages. **This copy is public: it contains every
+conversation in the export, verbatim.** There is no server on Pages, so
+`runSearch()` falls back to client-side matching over `data/index.json`
+(names, summaries, previews); full-text corpus search is local-only. The question
+gallery's own search is client-side either way, so it works in both.
+
+Deploys run from `.github/workflows/pages.yml` on every push to `master`: it runs
+the test suite, copies `web/` into an artifact (minus the pipeline inputs
+`data/refine/` and `data/qdigest/`), and deploys it. `web/data/` is committed
+precisely so Pages can serve it.
 
 ## What the export contains
 

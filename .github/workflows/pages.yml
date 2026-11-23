@@ -1,0 +1,65 @@
+name: Deploy viewer to GitHub Pages
+
+# The site is the static viewer in web/ plus the data it reads from web/data/.
+# There is no build step: tools/build.mjs turns the raw claude.ai export into
+# web/data/, and its output is committed, so CI only has to verify and upload.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# never let two deploys race; a newer push supersedes an in-flight one
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run the test suite
+        run: node --test test/
+
+      - name: Assemble the static site
+        run: |
+          set -eu
+          mkdir -p _site
+          cp -R web/. _site/
+          # pipeline inputs: used while building the data, never fetched by the
+          # browser, so they stay out of the published artifact
+          rm -rf _site/data/refine _site/data/qdigest
+          # the viewer is useless without these; fail before deploying a blank site
+          test -f _site/index.html
+          test -f _site/app.js
+          test -f _site/data/index.json
+          test -f _site/data/questions.json
+          echo "conversations: $(ls _site/data/chats | wc -l)"
+          du -sh _site
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
